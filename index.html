@@ -3,61 +3,297 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur Auto 2027 — Coût Réel Carburant, Électrique, Hybride & E85</title>
-  <meta name="description" content="Simulateur gratuit du coût réel automobile : calculez votre budget carburant, recharge électrique, assurance et entretien au kilomètre avec les prix officiels mis à jour chaque jour." />
+  <title>Simulateur Auto 2027 — Cockpit Coût Réel Carburant, Électrique & E85</title>
+  <meta name="description" content="Simulateur interactif du coût réel automobile : calculez et comparez en temps réel votre budget carburant, recharge électrique, assurance et entretien." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <style>
-    :root { --bg: #0f172a; --card: #1e293b; --card-alt: #162032; --accent: #38bdf8; --green: #22c55e; --amber: #f59e0b; --text: #f8fafc; --muted: #94a3b8; --border: #334155; }
+    :root {
+      --bg: #070b14;
+      --card: rgba(17, 25, 40, 0.82);
+      --card-alt: rgba(11, 17, 30, 0.9);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --green: #22c55e;
+      --green-glow: rgba(34, 197, 94, 0.3);
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(148, 163, 184, 0.16);
+    }
+
     * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
-    nav { background: #0b1120; border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 10; }
-    .nav-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .logo { font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Fond lumineux animé ultra-léger */
+    .bg-orb {
+      position: fixed;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      filter: blur(120px);
+      z-index: -1;
+      opacity: 0.22;
+      pointer-events: none;
+      animation: floatOrb 14s ease-in-out infinite alternate;
+    }
+    .orb-1 { top: -140px; left: -120px; background: #0284c7; }
+    .orb-2 { bottom: -160px; right: -120px; background: #10b981; animation-delay: -7s; }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, 40px) scale(1.12); }
+    }
+
+    nav {
+      background: rgba(7, 11, 20, 0.8);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .nav-inner { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .logo { font-weight: 800; font-size: 1.18rem; color: var(--text); text-decoration: none; letter-spacing: -0.3px; }
     .logo span { color: var(--accent); }
-    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.9rem; }
-    .nav-links a:hover { color: var(--text); }
-    .container { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
-    header { text-align: center; margin-bottom: 30px; }
-    h1 { font-size: 2rem; margin: 12px 0 10px; line-height: 1.2; }
-    h2 { font-size: 1.35rem; margin: 0 0 16px; }
-    h3 { font-size: 1.05rem; margin: 0 0 8px; color: var(--accent); }
-    .badge { display: inline-block; background: rgba(34,197,94,0.15); color: var(--green); padding: 5px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
-    .card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1px solid var(--border); }
-    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .preset-btn { background: #0f172a; color: var(--text); border: 1px solid #475569; padding: 8px 13px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; transition: 0.15s; }
-    .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.55rem; } }
-    label { display: block; font-size: 0.88rem; color: var(--muted); margin-bottom: 6px; }
-    input, select { width: 100%; padding: 11px 12px; border-radius: 9px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; }
-    .stat { background: #0f172a; padding: 18px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
-    .stat span { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
-    .stat strong { font-size: 1.55rem; color: var(--accent); }
-    .stat.highlight strong { color: var(--green); }
-    .cta-box { background: linear-gradient(135deg, #0284c7, #1d4ed8); padding: 24px; border-radius: 14px; text-align: center; margin-top: 22px; }
-    .cta-btn { display: inline-block; background: #fff; color: #0f172a; font-weight: 700; padding: 13px 26px; border-radius: 9px; text-decoration: none; margin-top: 12px; }
-    .cta-btn:hover { background: #e2e8f0; }
-    .compare-box { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-top: 18px; }
-    .saving-banner { margin-top: 16px; padding: 14px; border-radius: 10px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35); text-align: center; font-weight: 600; }
+    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 30px 20px; }
+    header { text-align: center; margin-bottom: 32px; animation: fadeUp 0.6s ease-out; }
+    h1 { font-size: 2.15rem; margin: 14px 0 10px; line-height: 1.18; letter-spacing: -0.5px; }
+    h2 { font-size: 1.3rem; margin: 0 0 16px; display: flex; align-items: center; gap: 10px; }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.14);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      color: #4ade80;
+      padding: 5px 15px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulseDot 2s infinite;
+    }
+    @keyframes pulseDot {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      padding: 26px;
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      animation: fadeUp 0.65s ease-out both;
+    }
+    .card:hover { border-color: rgba(56, 189, 248, 0.35); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .presets { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+    .preset-btn {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 9px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .preset-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+    .preset-btn.active {
+      background: rgba(56, 189, 248, 0.16);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 760px) { .grid-2, .grid-4 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
+
+    .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    label { font-size: 0.88rem; color: var(--muted); }
+    .val-pill { font-size: 0.85rem; font-weight: 700; color: var(--accent); background: rgba(56, 189, 248, 0.12); padding: 2px 9px; border-radius: 6px; }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #0b1120;
+      color: #fff;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #1e293b;
+      border-radius: 999px;
+      margin-top: 10px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.22); }
+
+    /* Compteurs digitaux */
+    .stat {
+      background: var(--card-alt);
+      padding: 18px 14px;
+      border-radius: 14px;
+      text-align: center;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .stat:hover { transform: translateY(-3px); }
+    .stat span { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 5px; }
+    .stat strong { font-size: 1.55rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .stat.highlight {
+      border-color: rgba(34, 197, 94, 0.45);
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.12);
+    }
+    .stat.highlight strong { color: #4ade80; }
+
+    /* Eco-Score & Jauge */
+    .score-pill {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .duel-bar-wrap {
+      margin-top: 18px;
+      background: #0b1120;
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--border);
+    }
+    .duel-labels { display: flex; justify-content: space-between; font-size: 0.86rem; margin-bottom: 8px; font-weight: 600; }
+    .bar-track {
+      height: 14px;
+      background: #1e293b;
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+    }
+    .bar-current {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #3b82f6);
+      transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .bar-alt {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #22c55e);
+      transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .saving-banner {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 11px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      text-align: center;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #0284c7, #1d4ed8);
+      padding: 24px;
+      border-radius: 15px;
+      text-align: center;
+      margin-top: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #fff;
+      color: #0f172a;
+      font-weight: 800;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35); }
+
     table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
     th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; }
-    details { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+    tr:hover td { background: rgba(56, 189, 248, 0.04); }
+
+    details { background: #0b1120; border: 1px solid var(--border); border-radius: 11px; padding: 14px 16px; margin-bottom: 10px; transition: border-color 0.2s; }
+    details[open] { border-color: var(--accent); }
     summary { font-weight: 600; cursor: pointer; }
     details p { color: var(--muted); margin: 10px 0 0; font-size: 0.93rem; }
-    footer { border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; padding: 26px 20px; margin-top: 40px; }
+
+    footer { border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; padding: 28px 20px; margin-top: 40px; }
     footer a { color: var(--accent); text-decoration: none; margin: 0 10px; }
   </style>
 </head>
 <body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
   <nav>
     <div class="nav-inner">
       <a href="/" class="logo">Simulateur<span>Auto</span>.com</a>
       <div class="nav-links">
-        <a href="#simulateur">Simulateur</a>
-        <a href="#comparateur">Comparateur Énergies</a>
-        <a href="#prix-jour">Prix du jour</a>
+        <a href="#simulateur">Cockpit</a>
+        <a href="#comparateur">Duel Énergies</a>
+        <a href="#prix-jour">Cours du jour</a>
         <a href="#faq">FAQ</a>
       </div>
     </div>
@@ -65,70 +301,88 @@
 
   <div class="container">
     <header>
-      <span class="badge" id="update-date">Prix officiels mis à jour automatiquement</span>
-      <h1>Simulateur du Coût Réel Automobile</h1>
-      <p style="color:var(--muted);max-width:650px;margin:0 auto;">Estimez précisément votre budget carburant ou recharge électrique, assurance et entretien au kilomètre avec les relevés quotidiens officiels.</p>
+      <div class="live-badge">
+        <span class="pulse-dot"></span>
+        <span id="update-date">Flux officiel carburants synchronisé</span>
+      </div>
+      <h1>Cockpit du Coût Réel Automobile</h1>
+      <p style="color:var(--muted);max-width:650px;margin:0 auto;">Ajustez vos paramètres en direct et visualisez instantanément votre coût réel au kilomètre, votre score budgétaire et vos économies sur 5 ans.</p>
     </header>
 
-    <!-- SIMULATEUR PRINCIPAL -->
+    <!-- COCKPIT SIMULATEUR -->
     <section id="simulateur" class="card">
-      <h2>1. Calculer le budget de votre véhicule</h2>
-      <label style="margin-bottom:8px;">Modèles populaires (pré-remplissage en 1 clic) :</label>
-      <div class="presets">
-        <button class="preset-btn" onclick="setPreset('E10', 5.4, 1050)">Peugeot 208 Essence</button>
-        <button class="preset-btn" onclick="setPreset('Gazole', 4.6, 1150)">Renault Clio 5 Diesel</button>
-        <button class="preset-btn" onclick="setPreset('E85', 7.2, 950)">Dacia Sandero E85</button>
-        <button class="preset-btn" onclick="setPreset('E10', 4.3, 1000)">Toyota Yaris Hybride</button>
-        <button class="preset-btn" onclick="setPreset('Electrique_kWh', 14.8, 900)">Tesla Model 3 Électrique</button>
-        <button class="preset-btn" onclick="setPreset('Gazole', 5.8, 1300)">Peugeot 3008 Diesel</button>
+      <h2>1. Configurez votre véhicule</h2>
+      <label style="margin-bottom:8px;display:block;">Modèles populaires (testez en 1 clic) :</label>
+      <div class="presets" id="preset-container">
+        <button class="preset-btn active" onclick="setPreset(this, 'E10', 5.4, 1050)">Peugeot 208 Essence</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Gazole', 4.6, 1150)">Renault Clio 5 Diesel</button>
+        <button class="preset-btn" onclick="setPreset(this, 'E85', 7.2, 950)">Dacia Sandero E85</button>
+        <button class="preset-btn" onclick="setPreset(this, 'E10', 4.3, 1000)">Toyota Yaris Hybride</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Electrique_kWh', 14.8, 900)">Tesla Model 3 Électrique</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Gazole', 5.8, 1300)">Peugeot 3008 Diesel</button>
       </div>
 
       <div class="grid-2">
         <div>
-          <label>Motorisation / Énergie</label>
+          <div class="field-header"><label>Motorisation / Énergie</label></div>
           <select id="fuel">
             <option value="Gazole">Diesel (Gazole)</option>
-            <option value="E10">Essence SP95-E10</option>
+            <option value="E10" selected>Essence SP95-E10</option>
             <option value="SP98">Essence SP98</option>
             <option value="E85">Superéthanol E85</option>
             <option value="Electrique_kWh">100 % Électrique (recharge domicile)</option>
           </select>
         </div>
+
         <div>
-          <label>Kilomètres parcourus par an</label>
-          <input type="number" id="km" value="15000" min="1000" step="500" />
+          <div class="field-header">
+            <label>Kilomètres / an</label>
+            <span class="val-pill" id="km-pill">15 000 km</span>
+          </div>
+          <input type="number" id="km" value="15000" min="1000" max="80000" step="500" />
+          <input type="range" id="km-range" min="2000" max="50000" step="500" value="15000" />
         </div>
+
         <div>
-          <label>Consommation mixte (L/100km ou kWh/100km)</label>
-          <input type="number" id="conso" value="5.4" min="1" step="0.1" />
+          <div class="field-header">
+            <label>Consommation (L ou kWh / 100 km)</label>
+            <span class="val-pill" id="conso-pill">5.4</span>
+          </div>
+          <input type="number" id="conso" value="5.4" min="1" max="30" step="0.1" />
+          <input type="range" id="conso-range" min="3" max="25" step="0.1" value="5.4" />
         </div>
+
         <div>
-          <label>Assurance + Entretien + Pneus / an (€)</label>
-          <input type="number" id="fixed" value="1050" min="0" step="50" />
+          <div class="field-header">
+            <label>Assurance + Entretien / an (€)</label>
+            <span class="val-pill" id="fixed-pill">1 050 €</span>
+          </div>
+          <input type="number" id="fixed" value="1050" min="0" max="6000" step="50" />
+          <input type="range" id="fixed-range" min="300" max="3500" step="50" value="1050" />
         </div>
       </div>
 
-      <div class="grid-3" style="margin-top:20px;">
-        <div class="stat"><span>Budget Énergie / an</span><strong id="res-energy">— €</strong></div>
-        <div class="stat highlight"><span>Coût Total / mois</span><strong id="res-month">— €</strong></div>
-        <div class="stat"><span>Coût Réel / km</span><strong id="res-km">— €</strong></div>
+      <div class="grid-4" style="margin-top:24px;">
+        <div class="stat"><span>Énergie / an</span><strong id="res-energy">0 €</strong></div>
+        <div class="stat highlight"><span>Budget Total / mois</span><strong id="res-month">0 €</strong></div>
+        <div class="stat"><span>Coût Réel / km</span><strong id="res-km">0.00 €</strong></div>
+        <div class="stat"><span>Indice Efficacité</span><div style="margin-top:4px;"><span class="score-pill" id="eco-score">B</span></div></div>
       </div>
 
       <div class="cta-box">
-        <strong style="font-size:1.1rem;">Réduisez vos frais fixes auto jusqu'à -320 €/an</strong>
-        <p style="margin:6px 0 0;font-size:0.92rem;">Comparez gratuitement les offres d'assurance auto et d'entretien adaptées à votre kilométrage réel.</p>
+        <strong style="font-size:1.12rem;">Optimisez votre poste Assurance & Entretien (-320 €/an en moyenne)</strong>
+        <p style="margin:6px 0 0;font-size:0.92rem;opacity:0.92;">Simulez gratuitement votre tarif assurance auto ajusté à votre kilométrage exact.</p>
         <!-- REMPLACER LE LIEN CI-DESSOUS PAR TON LIEN D'AFFILIATION ASSURANCE / AUTO -->
-        <a href="#affiliation-assurance" class="cta-btn" rel="nofollow sponsored">Comparer mon tarif assurance →</a>
+        <a href="#affiliation-assurance" class="cta-btn" rel="nofollow sponsored">Vérifier mes économies assurance →</a>
       </div>
     </section>
 
-    <!-- COMPARATEUR 2 ENERGIES -->
+    <!-- DUEL COMPARATEUR -->
     <section id="comparateur" class="card">
-      <h2>2. Comparer avec une autre motorisation (sur votre kilométrage)</h2>
-      <p style="color:var(--muted);margin-top:0;font-size:0.92rem;">Vérifiez combien vous gagneriez en passant à l'électrique, à l'hybride ou au Superéthanol E85 pour vos <strong id="comp-km-label">15 000</strong> km/an.</p>
+      <h2>2. Duel en direct : votre voiture vs une alternative</h2>
       <div class="grid-2">
         <div>
-          <label>Motorisation alternative à comparer</label>
+          <label>Motorisation alternative à tester</label>
           <select id="alt-fuel">
             <option value="Electrique_kWh">100 % Électrique (15.5 kWh/100km)</option>
             <option value="E85">Superéthanol E85 (7.4 L/100km)</option>
@@ -137,44 +391,52 @@
           </select>
         </div>
         <div>
-          <label>Consommation estimée alternative</label>
+          <label>Consommation alternative estimée</label>
           <input type="number" id="alt-conso" value="15.5" min="1" step="0.1" />
         </div>
       </div>
-      <div class="saving-banner" id="saving-result">Calcul de la différence en cours...</div>
+
+      <div class="duel-bar-wrap">
+        <div class="duel-labels">
+          <span style="color:var(--accent);">Votre véhicule : <strong id="duel-cur-txt">— €/an</strong></span>
+          <span style="color:#4ade80;">Alternative : <strong id="duel-alt-txt">— €/an</strong></span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-current" id="bar-cur" style="width:50%;"></div>
+          <div class="bar-alt" id="bar-alt" style="width:50%;"></div>
+        </div>
+      </div>
+
+      <div class="saving-banner" id="saving-result">Calcul en cours...</div>
     </section>
 
     <!-- TABLEAU DES PRIX DU JOUR -->
     <section id="prix-jour" class="card">
-      <h2>3. Baromètre des prix moyens constatés en France</h2>
+      <h2>3. Baromètre quotidien des carburants & de l'électricité</h2>
       <table>
         <thead>
-          <tr><th>Énergie</th><th>Prix moyen national</th><th>Budget pour 100 km</th><th>Budget pour 15 000 km/an</th></tr>
+          <tr><th>Énergie</th><th>Prix moyen relevé</th><th>Coût / 100 km</th><th>Budget 15 000 km/an</th></tr>
         </thead>
         <tbody id="price-table"></tbody>
       </table>
     </section>
 
-    <!-- GUIDES & FAQ SEO -->
+    <!-- FAQ -->
     <section id="faq" class="card">
-      <h2>Questions fréquentes sur le coût réel d'une voiture</h2>
+      <h2>Questions fréquentes</h2>
       <details>
         <summary>Comment est calculé le coût réel au kilomètre ?</summary>
-        <p>Le coût réel au kilomètre additionne votre dépense annuelle d'énergie (kilométrage × consommation × prix moyen relevé) et vos frais fixes annuels (assurance auto, révision, contrôle technique, pneus), puis divise le total par le nombre de kilomètres parcourus dans l'année.</p>
+        <p>Nous additionnons votre dépense annuelle de carburant ou d'électricité (basée sur les prix moyens officiels mis à jour chaque matin) et vos frais fixes annuels (assurance, entretien, pneus), puis nous divisons ce montant par votre kilométrage annuel.</p>
       </details>
       <details>
-        <summary>Quel carburant est le plus économique en 2027 pour 15 000 km/an ?</summary>
-        <p>Sur le seul poste énergie, la recharge électrique à domicile (heures creuses ou tarif réglementé) reste la moins coûteuse au kilomètre, suivie par le Superéthanol E85 (malgré une surconsommation d'environ 15 à 20 %) et le Diesel pour les gros rouleurs effectuant plus de 20 000 km par an sur voie rapide.</p>
-      </details>
-      <details>
-        <summary>D'où proviennent les prix des carburants affichés sur simulateur-auto.com ?</summary>
-        <p>Les moyennes nationales du Gazole, SP95, SP95-E10, SP98 et E85 sont recalculées automatiquement chaque matin à partir des données publiques ouvertes des stations-service françaises.</p>
+        <summary>Pourquoi les résultats changent-ils chaque jour ?</summary>
+        <p>Chaque matin, notre moteur récupère automatiquement les données publiques des stations-service françaises (prix-carburants.gouv.fr) pour recalculer les moyennes nationales exactes.</p>
       </details>
     </section>
   </div>
 
   <footer>
-    <div>© 2027 simulateur-auto.com — Outil indépendant d'estimation budgétaire automobile</div>
+    <div>© 2027 simulateur-auto.com — Simulateur indépendant actualisé quotidiennement</div>
     <div style="margin-top:8px;">
       <a href="/">Accueil</a>
       <a href="/mentions-legales.html">Mentions légales & Confidentialité</a>
@@ -183,13 +445,48 @@
 
   <script>
     let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
+    const animState = { energy: 0, month: 0, kmCost: 0 };
 
-    function setPreset(fuel, conso, fixed) {
+    function animateValue(id, key, target, suffix, decimals = 0) {
+      const el = document.getElementById(id);
+      const start = animState[key];
+      const duration = 260;
+      const startTime = performance.now();
+
+      function step(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = start + (target - start) * ease;
+        el.textContent = decimals > 0 ? current.toFixed(decimals) + suffix : Math.round(current).toLocaleString('fr-FR') + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          animState[key] = target;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    function setPreset(btn, fuel, conso, fixed) {
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
       document.getElementById('fuel').value = fuel;
       document.getElementById('conso').value = conso;
+      document.getElementById('conso-range').value = conso;
       document.getElementById('fixed').value = fixed;
+      document.getElementById('fixed-range').value = fixed;
       calculate();
     }
+
+    function bindSync(numId, rangeId) {
+      const num = document.getElementById(numId);
+      const rng = document.getElementById(rangeId);
+      num.addEventListener('input', () => { rng.value = num.value; calculate(); });
+      rng.addEventListener('input', () => { num.value = rng.value; calculate(); });
+    }
+    bindSync('km', 'km-range');
+    bindSync('conso', 'conso-range');
+    bindSync('fixed', 'fixed-range');
 
     document.getElementById('alt-fuel').addEventListener('change', (e) => {
       const defaults = { Electrique_kWh: 15.5, E85: 7.4, Gazole: 4.9, E10: 5.8 };
@@ -209,7 +506,7 @@
         const p = prices[r.key] || 0;
         const c100 = p * r.avgConso;
         const c15k = Math.round(c100 * 150);
-        return `<tr><td>${r.label}</td><td><strong>${p.toFixed(3)} ${r.unit}</strong></td><td>${c100.toFixed(2)} €</td><td>${c15k} € / an</td></tr>`;
+        return `<tr><td>${r.label}</td><td><strong>${p.toFixed(3)} ${r.unit}</strong></td><td>${c100.toFixed(2)} €</td><td>${c15k.toLocaleString('fr-FR')} €</td></tr>`;
       }).join('');
     }
 
@@ -219,32 +516,63 @@
       const conso = parseFloat(document.getElementById('conso').value) || 0;
       const fixed = parseFloat(document.getElementById('fixed').value) || 0;
 
+      document.getElementById('km-pill').textContent = km.toLocaleString('fr-FR') + ' km';
+      document.getElementById('conso-pill').textContent = conso.toFixed(1);
+      document.getElementById('fixed-pill').textContent = fixed.toLocaleString('fr-FR') + ' €';
+
       const unitPrice = prices[fuel] || 1.75;
       const energyCost = (km / 100) * conso * unitPrice;
       const totalYear = energyCost + fixed;
       const totalMonth = totalYear / 12;
       const perKm = km > 0 ? totalYear / km : 0;
 
-      document.getElementById('res-energy').textContent = Math.round(energyCost) + ' €';
-      document.getElementById('res-month').textContent = Math.round(totalMonth) + ' €';
-      document.getElementById('res-km').textContent = perKm.toFixed(2) + ' €';
-      document.getElementById('comp-km-label').textContent = km.toLocaleString('fr-FR');
+      animateValue('res-energy', 'energy', energyCost, ' €', 0);
+      animateValue('res-month', 'month', totalMonth, ' €', 0);
+      animateValue('res-km', 'kmCost', perKm, ' €', 2);
 
+      // Indice Efficacité
+      const scoreEl = document.getElementById('eco-score');
+      if (perKm <= 0.12) {
+        scoreEl.textContent = 'A+ Ultra-Économe';
+        scoreEl.style.background = 'rgba(34,197,94,0.2)';
+        scoreEl.style.color = '#4ade80';
+      } else if (perKm <= 0.17) {
+        scoreEl.textContent = 'B Maîtrisé';
+        scoreEl.style.background = 'rgba(56,189,248,0.2)';
+        scoreEl.style.color = '#38bdf8';
+      } else if (perKm <= 0.23) {
+        scoreEl.textContent = 'C Moyen';
+        scoreEl.style.background = 'rgba(245,158,11,0.2)';
+        scoreEl.style.color = '#fbbf24';
+      } else {
+        scoreEl.textContent = 'D Élevé';
+        scoreEl.style.background = 'rgba(239,68,68,0.2)';
+        scoreEl.style.color = '#f87171';
+      }
+
+      // Duel comparateur
       const altFuel = document.getElementById('alt-fuel').value;
       const altConso = parseFloat(document.getElementById('alt-conso').value) || 0;
       const altEnergyCost = (km / 100) * altConso * (prices[altFuel] || 1.75);
+      const sum = energyCost + altEnergyCost || 1;
+      const curPct = Math.max(12, Math.min(88, (energyCost / sum) * 100));
+
+      document.getElementById('bar-cur').style.width = curPct + '%';
+      document.getElementById('bar-alt').style.width = (100 - curPct) + '%';
+      document.getElementById('duel-cur-txt').textContent = Math.round(energyCost).toLocaleString('fr-FR') + ' €/an';
+      document.getElementById('duel-alt-txt').textContent = Math.round(altEnergyCost).toLocaleString('fr-FR') + ' €/an';
+
       const diff = Math.round(energyCost - altEnergyCost);
       const banner = document.getElementById('saving-result');
-
       if (diff > 0) {
         banner.style.color = '#4ade80';
-        banner.textContent = `Économie estimée sur l'énergie : +${diff} € / an (soit ${diff * 3} € sur 3 ans) avec l'alternative choisie.`;
+        banner.textContent = `Gain estimé : +${diff.toLocaleString('fr-FR')} € / an (${(diff * 3).toLocaleString('fr-FR')} € sur 3 ans • ${(diff * 5).toLocaleString('fr-FR')} € sur 5 ans) avec l'alternative.`;
       } else if (diff < 0) {
         banner.style.color = '#fbbf24';
-        banner.textContent = `Votre motorisation actuelle reste plus économique de ${Math.abs(diff)} € / an sur le poste énergie.`;
+        banner.textContent = `Votre véhicule actuel vous fait économiser ${Math.abs(diff).toLocaleString('fr-FR')} € / an sur l'énergie par rapport à cette alternative.`;
       } else {
         banner.style.color = '#f8fafc';
-        banner.textContent = `Budget énergie identique entre les deux motorisations.`;
+        banner.textContent = `Coût énergétique strictement équivalent entre les deux options.`;
       }
     }
 
@@ -253,16 +581,14 @@
       .then(data => {
         prices = data;
         if (data.updated_at) {
-          document.getElementById('update-date').textContent = 'Prix officiels à jour au ' + data.updated_at;
+          document.getElementById('update-date').textContent = 'Cours officiels à jour au ' + data.updated_at;
         }
         renderTable();
         calculate();
       })
       .catch(() => { renderTable(); calculate(); });
 
-    ['fuel', 'km', 'conso', 'fixed', 'alt-conso'].forEach(id => {
-      document.getElementById(id).addEventListener('input', calculate);
-    });
+    ['fuel', 'alt-conso'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
     renderTable();
     calculate();
   </script>
