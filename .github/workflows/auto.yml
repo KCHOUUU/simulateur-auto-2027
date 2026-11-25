@@ -21,7 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Lancer la mise a jour des prix et pages
-        run: python update_prices.py
+        run: python update_data.py
 
       - name: Enregistrer et publier les changements
         run: |
