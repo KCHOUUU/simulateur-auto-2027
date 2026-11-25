@@ -1,0 +1,24 @@
+name: Mise a jour automatique 2027
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python update_data.py
+      - run: |
+          git config user.name "AutoBot"
+          git config user.email "bot@users.noreply.github.com"
+          git add prices.json
+          git commit -m "Update daily prices" || exit 0
+          git push
