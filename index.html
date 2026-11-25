@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulateur Coût Réel Auto 2027 — Essence, Diesel, Électrique & E85</title>
+  <meta name="description" content="Calculez le coût réel au kilomètre et à l'année de votre voiture en 2027 avec les prix moyens officiels mis à jour chaque jour." />
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --green: #22c55e; --text: #f8fafc; --muted: #94a3b8; }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); padding: 20px; }
+    .container { max-width: 760px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 28px; }
+    h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .badge { display: inline-block; background: rgba(56,189,248,0.15); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 0.85rem; }
+    .card { background: var(--card); border-radius: 14px; padding: 22px; margin-bottom: 20px; border: 1px solid #334155; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    label { display: block; font-size: 0.9rem; color: var(--muted); margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; }
+    .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; margin-top: 18px; }
+    @media (max-width: 600px) { .results { grid-template-columns: 1fr; } }
+    .stat { background: #0f172a; padding: 16px; border-radius: 10px; }
+    .stat span { display: block; font-size: 0.8rem; color: var(--muted); }
+    .stat strong { font-size: 1.4rem; color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, #0284c7, #1d4ed8); padding: 20px; border-radius: 12px; text-align: center; margin-top: 20px; }
+    .cta-btn { display: inline-block; background: #fff; color: #0f172a; font-weight: 700; padding: 12px 22px; border-radius: 8px; text-decoration: none; margin-top: 10px; }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge" id="update-date">Prix officiels mis à jour automatiquement</span>
+      <h1>Simulateur Coût Réel Auto 2027</h1>
+      <p style="color:var(--muted)">Comparez votre budget carburant / recharge, entretien et assurance au kilomètre.</p>
+    </header>
+
+    <div class="card">
+      <div class="grid">
+        <div>
+          <label>Motorisation / Énergie</label>
+          <select id="fuel">
+            <option value="Gazole">Diesel (Gazole)</option>
+            <option value="E10">Essence SP95-E10</option>
+            <option value="SP98">Essence SP98</option>
+            <option value="E85">Superéthanol E85</option>
+            <option value="Electrique_kWh">100 % Électrique (kWh domicile)</option>
+          </select>
+        </div>
+        <div>
+          <label>Kilomètres parcourus / an</label>
+          <input type="number" id="km" value="15000" min="1000" step="500" />
+        </div>
+        <div>
+          <label>Consommation (L/100km ou kWh/100km)</label>
+          <input type="number" id="conso" value="5.8" min="1" step="0.1" />
+        </div>
+        <div>
+          <label>Assurance + Entretien annuel (€)</label>
+          <input type="number" id="fixed" value="1100" min="0" step="50" />
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="stat"><span>Budget Énergie / an</span><strong id="res-energy">— €</strong></div>
+        <div class="stat"><span>Coût Total / mois</span><strong id="res-month">— €</strong></div>
+        <div class="stat"><span>Coût Réel / km</span><strong id="res-km">— €</strong></div>
+      </div>
+
+      <div class="cta-box">
+        <strong>Réduisez votre budget auto 2027 jusqu'à -320 €/an</strong>
+        <p style="margin:6px 0 0;font-size:0.9rem;">Comparez gratuitement les tarifs d'assurance et pièces compatibles pour votre kilométrage.</p>
+        <!-- REMPLACER LE LIEN CI-DESSOUS PAR TON LIEN D'AFFILIATION ASSURANCE / AUTO -->
+        <a href="#affiliation-assurance" class="cta-btn" rel="nofollow sponsored">Comparer mon assurance auto →</a>
+      </div>
+    </div>
+
+    <footer>Données énergies actualisées automatiquement chaque matin • Outil indépendant 2027</footer>
+  </div>
+
+  <script>
+    let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
+
+    function calculate() {
+      const fuel = document.getElementById('fuel').value;
+      const km = parseFloat(document.getElementById('km').value) || 0;
+      const conso = parseFloat(document.getElementById('conso').value) || 0;
+      const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+
+      const unitPrice = prices[fuel] || 1.75;
+      const energyCost = (km / 100) * conso * unitPrice;
+      const totalYear = energyCost + fixed;
+      const totalMonth = totalYear / 12;
+      const perKm = km > 0 ? totalYear / km : 0;
+
+      document.getElementById('res-energy').textContent = Math.round(energyCost) + ' €';
+      document.getElementById('res-month').textContent = Math.round(totalMonth) + ' €';
+      document.getElementById('res-km').textContent = perKm.toFixed(2) + ' €';
+    }
+
+    fetch('prices.json')
+      .then(r => r.json())
+      .then(data => {
+        prices = data;
+        if (data.updated_at) {
+          document.getElementById('update-date').textContent = 'Prix officiels à jour au ' + data.updated_at;
+        }
+        calculate();
+      })
+      .catch(() => calculate());
+
+    ['fuel', 'km', 'conso', 'fixed'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculate);
+    });
+    calculate();
+  </script>
+</body>
+</html>
