@@ -3,58 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur Auto — Coût Réel Carburant, Électrique, Hybride & E85 (2027)</title>
-  <meta name="description" content="Calculez instantanément le coût réel au kilomètre, au mois et à l'année de votre voiture avec les prix officiels des carburants et de l'électricité mis à jour chaque jour." />
+  <title>Simulateur Auto 2027 — Coût Réel Carburant, Électrique, Hybride & E85</title>
+  <meta name="description" content="Simulateur gratuit du coût réel automobile : calculez votre budget carburant, recharge électrique, assurance et entretien au kilomètre avec les prix officiels mis à jour chaque jour." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <style>
-    :root { --bg: #0f172a; --card: #1e293b; --accent: #38bdf8; --green: #22c55e; --text: #f8fafc; --muted: #94a3b8; }
-    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
-    body { margin: 0; background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5; }
-    .container { max-width: 820px; margin: 0 auto; }
-    header { text-align: center; margin-bottom: 26px; }
-    h1 { font-size: 1.85rem; margin: 10px 0 8px; }
-    h2 { font-size: 1.2rem; margin: 0 0 14px; color: var(--text); }
-    .badge { display: inline-block; background: rgba(34,197,94,0.15); color: var(--green); padding: 4px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
-    .card { background: var(--card); border-radius: 14px; padding: 22px; margin-bottom: 20px; border: 1px solid #334155; }
-    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .preset-btn { background: #0f172a; color: var(--text); border: 1px solid #475569; padding: 7px 12px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; transition: 0.15s; }
+    :root { --bg: #0f172a; --card: #1e293b; --card-alt: #162032; --accent: #38bdf8; --green: #22c55e; --amber: #f59e0b; --text: #f8fafc; --muted: #94a3b8; --border: #334155; }
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6; }
+    nav { background: #0b1120; border-bottom: 1px solid var(--border); padding: 14px 20px; position: sticky; top: 0; z-index: 10; }
+    .nav-inner { max-width: 960px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .logo { font-weight: 800; font-size: 1.15rem; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 0.9rem; }
+    .nav-links a:hover { color: var(--text); }
+    .container { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+    header { text-align: center; margin-bottom: 30px; }
+    h1 { font-size: 2rem; margin: 12px 0 10px; line-height: 1.2; }
+    h2 { font-size: 1.35rem; margin: 0 0 16px; }
+    h3 { font-size: 1.05rem; margin: 0 0 8px; color: var(--accent); }
+    .badge { display: inline-block; background: rgba(34,197,94,0.15); color: var(--green); padding: 5px 14px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; }
+    .card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1px solid var(--border); }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .preset-btn { background: #0f172a; color: var(--text); border: 1px solid #475569; padding: 8px 13px; border-radius: 8px; font-size: 0.85rem; cursor: pointer; transition: 0.15s; }
     .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.55rem; } }
     label { display: block; font-size: 0.88rem; color: var(--muted); margin-bottom: 6px; }
-    input, select { width: 100%; padding: 11px; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; }
-    .results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: center; margin-top: 20px; }
-    @media (max-width: 600px) { .results { grid-template-columns: 1fr; } }
-    .stat { background: #0f172a; padding: 16px; border-radius: 10px; border: 1px solid #1e293b; }
-    .stat span { display: block; font-size: 0.82rem; color: var(--muted); }
-    .stat strong { font-size: 1.45rem; color: var(--accent); }
-    .cta-box { background: linear-gradient(135deg, #0284c7, #1d4ed8); padding: 22px; border-radius: 12px; text-align: center; margin-top: 22px; }
-    .cta-btn { display: inline-block; background: #fff; color: #0f172a; font-weight: 700; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin-top: 12px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-    th, td { text-align: left; padding: 10px; border-bottom: 1px solid #334155; }
+    input, select { width: 100%; padding: 11px 12px; border-radius: 9px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 1rem; }
+    .stat { background: #0f172a; padding: 18px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+    .stat span { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
+    .stat strong { font-size: 1.55rem; color: var(--accent); }
+    .stat.highlight strong { color: var(--green); }
+    .cta-box { background: linear-gradient(135deg, #0284c7, #1d4ed8); padding: 24px; border-radius: 14px; text-align: center; margin-top: 22px; }
+    .cta-btn { display: inline-block; background: #fff; color: #0f172a; font-weight: 700; padding: 13px 26px; border-radius: 9px; text-decoration: none; margin-top: 12px; }
+    .cta-btn:hover { background: #e2e8f0; }
+    .compare-box { background: var(--card-alt); border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-top: 18px; }
+    .saving-banner { margin-top: 16px; padding: 14px; border-radius: 10px; background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35); text-align: center; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.93rem; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; }
-    footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 30px; }
+    details { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+    summary { font-weight: 600; cursor: pointer; }
+    details p { color: var(--muted); margin: 10px 0 0; font-size: 0.93rem; }
+    footer { border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 0.85rem; padding: 26px 20px; margin-top: 40px; }
+    footer a { color: var(--accent); text-decoration: none; margin: 0 10px; }
   </style>
 </head>
 <body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">Simulateur<span>Auto</span>.com</a>
+      <div class="nav-links">
+        <a href="#simulateur">Simulateur</a>
+        <a href="#comparateur">Comparateur Énergies</a>
+        <a href="#prix-jour">Prix du jour</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="container">
     <header>
       <span class="badge" id="update-date">Prix officiels mis à jour automatiquement</span>
-      <h1>Simulateur Coût Réel Auto</h1>
-      <p style="color:var(--muted);margin:0;">Calculez votre budget carburant, recharge électrique, entretien et assurance au kilomètre.</p>
+      <h1>Simulateur du Coût Réel Automobile</h1>
+      <p style="color:var(--muted);max-width:650px;margin:0 auto;">Estimez précisément votre budget carburant ou recharge électrique, assurance et entretien au kilomètre avec les relevés quotidiens officiels.</p>
     </header>
 
-    <div class="card">
-      <label style="margin-bottom:8px;">Charger un modèle populaire en 1 clic :</label>
+    <!-- SIMULATEUR PRINCIPAL -->
+    <section id="simulateur" class="card">
+      <h2>1. Calculer le budget de votre véhicule</h2>
+      <label style="margin-bottom:8px;">Modèles populaires (pré-remplissage en 1 clic) :</label>
       <div class="presets">
         <button class="preset-btn" onclick="setPreset('E10', 5.4, 1050)">Peugeot 208 Essence</button>
         <button class="preset-btn" onclick="setPreset('Gazole', 4.6, 1150)">Renault Clio 5 Diesel</button>
-        <button class="preset-btn" onclick="setPreset('E85', 7.2, 950)">Dacia Sandero Eco / E85</button>
+        <button class="preset-btn" onclick="setPreset('E85', 7.2, 950)">Dacia Sandero E85</button>
         <button class="preset-btn" onclick="setPreset('E10', 4.3, 1000)">Toyota Yaris Hybride</button>
         <button class="preset-btn" onclick="setPreset('Electrique_kWh', 14.8, 900)">Tesla Model 3 Électrique</button>
+        <button class="preset-btn" onclick="setPreset('Gazole', 5.8, 1300)">Peugeot 3008 Diesel</button>
       </div>
 
-      <div class="grid">
+      <div class="grid-2">
         <div>
           <label>Motorisation / Énergie</label>
           <select id="fuel">
@@ -62,49 +91,95 @@
             <option value="E10">Essence SP95-E10</option>
             <option value="SP98">Essence SP98</option>
             <option value="E85">Superéthanol E85</option>
-            <option value="Electrique_kWh">100 % Électrique (kWh domicile)</option>
+            <option value="Electrique_kWh">100 % Électrique (recharge domicile)</option>
           </select>
         </div>
         <div>
-          <label>Kilomètres parcourus / an</label>
+          <label>Kilomètres parcourus par an</label>
           <input type="number" id="km" value="15000" min="1000" step="500" />
         </div>
         <div>
-          <label>Consommation (L/100km ou kWh/100km)</label>
+          <label>Consommation mixte (L/100km ou kWh/100km)</label>
           <input type="number" id="conso" value="5.4" min="1" step="0.1" />
         </div>
         <div>
-          <label>Assurance + Entretien annuel (€)</label>
+          <label>Assurance + Entretien + Pneus / an (€)</label>
           <input type="number" id="fixed" value="1050" min="0" step="50" />
         </div>
       </div>
 
-      <div class="results">
+      <div class="grid-3" style="margin-top:20px;">
         <div class="stat"><span>Budget Énergie / an</span><strong id="res-energy">— €</strong></div>
-        <div class="stat"><span>Coût Total / mois</span><strong id="res-month">— €</strong></div>
+        <div class="stat highlight"><span>Coût Total / mois</span><strong id="res-month">— €</strong></div>
         <div class="stat"><span>Coût Réel / km</span><strong id="res-km">— €</strong></div>
       </div>
 
       <div class="cta-box">
-        <strong>Économisez jusqu'à 320 €/an sur votre budget auto</strong>
-        <p style="margin:6px 0 0;font-size:0.9rem;">Comparez gratuitement les meilleures offres d'assurance auto adaptées à votre kilométrage annuel.</p>
+        <strong style="font-size:1.1rem;">Réduisez vos frais fixes auto jusqu'à -320 €/an</strong>
+        <p style="margin:6px 0 0;font-size:0.92rem;">Comparez gratuitement les offres d'assurance auto et d'entretien adaptées à votre kilométrage réel.</p>
         <!-- REMPLACER LE LIEN CI-DESSOUS PAR TON LIEN D'AFFILIATION ASSURANCE / AUTO -->
         <a href="#affiliation-assurance" class="cta-btn" rel="nofollow sponsored">Comparer mon tarif assurance →</a>
       </div>
-    </div>
+    </section>
 
-    <div class="card">
-      <h2>Prix moyens nationaux relevés aujourd'hui</h2>
+    <!-- COMPARATEUR 2 ENERGIES -->
+    <section id="comparateur" class="card">
+      <h2>2. Comparer avec une autre motorisation (sur votre kilométrage)</h2>
+      <p style="color:var(--muted);margin-top:0;font-size:0.92rem;">Vérifiez combien vous gagneriez en passant à l'électrique, à l'hybride ou au Superéthanol E85 pour vos <strong id="comp-km-label">15 000</strong> km/an.</p>
+      <div class="grid-2">
+        <div>
+          <label>Motorisation alternative à comparer</label>
+          <select id="alt-fuel">
+            <option value="Electrique_kWh">100 % Électrique (15.5 kWh/100km)</option>
+            <option value="E85">Superéthanol E85 (7.4 L/100km)</option>
+            <option value="Gazole">Diesel Gazole (4.9 L/100km)</option>
+            <option value="E10">Essence SP95-E10 (5.8 L/100km)</option>
+          </select>
+        </div>
+        <div>
+          <label>Consommation estimée alternative</label>
+          <input type="number" id="alt-conso" value="15.5" min="1" step="0.1" />
+        </div>
+      </div>
+      <div class="saving-banner" id="saving-result">Calcul de la différence en cours...</div>
+    </section>
+
+    <!-- TABLEAU DES PRIX DU JOUR -->
+    <section id="prix-jour" class="card">
+      <h2>3. Baromètre des prix moyens constatés en France</h2>
       <table>
         <thead>
-          <tr><th>Énergie</th><th>Prix moyen constaté</th><th>Coût pour 100 km (moyenne)</th></tr>
+          <tr><th>Énergie</th><th>Prix moyen national</th><th>Budget pour 100 km</th><th>Budget pour 15 000 km/an</th></tr>
         </thead>
         <tbody id="price-table"></tbody>
       </table>
-    </div>
+    </section>
 
-    <footer>simulateur-auto.com • Données énergies actualisées automatiquement chaque matin</footer>
+    <!-- GUIDES & FAQ SEO -->
+    <section id="faq" class="card">
+      <h2>Questions fréquentes sur le coût réel d'une voiture</h2>
+      <details>
+        <summary>Comment est calculé le coût réel au kilomètre ?</summary>
+        <p>Le coût réel au kilomètre additionne votre dépense annuelle d'énergie (kilométrage × consommation × prix moyen relevé) et vos frais fixes annuels (assurance auto, révision, contrôle technique, pneus), puis divise le total par le nombre de kilomètres parcourus dans l'année.</p>
+      </details>
+      <details>
+        <summary>Quel carburant est le plus économique en 2027 pour 15 000 km/an ?</summary>
+        <p>Sur le seul poste énergie, la recharge électrique à domicile (heures creuses ou tarif réglementé) reste la moins coûteuse au kilomètre, suivie par le Superéthanol E85 (malgré une surconsommation d'environ 15 à 20 %) et le Diesel pour les gros rouleurs effectuant plus de 20 000 km par an sur voie rapide.</p>
+      </details>
+      <details>
+        <summary>D'où proviennent les prix des carburants affichés sur simulateur-auto.com ?</summary>
+        <p>Les moyennes nationales du Gazole, SP95, SP95-E10, SP98 et E85 sont recalculées automatiquement chaque matin à partir des données publiques ouvertes des stations-service françaises.</p>
+      </details>
+    </section>
   </div>
+
+  <footer>
+    <div>© 2027 simulateur-auto.com — Outil indépendant d'estimation budgétaire automobile</div>
+    <div style="margin-top:8px;">
+      <a href="/">Accueil</a>
+      <a href="/mentions-legales.html">Mentions légales & Confidentialité</a>
+    </div>
+  </footer>
 
   <script>
     let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
@@ -116,6 +191,12 @@
       calculate();
     }
 
+    document.getElementById('alt-fuel').addEventListener('change', (e) => {
+      const defaults = { Electrique_kWh: 15.5, E85: 7.4, Gazole: 4.9, E10: 5.8 };
+      document.getElementById('alt-conso').value = defaults[e.target.value] || 6.0;
+      calculate();
+    });
+
     function renderTable() {
       const rows = [
         { label: 'Diesel (Gazole)', key: 'Gazole', unit: '€/L', avgConso: 5.2 },
@@ -124,11 +205,11 @@
         { label: 'Superéthanol E85', key: 'E85', unit: '€/L', avgConso: 7.5 },
         { label: 'Électrique (Domicile)', key: 'Electrique_kWh', unit: '€/kWh', avgConso: 15.5 }
       ];
-      const tbody = document.getElementById('price-table');
-      tbody.innerHTML = rows.map(r => {
+      document.getElementById('price-table').innerHTML = rows.map(r => {
         const p = prices[r.key] || 0;
-        const c100 = (p * r.avgConso).toFixed(2);
-        return `<tr><td>${r.label}</td><td><strong>${p.toFixed(3)} ${r.unit}</strong></td><td>${c100} €</td></tr>`;
+        const c100 = p * r.avgConso;
+        const c15k = Math.round(c100 * 150);
+        return `<tr><td>${r.label}</td><td><strong>${p.toFixed(3)} ${r.unit}</strong></td><td>${c100.toFixed(2)} €</td><td>${c15k} € / an</td></tr>`;
       }).join('');
     }
 
@@ -147,6 +228,24 @@
       document.getElementById('res-energy').textContent = Math.round(energyCost) + ' €';
       document.getElementById('res-month').textContent = Math.round(totalMonth) + ' €';
       document.getElementById('res-km').textContent = perKm.toFixed(2) + ' €';
+      document.getElementById('comp-km-label').textContent = km.toLocaleString('fr-FR');
+
+      const altFuel = document.getElementById('alt-fuel').value;
+      const altConso = parseFloat(document.getElementById('alt-conso').value) || 0;
+      const altEnergyCost = (km / 100) * altConso * (prices[altFuel] || 1.75);
+      const diff = Math.round(energyCost - altEnergyCost);
+      const banner = document.getElementById('saving-result');
+
+      if (diff > 0) {
+        banner.style.color = '#4ade80';
+        banner.textContent = `Économie estimée sur l'énergie : +${diff} € / an (soit ${diff * 3} € sur 3 ans) avec l'alternative choisie.`;
+      } else if (diff < 0) {
+        banner.style.color = '#fbbf24';
+        banner.textContent = `Votre motorisation actuelle reste plus économique de ${Math.abs(diff)} € / an sur le poste énergie.`;
+      } else {
+        banner.style.color = '#f8fafc';
+        banner.textContent = `Budget énergie identique entre les deux motorisations.`;
+      }
     }
 
     fetch('prices.json')
@@ -161,7 +260,7 @@
       })
       .catch(() => { renderTable(); calculate(); });
 
-    ['fuel', 'km', 'conso', 'fixed'].forEach(id => {
+    ['fuel', 'km', 'conso', 'fixed', 'alt-conso'].forEach(id => {
       document.getElementById(id).addEventListener('input', calculate);
     });
     renderTable();
