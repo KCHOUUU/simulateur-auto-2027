@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://simulateur-auto.com/</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://simulateur-auto.com/mentions-legales.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
+  <url><loc>https://simulateur-auto.com/</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://simulateur-auto.com/mentions-legales.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/peugeot-208.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/renault-clio-5.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/dacia-sandero.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/tesla-model-3.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/toyota-yaris-hybride.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/peugeot-3008.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/citroen-c3.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/volkswagen-golf-8.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/renault-captur.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/dacia-duster.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/mg4-electrique.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://simulateur-auto.com/modeles/fiat-500-electrique.html</loc><lastmod>2026-11-25</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
 </urlset>
