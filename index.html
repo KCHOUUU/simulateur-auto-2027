@@ -17,7 +17,6 @@
     :root {
       --bg: #050811;
       --card: rgba(15, 23, 42, 0.78);
-      --card-solid: #0f172a;
       --accent: #38bdf8;
       --accent-2: #818cf8;
       --green: #22c55e;
@@ -32,7 +31,6 @@
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.55; overflow-x: hidden; }
 
-    /* Fond dynamique */
     .bg-orb {
       position: fixed; width: 540px; height: 540px; border-radius: 50%;
       filter: blur(130px); z-index: -1; opacity: 0.2; pointer-events: none;
@@ -45,7 +43,6 @@
       100% { transform: translate(60px, 45px) scale(1.12); }
     }
 
-    /* Navigation */
     nav {
       background: rgba(5, 8, 17, 0.82); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border); padding: 14px 20px;
@@ -84,12 +81,32 @@
     .card:hover { border-color: rgba(56, 189, 248, 0.32); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Presets */
+    /* Recherche véhicule */
+    .search-wrap { position: relative; margin-bottom: 14px; }
+    .search-input {
+      width: 100%; padding: 12px 14px; border-radius: 11px;
+      border: 1px solid rgba(56, 189, 248, 0.3); background: #090e1a;
+      color: #fff; font-size: 0.95rem;
+    }
+    .search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18); }
+    .search-results {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 40;
+      background: #0b1222; border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 12px; margin-top: 6px; max-height: 250px; overflow-y: auto;
+      display: none; box-shadow: 0 16px 36px rgba(0,0,0,0.55);
+    }
+    .search-item {
+      padding: 10px 14px; cursor: pointer; display: flex; justify-content: space-between;
+      align-items: center; border-bottom: 1px solid rgba(148,163,184,0.1); font-size: 0.9rem;
+    }
+    .search-item:hover { background: rgba(56, 189, 248, 0.14); }
+    .search-item span { font-size: 0.8rem; color: var(--muted); }
+
     .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
     .preset-btn {
       background: rgba(15, 23, 42, 0.9); color: var(--text); border: 1px solid var(--border);
       padding: 8px 13px; border-radius: 10px; font-size: 0.84rem; font-weight: 500;
-      cursor: pointer; transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      cursor: pointer; transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); text-decoration: none;
     }
     .preset-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
     .preset-btn.active {
@@ -97,13 +114,11 @@
       box-shadow: 0 0 18px rgba(56, 189, 248, 0.28);
     }
 
-    /* Grilles */
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
     .grid-cockpit { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 24px; align-items: center; }
     @media (max-width: 820px) { .grid-cockpit, .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
 
-    /* Champs & Sliders */
     .field { margin-bottom: 14px; }
     .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     label { font-size: 0.86rem; color: var(--muted); }
@@ -127,42 +142,30 @@
     }
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.22); }
 
-    /* Donut SVG & Stats */
-    .donut-panel {
-      background: #090e1a; border: 1px solid var(--border); border-radius: 16px;
-      padding: 20px; text-align: center;
-    }
+    .donut-panel { background: #090e1a; border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; }
     .donut-wrap { position: relative; width: 164px; height: 164px; margin: 0 auto 14px; }
     .donut-wrap svg { transform: rotate(-90deg); width: 164px; height: 164px; }
     .donut-seg { fill: none; stroke-width: 16; stroke-linecap: round; transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease; }
-    .donut-center {
-      position: absolute; inset: 0; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-    }
+    .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     .donut-center strong { font-size: 1.55rem; color: #4ade80; font-variant-numeric: tabular-nums; }
     .donut-center span { font-size: 0.76rem; color: var(--muted); }
     .legend { display: flex; justify-content: center; gap: 14px; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
     .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
 
-    .stat {
-      background: #090e1a; padding: 15px 12px; border-radius: 14px;
-      text-align: center; border: 1px solid var(--border); transition: transform 0.2s;
-    }
+    .stat { background: #090e1a; padding: 15px 12px; border-radius: 14px; text-align: center; border: 1px solid var(--border); transition: transform 0.2s; }
     .stat:hover { transform: translateY(-2px); }
     .stat span { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
     .stat strong { font-size: 1.38rem; color: var(--accent); font-variant-numeric: tabular-nums; }
 
     .score-pill { display: inline-block; padding: 3px 10px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; }
 
-    /* Boutons d'action */
-    .action-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; justify-content: center; }
     .btn-ghost {
       background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 9px 15px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+      padding: 9px 13px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: 0.2s;
     }
     .btn-ghost:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
 
-    /* Classement & Duel */
     .rank-item { background: #090e1a; border: 1px solid var(--border); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; }
     .rank-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; font-size: 0.9rem; }
     .rank-track { height: 8px; background: #1e293b; border-radius: 999px; overflow: hidden; }
@@ -178,7 +181,6 @@
       text-align: center; font-weight: 600; font-size: 0.94rem;
     }
 
-    /* Affiliation */
     .offer-card {
       background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.7));
       border: 1px solid var(--border); border-radius: 15px; padding: 20px;
@@ -193,7 +195,6 @@
     }
     .offer-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(2, 132, 199, 0.35); }
 
-    /* Toast */
     .toast {
       position: fixed; bottom: 24px; right: 24px; background: #22c55e; color: #052e16;
       font-weight: 700; padding: 11px 18px; border-radius: 10px; font-size: 0.88rem;
@@ -214,7 +215,7 @@
 <body>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
-  <div class="toast" id="toast">Bilan copié dans le presse-papiers !</div>
+  <div class="toast" id="toast">Action effectuée !</div>
 
   <nav>
     <div class="nav-inner">
@@ -224,8 +225,7 @@
         <a href="#trajet">Trajet Express</a>
         <a href="#classement">Top Énergies</a>
         <a href="#comparateur">Duel</a>
-        <a href="#solutions">Économies</a>
-        <a href="#modeles">Modèles</a>
+        <a href="/modeles/">36 Modèles</a>
       </div>
     </div>
   </nav>
@@ -237,7 +237,7 @@
         <span id="update-date">Prix officiels synchronisés</span>
       </div>
       <h1>Cockpit du Coût Réel Automobile</h1>
-      <p style="color:var(--muted);max-width:660px;margin:0 auto;">Analysez votre budget au kilomètre, simulez vos trajets et comparez les énergies avec les relevés quotidiens officiels.</p>
+      <p style="color:var(--muted);max-width:660px;margin:0 auto;">Analysez votre budget au kilomètre, simulez vos trajets et comparez 36 modèles & énergies avec les relevés officiels quotidiens.</p>
     </header>
 
     <!-- 1. COCKPIT PRINCIPAL -->
@@ -247,13 +247,18 @@
         <span class="score-pill" id="eco-score">B Maîtrisé</span>
       </h2>
 
+      <div class="search-wrap">
+        <input type="text" id="model-search" class="search-input" placeholder="Rechercher parmi 36 modèles (ex : Audi A3, 3008, Golf 8, Tesla, Yaris...)" autocomplete="off" />
+        <div id="search-results" class="search-results"></div>
+      </div>
+
       <div class="presets">
-        <button class="preset-btn active" onclick="setPreset(this, 'Peugeot 208 Essence', 'E10', 5.4, 1050)">Peugeot 208 Essence</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Renault Clio 5 Diesel', 'Gazole', 4.6, 1150)">Renault Clio 5 Diesel</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Dacia Sandero E85', 'E85', 7.2, 950)">Dacia Sandero E85</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Toyota Yaris Hybride', 'E10', 4.3, 1000)">Toyota Yaris Hybride</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Tesla Model 3 Électrique', 'Electrique_kWh', 14.8, 900)">Tesla Model 3 Électrique</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Peugeot 3008 Diesel', 'Gazole', 5.8, 1300)">Peugeot 3008 Diesel</button>
+        <button class="preset-btn active" onclick="setPreset(this, 'Peugeot 208', 'E10', 5.4, 1050)">Peugeot 208</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Renault Clio 5', 'Gazole', 4.6, 1120)">Renault Clio 5</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Dacia Sandero', 'E10', 5.6, 920)">Dacia Sandero</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Toyota Yaris Hybride', 'E10', 4.2, 980)">Yaris Hybride</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Tesla Model 3', 'Electrique_kWh', 14.8, 950)">Tesla Model 3</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Peugeot 3008', 'Gazole', 5.8, 1320)">Peugeot 3008</button>
       </div>
 
       <div class="grid-cockpit">
@@ -311,8 +316,9 @@
             <div class="stat"><span>Coût / km</span><strong id="res-km">0.00 €</strong></div>
           </div>
 
-          <div class="action-row" style="justify-content:center;">
-            <button class="btn-ghost" onclick="copySummary()">Copier mon bilan</button>
+          <div class="action-row">
+            <button class="btn-ghost" onclick="copySummary()">Copier le bilan</button>
+            <button class="btn-ghost" onclick="shareLink()">Partager le lien</button>
           </div>
         </div>
       </div>
@@ -391,7 +397,6 @@
             <h3>Assurance Auto ajustée au kilomètre</h3>
             <p id="dynamic-ins-text">Vos frais fixes représentent une part importante de votre budget. Comparez gratuitement les offres adaptées à votre kilométrage réel.</p>
           </div>
-          <!-- REMPLACER #AFFILIATION-ASSURANCE PAR TON LIEN AFFILIÉ -->
           <a href="#affiliation-assurance" class="offer-btn" rel="nofollow sponsored">Comparer mon assurance auto →</a>
         </div>
         <div class="offer-card">
@@ -399,29 +404,40 @@
             <h3>Pièces, Pneus & Entretien malin</h3>
             <p>Réduisez votre consommation jusqu'à 8 % avec des pneus adaptés et comparez vos pièces d'entretien avant de passer au garage.</p>
           </div>
-          <!-- REMPLACER #AFFILIATION-EQUIPEMENT PAR TON LIEN AFFILIÉ -->
           <a href="#affiliation-equipement" class="offer-btn" rel="nofollow sponsored">Voir les offres entretien & pneus →</a>
         </div>
       </div>
     </section>
 
-    <!-- 6. FICHES MODELES SEO -->
+    <!-- 6. CATALOGUE MODELES & DUELS SEO -->
     <section id="modeles" class="card">
-      <h2>6. Fiches détaillées par modèle (prix à jour)</h2>
-      <p style="color:var(--muted);margin-top:-8px;margin-bottom:16px;font-size:0.9rem;">Consultez le coût réel annuel, mensuel et la rentabilité E85 des véhicules les plus populaires :</p>
+      <h2>
+        <span>6. Fiches détaillées & Duels populaires</span>
+        <a href="/modeles/" style="font-size:0.88rem;color:var(--accent);text-decoration:none;">Voir les 36 modèles →</a>
+      </h2>
+
+      <p style="color:var(--muted);margin-top:-6px;margin-bottom:12px;font-size:0.9rem;">Modèles les plus consultés :</p>
+      <div class="presets" style="margin-bottom:18px;">
+        <a href="/modeles/peugeot-208.html" class="preset-btn">Peugeot 208</a>
+        <a href="/modeles/renault-clio-5.html" class="preset-btn">Renault Clio 5</a>
+        <a href="/modeles/dacia-sandero.html" class="preset-btn">Dacia Sandero</a>
+        <a href="/modeles/tesla-model-3.html" class="preset-btn">Tesla Model 3</a>
+        <a href="/modeles/toyota-yaris-hybride.html" class="preset-btn">Yaris Hybride</a>
+        <a href="/modeles/peugeot-3008.html" class="preset-btn">Peugeot 3008</a>
+        <a href="/modeles/volkswagen-golf-8.html" class="preset-btn">Golf 8</a>
+        <a href="/modeles/audi-a3.html" class="preset-btn">Audi A3</a>
+        <a href="/modeles/bmw-serie-1.html" class="preset-btn">BMW Série 1</a>
+        <a href="/modeles/mg4-electrique.html" class="preset-btn">MG4 Électrique</a>
+      </div>
+
+      <p style="color:var(--muted);margin:0 0 12px;font-size:0.9rem;">Duels budget les plus serrés :</p>
       <div class="presets" style="margin-bottom:0;">
-        <a href="/modeles/peugeot-208.html" class="preset-btn" style="text-decoration:none;">Peugeot 208</a>
-        <a href="/modeles/renault-clio-5.html" class="preset-btn" style="text-decoration:none;">Renault Clio 5</a>
-        <a href="/modeles/dacia-sandero.html" class="preset-btn" style="text-decoration:none;">Dacia Sandero</a>
-        <a href="/modeles/tesla-model-3.html" class="preset-btn" style="text-decoration:none;">Tesla Model 3</a>
-        <a href="/modeles/toyota-yaris-hybride.html" class="preset-btn" style="text-decoration:none;">Toyota Yaris Hybride</a>
-        <a href="/modeles/peugeot-3008.html" class="preset-btn" style="text-decoration:none;">Peugeot 3008</a>
-        <a href="/modeles/citroen-c3.html" class="preset-btn" style="text-decoration:none;">Citroën C3</a>
-        <a href="/modeles/volkswagen-golf-8.html" class="preset-btn" style="text-decoration:none;">Volkswagen Golf 8</a>
-        <a href="/modeles/renault-captur.html" class="preset-btn" style="text-decoration:none;">Renault Captur</a>
-        <a href="/modeles/dacia-duster.html" class="preset-btn" style="text-decoration:none;">Dacia Duster</a>
-        <a href="/modeles/mg4-electrique.html" class="preset-btn" style="text-decoration:none;">MG4 Électrique</a>
-        <a href="/modeles/fiat-500-electrique.html" class="preset-btn" style="text-decoration:none;">Fiat 500 Électrique</a>
+        <a href="/duels/peugeot-208-vs-renault-clio-5.html" class="preset-btn">208 vs Clio 5</a>
+        <a href="/duels/dacia-sandero-vs-citroen-c3.html" class="preset-btn">Sandero vs C3</a>
+        <a href="/duels/tesla-model-3-vs-mg4-electrique.html" class="preset-btn">Tesla Model 3 vs MG4</a>
+        <a href="/duels/audi-a3-vs-bmw-serie-1.html" class="preset-btn">Audi A3 vs BMW Série 1</a>
+        <a href="/duels/peugeot-3008-vs-renault-austral.html" class="preset-btn">3008 vs Austral</a>
+        <a href="/duels/tesla-model-y-vs-peugeot-3008.html" class="preset-btn">Model Y vs 3008</a>
       </div>
     </section>
 
@@ -434,7 +450,7 @@
       </details>
       <details>
         <summary>Mes réglages sont-ils sauvegardés ?</summary>
-        <p>Oui, votre profil véhicule est mémorisé localement dans votre navigateur pour retrouver instantanément vos chiffres lors de votre prochaine visite.</p>
+        <p>Oui, votre profil véhicule est mémorisé localement dans votre navigateur et vous pouvez même partager un lien direct vers votre configuration exacte.</p>
       </details>
     </section>
   </div>
@@ -443,12 +459,20 @@
     <div>© 2027 simulateur-auto.com — Outil indépendant actualisé quotidiennement</div>
     <div style="margin-top:8px;">
       <a href="/">Accueil</a>
+      <a href="/modeles/">Catalogue 36 modèles</a>
       <a href="/mentions-legales.html">Mentions légales & Confidentialité</a>
     </div>
   </footer>
 
   <script>
     let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
+    let allModels = [
+      { name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine" },
+      { name: "Renault Clio 5", fuel: "Gazole", conso: 4.6, fixed: 1120, cat: "Citadine" },
+      { name: "Dacia Sandero", fuel: "E10", conso: 5.6, fixed: 920, cat: "Citadine" },
+      { name: "Tesla Model 3", fuel: "Electrique_kWh", conso: 14.8, fixed: 950, cat: "Électrique" }
+    ];
+
     const animState = { energy: 0, month: 0, kmCost: 0 };
     const STORAGE_KEY = 'sim_auto_2027_v3';
     const CIRCUMFERENCE = 2 * Math.PI * 64;
@@ -503,6 +527,19 @@
       }
     }
 
+    function shareLink() {
+      const params = new URLSearchParams({
+        fuel: document.getElementById('fuel').value,
+        km: document.getElementById('km').value,
+        conso: document.getElementById('conso').value,
+        fixed: document.getElementById('fixed').value
+      });
+      const url = `${window.location.origin}/?${params.toString()}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url).then(() => showToast('Lien de simulation copié !'));
+      }
+    }
+
     function saveState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
@@ -515,6 +552,14 @@
     }
 
     function loadState() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('fuel') || params.has('km') || params.has('conso')) {
+        if (params.get('fuel')) document.getElementById('fuel').value = params.get('fuel');
+        if (params.get('km')) { document.getElementById('km').value = params.get('km'); document.getElementById('km-range').value = params.get('km'); }
+        if (params.get('conso')) { document.getElementById('conso').value = params.get('conso'); document.getElementById('conso-range').value = params.get('conso'); }
+        if (params.get('fixed')) { document.getElementById('fixed').value = params.get('fixed'); document.getElementById('fixed-range').value = params.get('fixed'); }
+        return;
+      }
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return;
@@ -525,6 +570,40 @@
         if (s.fixed) { document.getElementById('fixed').value = s.fixed; document.getElementById('fixed-range').value = s.fixed; }
       } catch (e) {}
     }
+
+    // Barre de recherche instantanée des 36 modèles
+    const searchInput = document.getElementById('model-search');
+    const searchBox = document.getElementById('search-results');
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      if (!q) { searchBox.style.display = 'none'; return; }
+      const hits = allModels.filter(m => m.name.toLowerCase().includes(q) || (m.cat && m.cat.toLowerCase().includes(q))).slice(0, 8);
+      if (!hits.length) {
+        searchBox.innerHTML = '<div class="search-item" style="color:#94a3b8;cursor:default;">Aucun modèle trouvé</div>';
+      } else {
+        searchBox.innerHTML = hits.map((m, idx) => `
+          <div class="search-item" data-idx="${idx}">
+            <strong>${m.name}</strong>
+            <span>${m.cat || ''} • ${m.conso}</span>
+          </div>
+        `).join('');
+        searchBox.querySelectorAll('.search-item').forEach((el, idx) => {
+          el.addEventListener('click', () => {
+            const chosen = hits[idx];
+            setPreset(null, chosen.name, chosen.fuel, chosen.conso, chosen.fixed);
+            searchInput.value = '';
+            searchBox.style.display = 'none';
+            showToast('Modèle chargé : ' + chosen.name);
+          });
+        });
+      }
+      searchBox.style.display = 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrap')) searchBox.style.display = 'none';
+    });
 
     function bindSync(numId, rangeId) {
       const num = document.getElementById(numId);
@@ -589,7 +668,6 @@
       animateValue('res-month', 'month', totalMonth, ' €', 0);
       animateValue('res-km', 'kmCost', perKm, ' €', 2);
 
-      // Donut SVG
       const pctE = totalYear > 0 ? Math.round((energyCost / totalYear) * 100) : 50;
       const pctF = 100 - pctE;
       const lenE = (pctE / 100) * CIRCUMFERENCE;
@@ -600,18 +678,15 @@
       document.getElementById('pct-energy').textContent = pctE + '%';
       document.getElementById('pct-fixed').textContent = pctF + '%';
 
-      // CTA dynamique
       document.getElementById('dynamic-ins-text').textContent =
         `Vos frais fixes représentent ${pctF} % de votre budget auto (${fixed.toLocaleString('fr-FR')} €/an). Comparez gratuitement les offres d'assurance adaptées à vos ${km.toLocaleString('fr-FR')} km/an.`;
 
-      // Eco-Score
       const scoreEl = document.getElementById('eco-score');
       if (perKm <= 0.12) { scoreEl.textContent = 'A+ Ultra-Économe'; scoreEl.style.background = 'rgba(34,197,94,0.2)'; scoreEl.style.color = '#4ade80'; }
       else if (perKm <= 0.17) { scoreEl.textContent = 'B Maîtrisé'; scoreEl.style.background = 'rgba(56,189,248,0.2)'; scoreEl.style.color = '#38bdf8'; }
       else if (perKm <= 0.23) { scoreEl.textContent = 'C Moyen'; scoreEl.style.background = 'rgba(245,158,11,0.2)'; scoreEl.style.color = '#fbbf24'; }
       else { scoreEl.textContent = 'D Budget Élevé'; scoreEl.style.background = 'rgba(239,68,68,0.2)'; scoreEl.style.color = '#f87171'; }
 
-      // Trajet express
       const tripKm = parseFloat(document.getElementById('trip-km').value) || 0;
       const tripPax = Math.max(1, parseInt(document.getElementById('trip-pax').value, 10) || 1);
       const tripEnergy = (tripKm / 100) * conso * unitPrice;
@@ -620,7 +695,6 @@
       document.getElementById('trip-total').textContent = tripTotal.toFixed(2) + ' €';
       document.getElementById('trip-per-pax').textContent = (tripTotal / tripPax).toFixed(2) + ' €';
 
-      // Duel
       const altFuel = document.getElementById('alt-fuel').value;
       const altConso = parseFloat(document.getElementById('alt-conso').value) || 0;
       const altEnergyCost = (km / 100) * altConso * (prices[altFuel] || 1.75);
@@ -655,6 +729,11 @@
         calculate();
       })
       .catch(() => calculate());
+
+    fetch('models.json')
+      .then(r => r.json())
+      .then(data => { if (Array.isArray(data) && data.length) allModels = data; })
+      .catch(() => {});
 
     ['fuel', 'alt-conso', 'trip-km', 'trip-pax'].forEach(id => {
       document.getElementById(id).addEventListener('input', () => { saveState(); calculate(); });
