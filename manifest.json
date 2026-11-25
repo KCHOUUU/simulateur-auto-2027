@@ -1,0 +1,9 @@
+{
+  "name": "Simulateur Auto 2027",
+  "short_name": "SimuAuto",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050811",
+  "theme_color": "#38bdf8",
+  "description": "Cockpit gratuit du coût réel automobile, trajets et comparateur énergies."
+}
