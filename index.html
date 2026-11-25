@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Simulateur Auto 2027 — Cockpit Coût Réel, Trajet & Comparateur Énergies</title>
-  <meta name="description" content="Calculez en temps réel le coût au kilomètre de votre voiture, simulez vos trajets, comparez Électrique, E85, Diesel et Essence avec les prix officiels du jour." />
+  <meta name="description" content="Calculez en temps réel le coût au kilomètre de plus de 170 voitures, simulez vos trajets et comparez Électrique, E85, Diesel et Essence avec les prix officiels du jour." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#050811" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
   <meta property="og:title" content="Simulateur Auto 2027 — Coût Réel, Trajet & Comparateur Énergies" />
-  <meta property="og:description" content="Calculez votre budget auto au kilomètre, simulez vos trajets et comparez Électrique, E85, Diesel et Essence avec les prix officiels du jour." />
+  <meta property="og:description" content="Calculez votre budget auto au kilomètre sur plus de 170 modèles avec les prix officiels du jour." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://simulateur-auto.com/" />
   <style>
@@ -81,7 +81,6 @@
     .card:hover { border-color: rgba(56, 189, 248, 0.32); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Recherche véhicule */
     .search-wrap { position: relative; margin-bottom: 14px; }
     .search-input {
       width: 100%; padding: 12px 14px; border-radius: 11px;
@@ -92,7 +91,7 @@
     .search-results {
       position: absolute; top: 100%; left: 0; right: 0; z-index: 40;
       background: #0b1222; border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 12px; margin-top: 6px; max-height: 250px; overflow-y: auto;
+      border-radius: 12px; margin-top: 6px; max-height: 280px; overflow-y: auto;
       display: none; box-shadow: 0 16px 36px rgba(0,0,0,0.55);
     }
     .search-item {
@@ -225,7 +224,7 @@
         <a href="#trajet">Trajet Express</a>
         <a href="#classement">Top Énergies</a>
         <a href="#comparateur">Duel</a>
-        <a href="/modeles/">36 Modèles</a>
+        <a href="/modeles/">Catalogue (<span class="model-count">170+</span>)</a>
       </div>
     </div>
   </nav>
@@ -237,7 +236,7 @@
         <span id="update-date">Prix officiels synchronisés</span>
       </div>
       <h1>Cockpit du Coût Réel Automobile</h1>
-      <p style="color:var(--muted);max-width:660px;margin:0 auto;">Analysez votre budget au kilomètre, simulez vos trajets et comparez 36 modèles & énergies avec les relevés officiels quotidiens.</p>
+      <p style="color:var(--muted);max-width:680px;margin:0 auto;">Analysez votre budget au kilomètre, simulez vos trajets et comparez <strong class="model-count" style="color:var(--text);">170+</strong> modèles sur 32 marques avec les relevés officiels quotidiens.</p>
     </header>
 
     <!-- 1. COCKPIT PRINCIPAL -->
@@ -248,7 +247,7 @@
       </h2>
 
       <div class="search-wrap">
-        <input type="text" id="model-search" class="search-input" placeholder="Rechercher parmi 36 modèles (ex : Audi A3, 3008, Golf 8, Tesla, Yaris...)" autocomplete="off" />
+        <input type="text" id="model-search" class="search-input" placeholder="Rechercher parmi toutes les marques (ex : Peugeot, BMW, Tesla, Porsche, BYD, Golf...)" autocomplete="off" />
         <div id="search-results" class="search-results"></div>
       </div>
 
@@ -258,7 +257,7 @@
         <button class="preset-btn" onclick="setPreset(this, 'Dacia Sandero', 'E10', 5.6, 920)">Dacia Sandero</button>
         <button class="preset-btn" onclick="setPreset(this, 'Toyota Yaris Hybride', 'E10', 4.2, 980)">Yaris Hybride</button>
         <button class="preset-btn" onclick="setPreset(this, 'Tesla Model 3', 'Electrique_kWh', 14.8, 950)">Tesla Model 3</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Peugeot 3008', 'Gazole', 5.8, 1320)">Peugeot 3008</button>
+        <button class="preset-btn" onclick="setPreset(this, 'Volkswagen Golf 8', 'E10', 5.9, 1280)">Golf 8</button>
       </div>
 
       <div class="grid-cockpit">
@@ -409,11 +408,11 @@
       </div>
     </section>
 
-    <!-- 6. CATALOGUE MODELES & DUELS SEO -->
+    <!-- 6. CATALOGUE COMPLET & DUELS SEO -->
     <section id="modeles" class="card">
       <h2>
         <span>6. Fiches détaillées & Duels populaires</span>
-        <a href="/modeles/" style="font-size:0.88rem;color:var(--accent);text-decoration:none;">Voir les 36 modèles →</a>
+        <a href="/modeles/" style="font-size:0.88rem;color:var(--accent);text-decoration:none;">Ouvrir les <span class="model-count">170+</span> modèles →</a>
       </h2>
 
       <p style="color:var(--muted);margin-top:-6px;margin-bottom:12px;font-size:0.9rem;">Modèles les plus consultés :</p>
@@ -422,22 +421,22 @@
         <a href="/modeles/renault-clio-5.html" class="preset-btn">Renault Clio 5</a>
         <a href="/modeles/dacia-sandero.html" class="preset-btn">Dacia Sandero</a>
         <a href="/modeles/tesla-model-3.html" class="preset-btn">Tesla Model 3</a>
-        <a href="/modeles/toyota-yaris-hybride.html" class="preset-btn">Yaris Hybride</a>
+        <a href="/modeles/renault-5-e-tech.html" class="preset-btn">Renault 5 E-Tech</a>
         <a href="/modeles/peugeot-3008.html" class="preset-btn">Peugeot 3008</a>
         <a href="/modeles/volkswagen-golf-8.html" class="preset-btn">Golf 8</a>
         <a href="/modeles/audi-a3.html" class="preset-btn">Audi A3</a>
         <a href="/modeles/bmw-serie-1.html" class="preset-btn">BMW Série 1</a>
-        <a href="/modeles/mg4-electrique.html" class="preset-btn">MG4 Électrique</a>
+        <a href="/modeles/porsche-911-carrera.html" class="preset-btn">Porsche 911</a>
       </div>
 
       <p style="color:var(--muted);margin:0 0 12px;font-size:0.9rem;">Duels budget les plus serrés :</p>
       <div class="presets" style="margin-bottom:0;">
         <a href="/duels/peugeot-208-vs-renault-clio-5.html" class="preset-btn">208 vs Clio 5</a>
-        <a href="/duels/dacia-sandero-vs-citroen-c3.html" class="preset-btn">Sandero vs C3</a>
-        <a href="/duels/tesla-model-3-vs-mg4-electrique.html" class="preset-btn">Tesla Model 3 vs MG4</a>
-        <a href="/duels/audi-a3-vs-bmw-serie-1.html" class="preset-btn">Audi A3 vs BMW Série 1</a>
-        <a href="/duels/peugeot-3008-vs-renault-austral.html" class="preset-btn">3008 vs Austral</a>
-        <a href="/duels/tesla-model-y-vs-peugeot-3008.html" class="preset-btn">Model Y vs 3008</a>
+        <a href="/duels/renault-5-e-tech-vs-peugeot-e-208.html" class="preset-btn">R5 E-Tech vs e-208</a>
+        <a href="/duels/tesla-model-3-vs-mg4-electrique.html" class="preset-btn">Model 3 vs MG4</a>
+        <a href="/duels/audi-a3-vs-bmw-serie-1.html" class="preset-btn">Audi A3 vs Série 1</a>
+        <a href="/duels/dacia-spring-vs-citroen-e-c3.html" class="preset-btn">Spring vs ë-C3</a>
+        <a href="/duels/cupra-formentor-vs-volkswagen-t-roc.html" class="preset-btn">Formentor vs T-Roc</a>
       </div>
     </section>
 
@@ -449,8 +448,8 @@
         <p>Oui, les moyennes nationales du Gazole, SP95, SP95-E10, SP98 et E85 sont recalculées automatiquement chaque matin à partir des données publiques des stations-service françaises.</p>
       </details>
       <details>
-        <summary>Mes réglages sont-ils sauvegardés ?</summary>
-        <p>Oui, votre profil véhicule est mémorisé localement dans votre navigateur et vous pouvez même partager un lien direct vers votre configuration exacte.</p>
+        <summary>Mon modèle n'est pas dans la liste : puis-je quand même calculer mon coût ?</summary>
+        <p>Oui, il suffit de choisir votre motorisation et d'ajuster directement les curseurs de consommation et de frais fixes dans le cockpit ci-dessus.</p>
       </details>
     </section>
   </div>
@@ -459,7 +458,7 @@
     <div>© 2027 simulateur-auto.com — Outil indépendant actualisé quotidiennement</div>
     <div style="margin-top:8px;">
       <a href="/">Accueil</a>
-      <a href="/modeles/">Catalogue 36 modèles</a>
+      <a href="/modeles/">Catalogue complet</a>
       <a href="/mentions-legales.html">Mentions légales & Confidentialité</a>
     </div>
   </footer>
@@ -467,10 +466,10 @@
   <script>
     let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
     let allModels = [
-      { name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine" },
-      { name: "Renault Clio 5", fuel: "Gazole", conso: 4.6, fixed: 1120, cat: "Citadine" },
-      { name: "Dacia Sandero", fuel: "E10", conso: 5.6, fixed: 920, cat: "Citadine" },
-      { name: "Tesla Model 3", fuel: "Electrique_kWh", conso: 14.8, fixed: 950, cat: "Électrique" }
+      { brand: "Peugeot", name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine" },
+      { brand: "Renault", name: "Renault Clio 5", fuel: "Gazole", conso: 4.6, fixed: 1120, cat: "Citadine" },
+      { brand: "Dacia", name: "Dacia Sandero", fuel: "E10", conso: 5.6, fixed: 920, cat: "Citadine" },
+      { brand: "Tesla", name: "Tesla Model 3", fuel: "Electrique_kWh", conso: 14.8, fixed: 950, cat: "Électrique" }
     ];
 
     const animState = { energy: 0, month: 0, kmCost: 0 };
@@ -571,16 +570,19 @@
       } catch (e) {}
     }
 
-    // Barre de recherche instantanée des 36 modèles
     const searchInput = document.getElementById('model-search');
     const searchBox = document.getElementById('search-results');
 
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.trim().toLowerCase();
       if (!q) { searchBox.style.display = 'none'; return; }
-      const hits = allModels.filter(m => m.name.toLowerCase().includes(q) || (m.cat && m.cat.toLowerCase().includes(q))).slice(0, 8);
+      const hits = allModels.filter(m =>
+        m.name.toLowerCase().includes(q) ||
+        (m.brand && m.brand.toLowerCase().includes(q)) ||
+        (m.cat && m.cat.toLowerCase().includes(q))
+      ).slice(0, 12);
       if (!hits.length) {
-        searchBox.innerHTML = '<div class="search-item" style="color:#94a3b8;cursor:default;">Aucun modèle trouvé</div>';
+        searchBox.innerHTML = '<div class="search-item" style="color:#94a3b8;cursor:default;">Aucun modèle trouvé — ajustez les curseurs librement ci-dessous</div>';
       } else {
         searchBox.innerHTML = hits.map((m, idx) => `
           <div class="search-item" data-idx="${idx}">
@@ -732,7 +734,12 @@
 
     fetch('models.json')
       .then(r => r.json())
-      .then(data => { if (Array.isArray(data) && data.length) allModels = data; })
+      .then(data => {
+        if (Array.isArray(data) && data.length) {
+          allModels = data;
+          document.querySelectorAll('.model-count').forEach(el => el.textContent = data.length);
+        }
+      })
       .catch(() => {});
 
     ['fuel', 'alt-conso', 'trip-km', 'trip-pax'].forEach(id => {
