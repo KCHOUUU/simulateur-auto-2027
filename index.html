@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur Auto 2027 — Cockpit Coût Réel, Trajet & Comparateur Énergies</title>
-  <meta name="description" content="Calculez en temps réel le coût au kilomètre de plus de 170 voitures, simulez vos trajets et comparez Électrique, E85, Diesel et Essence avec les prix officiels du jour." />
+  <title>Simulateur Auto 2027 — Cockpit Coût Réel, Radar Stations & Duel 8 Ans</title>
+  <meta name="description" content="Calculez le coût réel de votre voiture avec les stations les moins chères de votre département, le choc sur votre salaire, une carte Story PNG et un duel sur 8 ans." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#050811" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
-  <meta property="og:title" content="Simulateur Auto 2027 — Coût Réel, Trajet & Comparateur Énergies" />
-  <meta property="og:description" content="Calculez votre budget auto au kilomètre sur plus de 170 modèles avec les prix officiels du jour." />
+  <meta property="og:title" content="Simulateur Auto 2027 — Cockpit Coût Réel, Radar Stations & Duel 8 Ans" />
+  <meta property="og:description" content="Découvrez combien d'heures par mois vous travaillez pour payer votre voiture et trouvez les stations moins chères de votre département." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://simulateur-auto.com/" />
   <style>
     :root {
       --bg: #050811;
-      --card: rgba(15, 23, 42, 0.78);
+      --card: rgba(15, 23, 42, 0.8);
       --accent: #38bdf8;
       --accent-2: #818cf8;
       --green: #22c55e;
@@ -44,21 +44,21 @@
     }
 
     nav {
-      background: rgba(5, 8, 17, 0.82); backdrop-filter: blur(16px);
+      background: rgba(5, 8, 17, 0.84); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border); padding: 14px 20px;
       position: sticky; top: 0; z-index: 30;
     }
-    .nav-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .nav-inner { max-width: 1040px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
     .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -0.4px; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.86rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
 
-    .container { max-width: 1020px; margin: 0 auto; padding: 28px 20px; }
-    header { text-align: center; margin-bottom: 30px; animation: fadeUp 0.55s ease-out; }
-    h1 { font-size: 2.2rem; margin: 14px 0 8px; line-height: 1.15; letter-spacing: -0.6px; }
-    h2 { font-size: 1.25rem; margin: 0 0 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .container { max-width: 1040px; margin: 0 auto; padding: 28px 20px; }
+    header { text-align: center; margin-bottom: 28px; animation: fadeUp 0.55s ease-out; }
+    h1 { font-size: 2.15rem; margin: 14px 0 8px; line-height: 1.15; letter-spacing: -0.6px; }
+    h2 { font-size: 1.24rem; margin: 0 0 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
     .live-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -101,10 +101,10 @@
     .search-item:hover { background: rgba(56, 189, 248, 0.14); }
     .search-item span { font-size: 0.8rem; color: var(--muted); }
 
-    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .preset-btn {
       background: rgba(15, 23, 42, 0.9); color: var(--text); border: 1px solid var(--border);
-      padding: 8px 13px; border-radius: 10px; font-size: 0.84rem; font-weight: 500;
+      padding: 7px 12px; border-radius: 10px; font-size: 0.83rem; font-weight: 500;
       cursor: pointer; transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); text-decoration: none;
     }
     .preset-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
@@ -113,19 +113,19 @@
       box-shadow: 0 0 18px rgba(56, 189, 248, 0.28);
     }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .grid-cockpit { display: grid; grid-template-columns: 1.35fr 0.85fr; gap: 24px; align-items: center; }
-    @media (max-width: 820px) { .grid-cockpit, .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
+    .grid-cockpit { display: grid; grid-template-columns: 1.32fr 0.88fr; gap: 24px; align-items: start; }
+    @media (max-width: 840px) { .grid-cockpit, .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
 
     .field { margin-bottom: 14px; }
-    .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    label { font-size: 0.86rem; color: var(--muted); }
-    .val-pill { font-size: 0.84rem; font-weight: 700; color: var(--accent); background: rgba(56, 189, 248, 0.12); padding: 2px 9px; border-radius: 6px; }
+    .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 8px; }
+    label { font-size: 0.85rem; color: var(--muted); }
+    .val-pill { font-size: 0.82rem; font-weight: 700; color: var(--accent); background: rgba(56, 189, 248, 0.12); padding: 2px 9px; border-radius: 6px; white-space: nowrap; }
 
     input[type="number"], select {
       width: 100%; padding: 10px 12px; border-radius: 10px;
-      border: 1px solid var(--border); background: #090e1a; color: #fff; font-size: 0.98rem;
+      border: 1px solid var(--border); background: #090e1a; color: #fff; font-size: 0.96rem;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
     input[type="number"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.18); }
@@ -141,43 +141,79 @@
     }
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.22); }
 
+    /* Radar Stations Locales */
+    .radar-box {
+      margin-top: 14px; background: rgba(9, 14, 26, 0.9); border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 14px; padding: 14px;
+    }
+    .radar-head { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 8px; flex-wrap: wrap; gap: 6px; }
+    .st-mini {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      padding: 7px 10px; background: rgba(15, 23, 42, 0.85); border-radius: 8px;
+      margin-bottom: 6px; font-size: 0.82rem; border: 1px solid rgba(148,163,184,0.1);
+    }
+    .st-mini:last-child { margin-bottom: 0; }
+    .st-mini strong { color: #4ade80; font-size: 0.9rem; white-space: nowrap; }
+
+    /* Donut & Choc Salaire */
     .donut-panel { background: #090e1a; border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; }
-    .donut-wrap { position: relative; width: 164px; height: 164px; margin: 0 auto 14px; }
-    .donut-wrap svg { transform: rotate(-90deg); width: 164px; height: 164px; }
+    .donut-wrap { position: relative; width: 158px; height: 158px; margin: 0 auto 12px; }
+    .donut-wrap svg { transform: rotate(-90deg); width: 158px; height: 158px; }
     .donut-seg { fill: none; stroke-width: 16; stroke-linecap: round; transition: stroke-dasharray 0.5s ease, stroke-dashoffset 0.5s ease; }
     .donut-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .donut-center strong { font-size: 1.55rem; color: #4ade80; font-variant-numeric: tabular-nums; }
-    .donut-center span { font-size: 0.76rem; color: var(--muted); }
-    .legend { display: flex; justify-content: center; gap: 14px; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
-    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; }
+    .donut-center strong { font-size: 1.5rem; color: #4ade80; font-variant-numeric: tabular-nums; }
+    .donut-center span { font-size: 0.75rem; color: var(--muted); }
+    .legend { display: flex; justify-content: center; gap: 12px; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
 
-    .stat { background: #090e1a; padding: 15px 12px; border-radius: 14px; text-align: center; border: 1px solid var(--border); transition: transform 0.2s; }
+    .shock-box {
+      margin-top: 14px; padding: 12px; border-radius: 12px; text-align: left;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(239, 68, 68, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .shock-box .shock-title { font-size: 0.78rem; font-weight: 700; color: #fbbf24; text-transform: uppercase; letter-spacing: 0.4px; }
+    .shock-box .shock-main { font-size: 0.96rem; font-weight: 700; color: #f8fafc; margin: 4px 0 2px; }
+    .shock-box .shock-sub { font-size: 0.8rem; color: #cbd5e1; }
+
+    .stat { background: #090e1a; padding: 14px 10px; border-radius: 14px; text-align: center; border: 1px solid var(--border); transition: transform 0.2s; }
     .stat:hover { transform: translateY(-2px); }
-    .stat span { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-    .stat strong { font-size: 1.38rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .stat span { display: block; font-size: 0.76rem; color: var(--muted); margin-bottom: 4px; }
+    .stat strong { font-size: 1.32rem; color: var(--accent); font-variant-numeric: tabular-nums; }
 
-    .score-pill { display: inline-block; padding: 3px 10px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; }
+    .score-pill { display: inline-block; padding: 3px 10px; border-radius: 8px; font-weight: 800; font-size: 0.84rem; }
 
-    .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; justify-content: center; }
+    .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; justify-content: center; }
     .btn-ghost {
       background: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid rgba(56, 189, 248, 0.3);
-      padding: 9px 13px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+      padding: 9px 12px; border-radius: 10px; font-size: 0.81rem; font-weight: 600; cursor: pointer; transition: 0.2s;
     }
     .btn-ghost:hover { background: rgba(56, 189, 248, 0.2); transform: translateY(-1px); }
+    .btn-story {
+      width: 100%; margin-top: 10px;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; border: none;
+      padding: 11px 14px; border-radius: 11px; font-size: 0.86rem; font-weight: 700;
+      cursor: pointer; transition: 0.2s; box-shadow: 0 8px 20px rgba(14, 165, 233, 0.28);
+    }
+    .btn-story:hover { transform: translateY(-1px); filter: brightness(1.08); }
 
     .rank-item { background: #090e1a; border: 1px solid var(--border); border-radius: 12px; padding: 12px 15px; margin-bottom: 10px; }
     .rank-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; font-size: 0.9rem; }
     .rank-track { height: 8px; background: #1e293b; border-radius: 999px; overflow: hidden; }
     .rank-fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
-    .bar-track { height: 14px; background: #1e293b; border-radius: 999px; overflow: hidden; display: flex; margin-top: 8px; }
-    .bar-current { height: 100%; background: linear-gradient(90deg, #38bdf8, #3b82f6); transition: width 0.5s ease; }
-    .bar-alt { height: 100%; background: linear-gradient(90deg, #10b981, #22c55e); transition: width 0.5s ease; }
+    /* Duel 8 ans */
+    .duel-col { background: #090e1a; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .duel-col h3 { margin: 0 0 12px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
+    .chart-box {
+      margin-top: 18px; background: #090e1a; border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px;
+    }
+    .chart-box svg { width: 100%; height: auto; display: block; }
 
     .saving-banner {
       margin-top: 14px; padding: 14px; border-radius: 11px;
       background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35);
-      text-align: center; font-weight: 600; font-size: 0.94rem;
+      text-align: center; font-weight: 600; font-size: 0.94rem; color: #4ade80;
     }
 
     .offer-card {
@@ -222,8 +258,8 @@
       <div class="nav-links">
         <a href="#simulateur">Cockpit</a>
         <a href="#trajet">Trajet Express</a>
-        <a href="#classement">Top Énergies</a>
-        <a href="#comparateur">Duel</a>
+        <a href="#comparateur">Duel 8 Ans</a>
+        <a href="/carburant/">Stations 96 Dépts</a>
         <a href="/modeles/">Catalogue (<span class="model-count">170+</span>)</a>
       </div>
     </div>
@@ -236,18 +272,18 @@
         <span id="update-date">Prix officiels synchronisés</span>
       </div>
       <h1>Cockpit du Coût Réel Automobile</h1>
-      <p style="color:var(--muted);max-width:680px;margin:0 auto;">Analysez votre budget au kilomètre, simulez vos trajets et comparez <strong class="model-count" style="color:var(--text);">170+</strong> modèles sur 32 marques avec les relevés officiels quotidiens.</p>
+      <p style="color:var(--muted);max-width:700px;margin:0 auto;">Prix réels des stations de votre département, impact en heures travaillées sur votre salaire, carte Story PNG et duel de rentabilité sur 8 ans.</p>
     </header>
 
-    <!-- 1. COCKPIT PRINCIPAL -->
+    <!-- 1. COCKPIT PRINCIPAL + RADAR STATIONS + CHOC SALAIRE -->
     <section id="simulateur" class="card">
       <h2>
-        <span>1. Votre véhicule & répartition budgétaire</span>
+        <span>1. Votre véhicule, radar local & choc salaire</span>
         <span class="score-pill" id="eco-score">B Maîtrisé</span>
       </h2>
 
       <div class="search-wrap">
-        <input type="text" id="model-search" class="search-input" placeholder="Rechercher parmi toutes les marques (ex : Peugeot, BMW, Tesla, Porsche, BYD, Golf...)" autocomplete="off" />
+        <input type="text" id="model-search" class="search-input" placeholder="Charger une voiture parmi 170+ modèles (ex : Peugeot 208, BMW X1, Tesla Model 3, Audi A3, Porsche...)" autocomplete="off" />
         <div id="search-results" class="search-results"></div>
       </div>
 
@@ -262,15 +298,24 @@
 
       <div class="grid-cockpit">
         <div>
-          <div class="field">
-            <div class="field-header"><label>Motorisation / Énergie</label></div>
-            <select id="fuel">
-              <option value="Gazole">Diesel (Gazole)</option>
-              <option value="E10" selected>Essence SP95-E10</option>
-              <option value="SP98">Essence SP98</option>
-              <option value="E85">Superéthanol E85</option>
-              <option value="Electrique_kWh">100 % Électrique (recharge domicile)</option>
-            </select>
+          <div class="grid-2" style="gap:12px;">
+            <div class="field" style="margin-bottom:8px;">
+              <div class="field-header"><label>Motorisation / Énergie</label></div>
+              <select id="fuel">
+                <option value="Gazole">Diesel (Gazole)</option>
+                <option value="E10" selected>Essence SP95-E10</option>
+                <option value="SP98">Essence SP98</option>
+                <option value="E85">Superéthanol E85</option>
+                <option value="Electrique_kWh">100 % Électrique (domicile)</option>
+              </select>
+            </div>
+
+            <div class="field" style="margin-bottom:8px;">
+              <div class="field-header"><label>Département (Radar prix)</label></div>
+              <select id="dept-select">
+                <option value="FR">Moyenne France entière</option>
+              </select>
+            </div>
           </div>
 
           <div class="field">
@@ -285,13 +330,37 @@
             <input type="range" id="conso-range" min="3" max="25" step="0.1" value="5.4" />
           </div>
 
-          <div class="field" style="margin-bottom:0;">
+          <div class="field">
             <div class="field-header"><label>Assurance + Entretien + Pneus / an (€)</label><span class="val-pill" id="fixed-pill">1 050 €</span></div>
             <input type="number" id="fixed" value="1050" min="0" max="6000" step="50" />
             <input type="range" id="fixed-range" min="300" max="3500" step="50" value="1050" />
           </div>
+
+          <!-- Option Financement / Décote + Salaire net -->
+          <div class="grid-2" style="gap:12px;background:#090e1a;border:1px solid var(--border);border-radius:12px;padding:12px;">
+            <div>
+              <div class="field-header"><label>Crédit / LOA / Décote (€/mois)</label></div>
+              <input type="number" id="finance" value="0" min="0" max="2500" step="10" placeholder="0 = voiture payée" />
+            </div>
+            <div>
+              <div class="field-header"><label>Votre salaire net / mois (€)</label></div>
+              <input type="number" id="salary" value="2000" min="500" max="20000" step="50" />
+            </div>
+          </div>
+
+          <!-- Radar Top 3 stations moins chères du département -->
+          <div class="radar-box" id="radar-box">
+            <div class="radar-head">
+              <strong style="color:var(--accent);" id="radar-title">Stations moins chères : sélectionnez votre département</strong>
+              <a href="/carburant/" id="radar-more" style="font-size:0.8rem;color:var(--accent);text-decoration:none;">Voir les 96 dépts →</a>
+            </div>
+            <div id="radar-list" style="font-size:0.83rem;color:var(--muted);">
+              Choisissez un département ci-dessus pour appliquer les prix locaux en direct et afficher les 3 stations les moins chères autour de vous.
+            </div>
+          </div>
         </div>
 
+        <!-- Panneau droit : Donut + Choc Salaire + Carte Story PNG -->
         <div class="donut-panel">
           <div class="donut-wrap">
             <svg viewBox="0 0 160 160">
@@ -307,13 +376,21 @@
 
           <div class="legend">
             <span><i class="dot" style="background:#38bdf8;"></i>Énergie (<b id="pct-energy">50%</b>)</span>
-            <span><i class="dot" style="background:#818cf8;"></i>Fixes (<b id="pct-fixed">50%</b>)</span>
+            <span><i class="dot" style="background:#818cf8;"></i>Fixes/LOA (<b id="pct-fixed">50%</b>)</span>
           </div>
 
-          <div class="grid-2" style="margin-top:16px;gap:10px;">
+          <div class="grid-2" style="margin-top:14px;gap:10px;">
             <div class="stat"><span>Énergie / an</span><strong id="res-energy">0 €</strong></div>
             <div class="stat"><span>Coût / km</span><strong id="res-km">0.00 €</strong></div>
           </div>
+
+          <div class="shock-box">
+            <div class="shock-title">Choc Salaire (100 % privé sur votre appareil)</div>
+            <div class="shock-main" id="shock-hours">12.5 h de travail / mois</div>
+            <div class="shock-sub" id="shock-days">Soit 8 % de votre salaire : vous travaillez du 1er au 3 du mois uniquement pour payer la voiture.</div>
+          </div>
+
+          <button class="btn-story" onclick="downloadStoryCard()">Télécharger ma carte Story (PNG)</button>
 
           <div class="action-row">
             <button class="btn-ghost" onclick="copySummary()">Copier le bilan</button>
@@ -325,7 +402,7 @@
 
     <!-- 2. CALCULATEUR TRAJET EXPRESS -->
     <section id="trajet" class="card">
-      <h2>2. Calculateur de trajet express</h2>
+      <h2>2. Calculateur de trajet express (aux prix de votre secteur)</h2>
       <div class="presets" style="margin-bottom:14px;">
         <button class="preset-btn" onclick="setTrip(40)">Trajet travail (40 km)</button>
         <button class="preset-btn" onclick="setTrip(300)">Week-end (300 km)</button>
@@ -351,40 +428,97 @@
 
     <!-- 3. CLASSEMENT LIVE DES 5 ENERGIES -->
     <section id="classement" class="card">
-      <h2>3. Classement des énergies aujourd'hui (pour 100 km)</h2>
+      <h2>
+        <span>3. Classement des énergies aujourd'hui (pour 100 km)</span>
+        <span id="rank-zone" style="font-size:0.84rem;color:var(--muted);font-weight:500;">Moyenne France</span>
+      </h2>
       <div id="energy-ranking"></div>
     </section>
 
-    <!-- 4. DUEL COMPARATEUR -->
+    <!-- 4. DUEL 1V1 AVEC COURBE DE RENTABILITE SUR 8 ANS -->
     <section id="comparateur" class="card">
-      <h2>4. Duel en direct : votre voiture vs une alternative</h2>
+      <h2>4. Duel 1v1 : Courbe de rentabilité sur 8 ans (Achat + Usage)</h2>
+      <p style="color:var(--muted);margin-top:-8px;margin-bottom:16px;font-size:0.9rem;">Comparez deux voitures sur la durée (ex : Diesel d'occasion vs Électrique neuve) pour voir <strong>le mois exact</strong> où la plus chère à l'achat devient rentable.</p>
+
       <div class="grid-2">
-        <div>
-          <label>Motorisation alternative à tester</label>
-          <select id="alt-fuel">
-            <option value="Electrique_kWh">100 % Électrique (15.5 kWh/100km)</option>
-            <option value="E85">Superéthanol E85 (7.4 L/100km)</option>
-            <option value="Gazole">Diesel Gazole (4.9 L/100km)</option>
-            <option value="E10">Essence SP95-E10 (5.8 L/100km)</option>
-          </select>
+        <div class="duel-col">
+          <h3><i class="dot" style="background:#38bdf8;"></i> Véhicule A</h3>
+          <div class="field">
+            <label>Choisir un modèle (ou laisser libre)</label>
+            <select id="d1-model"></select>
+          </div>
+          <div class="grid-2" style="gap:10px;">
+            <div>
+              <label>Prix d'achat / Apport (€)</label>
+              <input type="number" id="d1-buy" value="18900" min="0" max="250000" step="500" />
+            </div>
+            <div>
+              <label>Énergie</label>
+              <select id="d1-fuel">
+                <option value="E10" selected>SP95-E10</option>
+                <option value="Gazole">Gazole</option>
+                <option value="E85">E85</option>
+                <option value="Electrique_kWh">Électrique</option>
+                <option value="SP98">SP98</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="gap:10px;margin-top:10px;">
+            <div>
+              <label>Conso / 100 km</label>
+              <input type="number" id="d1-conso" value="5.4" min="1" max="30" step="0.1" />
+            </div>
+            <div>
+              <label>Assurance + Entretien / an (€)</label>
+              <input type="number" id="d1-fixed" value="1050" min="0" max="8000" step="50" />
+            </div>
+          </div>
         </div>
-        <div>
-          <label>Consommation alternative estimée</label>
-          <input type="number" id="alt-conso" value="15.5" min="1" step="0.1" />
+
+        <div class="duel-col">
+          <h3><i class="dot" style="background:#22c55e;"></i> Véhicule B</h3>
+          <div class="field">
+            <label>Choisir un modèle (ou laisser libre)</label>
+            <select id="d2-model"></select>
+          </div>
+          <div class="grid-2" style="gap:10px;">
+            <div>
+              <label>Prix d'achat / Apport (€)</label>
+              <input type="number" id="d2-buy" value="27900" min="0" max="250000" step="500" />
+            </div>
+            <div>
+              <label>Énergie</label>
+              <select id="d2-fuel">
+                <option value="Electrique_kWh" selected>Électrique</option>
+                <option value="E10">SP95-E10</option>
+                <option value="Gazole">Gazole</option>
+                <option value="E85">E85</option>
+                <option value="SP98">SP98</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="gap:10px;margin-top:10px;">
+            <div>
+              <label>Conso / 100 km</label>
+              <input type="number" id="d2-conso" value="14.9" min="1" max="30" step="0.1" />
+            </div>
+            <div>
+              <label>Assurance + Entretien / an (€)</label>
+              <input type="number" id="d2-fixed" value="860" min="0" max="8000" step="50" />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div style="margin-top:16px;background:#090e1a;border:1px solid var(--border);border-radius:12px;padding:15px;">
-        <div style="display:flex;justify-content:space-between;font-size:0.86rem;font-weight:600;flex-wrap:wrap;gap:6px;">
-          <span style="color:var(--accent);">Votre véhicule : <strong id="duel-cur-txt">— €/an</strong></span>
-          <span style="color:#4ade80;">Alternative : <strong id="duel-alt-txt">— €/an</strong></span>
+      <div class="chart-box">
+        <div style="display:flex;justify-content:space-between;font-size:0.84rem;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+          <span><i class="dot" style="background:#38bdf8;"></i><strong id="d1-leg">Véhicule A</strong> : <b id="d1-8y">— €</b> sur 8 ans</span>
+          <span><i class="dot" style="background:#22c55e;"></i><strong id="d2-leg">Véhicule B</strong> : <b id="d2-8y">— €</b> sur 8 ans</span>
         </div>
-        <div class="bar-track">
-          <div class="bar-current" id="bar-cur" style="width:50%;"></div>
-          <div class="bar-alt" id="bar-alt" style="width:50%;"></div>
-        </div>
+        <svg id="duel-svg" viewBox="0 0 760 230" preserveAspectRatio="none"></svg>
       </div>
-      <div class="saving-banner" id="saving-result">Calcul en cours...</div>
+
+      <div class="saving-banner" id="saving-result">Calcul de rentabilité en cours...</div>
     </section>
 
     <!-- 5. SOLUTIONS & AFFILIATION DYNAMIQUE -->
@@ -408,15 +542,18 @@
       </div>
     </section>
 
-    <!-- 6. CATALOGUE COMPLET & DUELS SEO -->
+    <!-- 6. CATALOGUE COMPLET, DUELS & RADAR DEPARTEMENTS -->
     <section id="modeles" class="card">
       <h2>
-        <span>6. Fiches détaillées & Duels populaires</span>
-        <a href="/modeles/" style="font-size:0.88rem;color:var(--accent);text-decoration:none;">Ouvrir les <span class="model-count">170+</span> modèles →</a>
+        <span>6. Explorer tout le catalogue & les stations locales</span>
+        <div style="display:flex;gap:14px;font-size:0.88rem;">
+          <a href="/carburant/" style="color:#4ade80;text-decoration:none;">Stations 96 dépts →</a>
+          <a href="/modeles/" style="color:var(--accent);text-decoration:none;"><span class="model-count">170+</span> modèles →</a>
+        </div>
       </h2>
 
-      <p style="color:var(--muted);margin-top:-6px;margin-bottom:12px;font-size:0.9rem;">Modèles les plus consultés :</p>
-      <div class="presets" style="margin-bottom:18px;">
+      <p style="color:var(--muted);margin-top:-6px;margin-bottom:10px;font-size:0.88rem;">Fiches modèles populaires :</p>
+      <div class="presets" style="margin-bottom:16px;">
         <a href="/modeles/peugeot-208.html" class="preset-btn">Peugeot 208</a>
         <a href="/modeles/renault-clio-5.html" class="preset-btn">Renault Clio 5</a>
         <a href="/modeles/dacia-sandero.html" class="preset-btn">Dacia Sandero</a>
@@ -429,14 +566,16 @@
         <a href="/modeles/porsche-911-carrera.html" class="preset-btn">Porsche 911</a>
       </div>
 
-      <p style="color:var(--muted);margin:0 0 12px;font-size:0.9rem;">Duels budget les plus serrés :</p>
+      <p style="color:var(--muted);margin:0 0 10px;font-size:0.88rem;">Radar stations moins chères par département :</p>
       <div class="presets" style="margin-bottom:0;">
-        <a href="/duels/peugeot-208-vs-renault-clio-5.html" class="preset-btn">208 vs Clio 5</a>
-        <a href="/duels/renault-5-e-tech-vs-peugeot-e-208.html" class="preset-btn">R5 E-Tech vs e-208</a>
-        <a href="/duels/tesla-model-3-vs-mg4-electrique.html" class="preset-btn">Model 3 vs MG4</a>
-        <a href="/duels/audi-a3-vs-bmw-serie-1.html" class="preset-btn">Audi A3 vs Série 1</a>
-        <a href="/duels/dacia-spring-vs-citroen-e-c3.html" class="preset-btn">Spring vs ë-C3</a>
-        <a href="/duels/cupra-formentor-vs-volkswagen-t-roc.html" class="preset-btn">Formentor vs T-Roc</a>
+        <a href="/carburant/nord-59.html" class="preset-btn">Nord (59)</a>
+        <a href="/carburant/pas-de-calais-62.html" class="preset-btn">Pas-de-Calais (62)</a>
+        <a href="/carburant/paris-75.html" class="preset-btn">Paris (75)</a>
+        <a href="/carburant/rhone-69.html" class="preset-btn">Rhône (69)</a>
+        <a href="/carburant/bouches-du-rhone-13.html" class="preset-btn">Bouches-du-Rhône (13)</a>
+        <a href="/carburant/gironde-33.html" class="preset-btn">Gironde (33)</a>
+        <a href="/carburant/loire-atlantique-44.html" class="preset-btn">Loire-Atlantique (44)</a>
+        <a href="/carburant/haute-garonne-31.html" class="preset-btn">Haute-Garonne (31)</a>
       </div>
     </section>
 
@@ -444,12 +583,12 @@
     <section id="faq" class="card">
       <h2>Questions fréquentes</h2>
       <details>
-        <summary>Les prix des carburants sont-ils mis à jour automatiquement ?</summary>
-        <p>Oui, les moyennes nationales du Gazole, SP95, SP95-E10, SP98 et E85 sont recalculées automatiquement chaque matin à partir des données publiques des stations-service françaises.</p>
+        <summary>D'où viennent les prix par département et le Top 3 des stations moins chères ?</summary>
+        <p>Chaque matin à 6h, notre robot analyse l'ensemble des relevés officiels des stations-service françaises (Open Data gouvernemental) pour calculer les moyennes locales et extraire les 3 stations les moins chères dans chacun des 96 départements.</p>
       </details>
       <details>
-        <summary>Mon modèle n'est pas dans la liste : puis-je quand même calculer mon coût ?</summary>
-        <p>Oui, il suffit de choisir votre motorisation et d'ajuster directement les curseurs de consommation et de frais fixes dans le cockpit ci-dessus.</p>
+        <summary>Mon salaire est-il envoyé sur un serveur ?</summary>
+        <p>Jamais. Tout le calcul « Choc Salaire » ainsi que la génération de votre carte Story PNG s'exécutent localement dans votre navigateur.</p>
       </details>
     </section>
   </div>
@@ -458,29 +597,34 @@
     <div>© 2027 simulateur-auto.com — Outil indépendant actualisé quotidiennement</div>
     <div style="margin-top:8px;">
       <a href="/">Accueil</a>
-      <a href="/modeles/">Catalogue complet</a>
+      <a href="/modeles/">Catalogue 170+ modèles</a>
+      <a href="/carburant/">Stations 96 départements</a>
       <a href="/mentions-legales.html">Mentions légales & Confidentialité</a>
     </div>
   </footer>
 
   <script>
-    let prices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
+    let natPrices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
+    let activePrices = { ...natPrices };
+    let departmentsMap = {};
+    let currentCarLabel = "Peugeot 208";
+
     let allModels = [
-      { brand: "Peugeot", name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine" },
-      { brand: "Renault", name: "Renault Clio 5", fuel: "Gazole", conso: 4.6, fixed: 1120, cat: "Citadine" },
-      { brand: "Dacia", name: "Dacia Sandero", fuel: "E10", conso: 5.6, fixed: 920, cat: "Citadine" },
-      { brand: "Tesla", name: "Tesla Model 3", fuel: "Electrique_kWh", conso: 14.8, fixed: 950, cat: "Électrique" }
+      { brand: "Peugeot", name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine", buy: 18900 },
+      { brand: "Renault", name: "Renault Clio 5", fuel: "Gazole", conso: 4.6, fixed: 1120, cat: "Citadine", buy: 17900 },
+      { brand: "Renault", name: "Renault 5 E-Tech", fuel: "Electrique_kWh", conso: 14.9, fixed: 860, cat: "Électrique", buy: 27900 },
+      { brand: "Tesla", name: "Tesla Model 3", fuel: "Electrique_kWh", conso: 14.8, fixed: 950, cat: "Électrique", buy: 35900 }
     ];
 
     const animState = { energy: 0, month: 0, kmCost: 0 };
-    const STORAGE_KEY = 'sim_auto_2027_v3';
+    const STORAGE_KEY = 'sim_auto_2027_v4';
     const CIRCUMFERENCE = 2 * Math.PI * 64;
 
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 2200);
+      setTimeout(() => t.classList.remove('show'), 2300);
     }
 
     function animateValue(id, key, target, suffix, decimals = 0) {
@@ -500,6 +644,7 @@
     }
 
     function setPreset(btn, label, fuel, conso, fixed) {
+      currentCarLabel = label;
       document.querySelectorAll('#simulateur .preset-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       document.getElementById('fuel').value = fuel;
@@ -519,8 +664,8 @@
     function copySummary() {
       const month = document.getElementById('res-month').textContent;
       const perKm = document.getElementById('res-km').textContent;
-      const km = document.getElementById('km').value;
-      const text = `Mon bilan sur simulateur-auto.com : ${month}/mois (${perKm}/km pour ${Number(km).toLocaleString('fr-FR')} km/an).`;
+      const hours = document.getElementById('shock-hours').textContent;
+      const text = `Mon bilan (${currentCarLabel}) sur simulateur-auto.com : ${month}/mois (${perKm}/km) — soit ${hours}.`;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => showToast('Bilan copié dans le presse-papiers !'));
       }
@@ -531,7 +676,8 @@
         fuel: document.getElementById('fuel').value,
         km: document.getElementById('km').value,
         conso: document.getElementById('conso').value,
-        fixed: document.getElementById('fixed').value
+        fixed: document.getElementById('fixed').value,
+        dept: document.getElementById('dept-select').value
       });
       const url = `${window.location.origin}/?${params.toString()}`;
       if (navigator.clipboard) {
@@ -542,34 +688,44 @@
     function saveState() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          label: currentCarLabel,
           fuel: document.getElementById('fuel').value,
           km: document.getElementById('km').value,
           conso: document.getElementById('conso').value,
-          fixed: document.getElementById('fixed').value
+          fixed: document.getElementById('fixed').value,
+          finance: document.getElementById('finance').value,
+          salary: document.getElementById('salary').value,
+          dept: document.getElementById('dept-select').value
         }));
       } catch (e) {}
     }
 
     function loadState() {
       const params = new URLSearchParams(window.location.search);
-      if (params.has('fuel') || params.has('km') || params.has('conso')) {
+      if (params.has('fuel') || params.has('km') || params.has('dept')) {
         if (params.get('fuel')) document.getElementById('fuel').value = params.get('fuel');
         if (params.get('km')) { document.getElementById('km').value = params.get('km'); document.getElementById('km-range').value = params.get('km'); }
         if (params.get('conso')) { document.getElementById('conso').value = params.get('conso'); document.getElementById('conso-range').value = params.get('conso'); }
         if (params.get('fixed')) { document.getElementById('fixed').value = params.get('fixed'); document.getElementById('fixed-range').value = params.get('fixed'); }
+        if (params.get('dept')) document.getElementById('dept-select').dataset.pending = params.get('dept');
         return;
       }
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return;
         const s = JSON.parse(raw);
+        if (s.label) currentCarLabel = s.label;
         if (s.fuel) document.getElementById('fuel').value = s.fuel;
         if (s.km) { document.getElementById('km').value = s.km; document.getElementById('km-range').value = s.km; }
         if (s.conso) { document.getElementById('conso').value = s.conso; document.getElementById('conso-range').value = s.conso; }
         if (s.fixed) { document.getElementById('fixed').value = s.fixed; document.getElementById('fixed-range').value = s.fixed; }
+        if (s.finance !== undefined) document.getElementById('finance').value = s.finance;
+        if (s.salary) document.getElementById('salary').value = s.salary;
+        if (s.dept) document.getElementById('dept-select').dataset.pending = s.dept;
       } catch (e) {}
     }
 
+    // Recherche rapide 170+ modèles
     const searchInput = document.getElementById('model-search');
     const searchBox = document.getElementById('search-results');
 
@@ -582,7 +738,7 @@
         (m.cat && m.cat.toLowerCase().includes(q))
       ).slice(0, 12);
       if (!hits.length) {
-        searchBox.innerHTML = '<div class="search-item" style="color:#94a3b8;cursor:default;">Aucun modèle trouvé — ajustez les curseurs librement ci-dessous</div>';
+        searchBox.innerHTML = '<div class="search-item" style="color:#94a3b8;cursor:default;">Aucun modèle trouvé — ajustez les curseurs librement</div>';
       } else {
         searchBox.innerHTML = hits.map((m, idx) => `
           <div class="search-item" data-idx="${idx}">
@@ -617,11 +773,48 @@
     bindSync('conso', 'conso-range');
     bindSync('fixed', 'fixed-range');
 
-    document.getElementById('alt-fuel').addEventListener('change', (e) => {
-      const defaults = { Electrique_kWh: 15.5, E85: 7.4, Gazole: 4.9, E10: 5.8 };
-      document.getElementById('alt-conso').value = defaults[e.target.value] || 6.0;
-      calculate();
-    });
+    function updateRadar() {
+      const deptCode = document.getElementById('dept-select').value;
+      const fuel = document.getElementById('fuel').value;
+      const titleEl = document.getElementById('radar-title');
+      const listEl = document.getElementById('radar-list');
+      const moreEl = document.getElementById('radar-more');
+
+      if (deptCode === 'FR' || !departmentsMap[deptCode]) {
+        activePrices = { ...natPrices };
+        document.getElementById('rank-zone').textContent = 'Moyenne France';
+        titleEl.textContent = 'Radar stations moins chères : sélectionnez votre département';
+        moreEl.href = '/carburant/';
+        moreEl.textContent = 'Voir les 96 dépts →';
+        listEl.innerHTML = 'Choisissez un département ci-dessus pour appliquer les prix locaux en direct et afficher les 3 stations les moins chères autour de vous.';
+        return;
+      }
+
+      const d = departmentsMap[deptCode];
+      activePrices = { ...natPrices, ...d.prices };
+      document.getElementById('rank-zone').textContent = `${d.name} (${d.code})`;
+      moreEl.href = `/carburant/${d.slug}.html`;
+      moreEl.textContent = `Page ${d.code} →`;
+
+      if (fuel === 'Electrique_kWh') {
+        titleEl.textContent = `Tarif domicile appliqué (${d.name})`;
+        listEl.innerHTML = 'Recharge à domicile au tarif réglementé de référence (0,2516 €/kWh).';
+        return;
+      }
+
+      const top3 = (d.top3 && d.top3[fuel]) || [];
+      titleEl.textContent = `Top 3 moins chères en ${fuel} — ${d.name} (${d.code})`;
+      if (!top3.length) {
+        listEl.innerHTML = `Prix moyen local appliqué (${activePrices[fuel].toFixed(3)} €/L).`;
+      } else {
+        listEl.innerHTML = top3.map((st, i) => `
+          <div class="st-mini">
+            <div><b style="color:#f8fafc;">#${i + 1} ${st.v} (${st.cp})</b> — <span style="color:#94a3b8;">${st.a}</span></div>
+            <strong>${st.p.toFixed(3)} €/L</strong>
+          </div>
+        `).join('');
+      }
+    }
 
     function renderRanking() {
       const profiles = [
@@ -631,7 +824,7 @@
         { key: 'E10', name: 'Essence SP95-E10', conso: 6.0, unit: '€/L', color: '#f59e0b' },
         { key: 'SP98', name: 'Essence SP98', conso: 6.0, unit: '€/L', color: '#f87171' }
       ];
-      const items = profiles.map(p => ({ ...p, unitPrice: prices[p.key] || 1.75, cost100: (prices[p.key] || 1.75) * p.conso }))
+      const items = profiles.map(p => ({ ...p, unitPrice: activePrices[p.key] || 1.75, cost100: (activePrices[p.key] || 1.75) * p.conso }))
         .sort((a, b) => a.cost100 - b.cost100);
       const maxCost = Math.max(...items.map(i => i.cost100)) || 1;
       const selectedFuel = document.getElementById('fuel').value;
@@ -650,19 +843,134 @@
       }).join('');
     }
 
+    // Duel 1v1 Courbe 8 ans
+    function populateDuelSelects() {
+      const s1 = document.getElementById('d1-model');
+      const s2 = document.getElementById('d2-model');
+      const opts = '<option value="CUSTOM">— Configuration libre —</option>' +
+        allModels.map((m, idx) => `<option value="${idx}">${m.name} (${m.buy ? m.buy.toLocaleString('fr-FR') + ' €' : ''})</option>`).join('');
+      s1.innerHTML = opts;
+      s2.innerHTML = opts;
+      if (allModels.length > 2) {
+        s1.value = "1"; // Peugeot 208
+        const r5Idx = allModels.findIndex(m => m.name.includes("Renault 5"));
+        s2.value = r5Idx >= 0 ? String(r5Idx) : "2";
+      }
+    }
+
+    function applyDuelModel(side) {
+      const idx = document.getElementById(`d${side}-model`).value;
+      if (idx === 'CUSTOM' || !allModels[idx]) return;
+      const m = allModels[idx];
+      document.getElementById(`d${side}-buy`).value = m.buy || 20000;
+      document.getElementById(`d${side}-fuel`).value = m.fuel;
+      document.getElementById(`d${side}-conso`).value = m.conso;
+      document.getElementById(`d${side}-fixed`).value = m.fixed;
+      renderDuel8Years();
+    }
+
+    function renderDuel8Years() {
+      const km = parseFloat(document.getElementById('km').value) || 15000;
+      const buy1 = parseFloat(document.getElementById('d1-buy').value) || 0;
+      const f1 = document.getElementById('d1-fuel').value;
+      const c1 = parseFloat(document.getElementById('d1-conso').value) || 0;
+      const fx1 = parseFloat(document.getElementById('d1-fixed').value) || 0;
+      const annual1 = ((km / 100) * c1 * (activePrices[f1] || 1.75)) + fx1;
+
+      const buy2 = parseFloat(document.getElementById('d2-buy').value) || 0;
+      const f2 = document.getElementById('d2-fuel').value;
+      const c2 = parseFloat(document.getElementById('d2-conso').value) || 0;
+      const fx2 = parseFloat(document.getElementById('d2-fixed').value) || 0;
+      const annual2 = ((km / 100) * c2 * (activePrices[f2] || 1.75)) + fx2;
+
+      const m1Sel = document.getElementById('d1-model');
+      const m2Sel = document.getElementById('d2-model');
+      const name1 = m1Sel.value !== 'CUSTOM' && allModels[m1Sel.value] ? allModels[m1Sel.value].name : 'Véhicule A';
+      const name2 = m2Sel.value !== 'CUSTOM' && allModels[m2Sel.value] ? allModels[m2Sel.value].name : 'Véhicule B';
+
+      document.getElementById('d1-leg').textContent = name1;
+      document.getElementById('d2-leg').textContent = name2;
+
+      const pts1 = [];
+      const pts2 = [];
+      for (let y = 0; y <= 8; y++) {
+        pts1.push(buy1 + annual1 * y);
+        pts2.push(buy2 + annual2 * y);
+      }
+      document.getElementById('d1-8y').textContent = Math.round(pts1[8]).toLocaleString('fr-FR') + ' €';
+      document.getElementById('d2-8y').textContent = Math.round(pts2[8]).toLocaleString('fr-FR') + ' €';
+
+      const maxVal = Math.max(...pts1, ...pts2, 1000);
+      const padL = 56, padR = 20, padT = 18, padB = 30;
+      const w = 760 - padL - padR;
+      const h = 230 - padT - padB;
+      const xAt = y => padL + (y / 8) * w;
+      const yAt = v => padT + h - (v / maxVal) * h;
+
+      let gridSvg = '';
+      for (let i = 0; i <= 4; i++) {
+        const val = (maxVal / 4) * i;
+        const yy = yAt(val);
+        gridSvg += `<line x1="${padL}" y1="${yy}" x2="${760 - padR}" y2="${yy}" stroke="rgba(148,163,184,0.14)" stroke-dasharray="4 4"/>`;
+        gridSvg += `<text x="${padL - 8}" y="${yy + 4}" fill="#94a3b8" font-size="11" text-anchor="end">${Math.round(val / 1000)}k€</text>`;
+      }
+      for (let y = 0; y <= 8; y++) {
+        const xx = xAt(y);
+        gridSvg += `<text x="${xx}" y="${230 - 8}" fill="#94a3b8" font-size="11" text-anchor="middle">An ${y}</text>`;
+      }
+
+      const poly1 = pts1.map((v, y) => `${xAt(y)},${yAt(v)}`).join(' ');
+      const poly2 = pts2.map((v, y) => `${xAt(y)},${yAt(v)}`).join(' ');
+      const dots1 = pts1.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="4" fill="#38bdf8"/>`).join('');
+      const dots2 = pts2.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="4" fill="#22c55e"/>`).join('');
+
+      document.getElementById('duel-svg').innerHTML = `
+        ${gridSvg}
+        <polyline fill="none" stroke="#38bdf8" stroke-width="3.2" points="${poly1}"/>
+        <polyline fill="none" stroke="#22c55e" stroke-width="3.2" points="${poly2}"/>
+        ${dots1}
+        ${dots2}
+      `;
+
+      const banner = document.getElementById('saving-result');
+      const diff8 = Math.round(Math.abs(pts1[8] - pts2[8]));
+      const winner8 = pts1[8] < pts2[8] ? name1 : name2;
+
+      // Calcul du point de croisement (break-even)
+      if ((buy1 > buy2 && annual1 < annual2) || (buy2 > buy1 && annual2 < annual1)) {
+        const yearsCross = Math.abs(buy1 - buy2) / Math.abs(annual2 - annual1);
+        const totalMonths = Math.round(yearsCross * 12);
+        const yrs = Math.floor(totalMonths / 12);
+        const mos = totalMonths % 12;
+        const moreExpensive = buy1 > buy2 ? name1 : name2;
+        if (yearsCross <= 8) {
+          banner.textContent = `Seuil de rentabilité : ${moreExpensive} devient rentable au bout de ${yrs} an(s) et ${mos} mois — gain net de +${diff8.toLocaleString('fr-FR')} € sur 8 ans !`;
+        } else {
+          banner.textContent = `${winner8} reste plus économique sur 8 ans (+${diff8.toLocaleString('fr-FR')} €). Il faudrait ${yrs} ans pour amortir l'écart de prix d'achat.`;
+        }
+      } else {
+        banner.textContent = `${winner8} est gagnant dès le 1er jour et vous fait économiser +${diff8.toLocaleString('fr-FR')} € au total sur 8 ans (achat + usage).`;
+      }
+    }
+
     function calculate() {
+      updateRadar();
+
       const fuel = document.getElementById('fuel').value;
       const km = parseFloat(document.getElementById('km').value) || 0;
       const conso = parseFloat(document.getElementById('conso').value) || 0;
       const fixed = parseFloat(document.getElementById('fixed').value) || 0;
+      const financeMonth = parseFloat(document.getElementById('finance').value) || 0;
+      const salary = Math.max(100, parseFloat(document.getElementById('salary').value) || 2000);
 
       document.getElementById('km-pill').textContent = km.toLocaleString('fr-FR') + ' km';
       document.getElementById('conso-pill').textContent = conso.toFixed(1);
       document.getElementById('fixed-pill').textContent = fixed.toLocaleString('fr-FR') + ' €';
 
-      const unitPrice = prices[fuel] || 1.75;
+      const unitPrice = activePrices[fuel] || 1.75;
       const energyCost = (km / 100) * conso * unitPrice;
-      const totalYear = energyCost + fixed;
+      const fixedPlusFinanceYear = fixed + (financeMonth * 12);
+      const totalYear = energyCost + fixedPlusFinanceYear;
       const totalMonth = totalYear / 12;
       const perKm = km > 0 ? totalYear / km : 0;
 
@@ -680,15 +988,25 @@
       document.getElementById('pct-energy').textContent = pctE + '%';
       document.getElementById('pct-fixed').textContent = pctF + '%';
 
+      // Choc Salaire (base légale 151,67 h/mois)
+      const hourlyRate = salary / 151.67;
+      const hoursWorked = totalMonth / hourlyRate;
+      const pctSalary = Math.round((totalMonth / salary) * 100);
+      const dayOfMonth = Math.min(30, Math.max(1, Math.ceil((totalMonth / salary) * 30)));
+      document.getElementById('shock-hours').textContent = `${hoursWorked.toFixed(1)} h de travail / mois`;
+      document.getElementById('shock-days').textContent =
+        `Soit ${pctSalary} % de votre salaire : vous travaillez du 1er au ${dayOfMonth} du mois uniquement pour payer votre voiture.`;
+
       document.getElementById('dynamic-ins-text').textContent =
-        `Vos frais fixes représentent ${pctF} % de votre budget auto (${fixed.toLocaleString('fr-FR')} €/an). Comparez gratuitement les offres d'assurance adaptées à vos ${km.toLocaleString('fr-FR')} km/an.`;
+        `Vos frais fixes représentent ${fixed.toLocaleString('fr-FR')} €/an. Comparez gratuitement les offres d'assurance adaptées à vos ${km.toLocaleString('fr-FR')} km/an.`;
 
       const scoreEl = document.getElementById('eco-score');
-      if (perKm <= 0.12) { scoreEl.textContent = 'A+ Ultra-Économe'; scoreEl.style.background = 'rgba(34,197,94,0.2)'; scoreEl.style.color = '#4ade80'; }
-      else if (perKm <= 0.17) { scoreEl.textContent = 'B Maîtrisé'; scoreEl.style.background = 'rgba(56,189,248,0.2)'; scoreEl.style.color = '#38bdf8'; }
-      else if (perKm <= 0.23) { scoreEl.textContent = 'C Moyen'; scoreEl.style.background = 'rgba(245,158,11,0.2)'; scoreEl.style.color = '#fbbf24'; }
+      if (perKm <= 0.14) { scoreEl.textContent = 'A+ Ultra-Économe'; scoreEl.style.background = 'rgba(34,197,94,0.2)'; scoreEl.style.color = '#4ade80'; }
+      else if (perKm <= 0.21) { scoreEl.textContent = 'B Maîtrisé'; scoreEl.style.background = 'rgba(56,189,248,0.2)'; scoreEl.style.color = '#38bdf8'; }
+      else if (perKm <= 0.30) { scoreEl.textContent = 'C Moyen'; scoreEl.style.background = 'rgba(245,158,11,0.2)'; scoreEl.style.color = '#fbbf24'; }
       else { scoreEl.textContent = 'D Budget Élevé'; scoreEl.style.background = 'rgba(239,68,68,0.2)'; scoreEl.style.color = '#f87171'; }
 
+      // Trajet express
       const tripKm = parseFloat(document.getElementById('trip-km').value) || 0;
       const tripPax = Math.max(1, parseInt(document.getElementById('trip-pax').value, 10) || 1);
       const tripEnergy = (tripKm / 100) * conso * unitPrice;
@@ -697,56 +1015,187 @@
       document.getElementById('trip-total').textContent = tripTotal.toFixed(2) + ' €';
       document.getElementById('trip-per-pax').textContent = (tripTotal / tripPax).toFixed(2) + ' €';
 
-      const altFuel = document.getElementById('alt-fuel').value;
-      const altConso = parseFloat(document.getElementById('alt-conso').value) || 0;
-      const altEnergyCost = (km / 100) * altConso * (prices[altFuel] || 1.75);
-      const sum = energyCost + altEnergyCost || 1;
-      const curPct = Math.max(12, Math.min(88, (energyCost / sum) * 100));
-      document.getElementById('bar-cur').style.width = curPct + '%';
-      document.getElementById('bar-alt').style.width = (100 - curPct) + '%';
-      document.getElementById('duel-cur-txt').textContent = Math.round(energyCost).toLocaleString('fr-FR') + ' €/an';
-      document.getElementById('duel-alt-txt').textContent = Math.round(altEnergyCost).toLocaleString('fr-FR') + ' €/an';
-
-      const diff = Math.round(energyCost - altEnergyCost);
-      const banner = document.getElementById('saving-result');
-      if (diff > 0) {
-        banner.style.color = '#4ade80';
-        banner.textContent = `Économie estimée : +${diff.toLocaleString('fr-FR')} € / an (${(diff * 3).toLocaleString('fr-FR')} € sur 3 ans • ${(diff * 5).toLocaleString('fr-FR')} € sur 5 ans) avec l'alternative.`;
-      } else if (diff < 0) {
-        banner.style.color = '#fbbf24';
-        banner.textContent = `Votre véhicule actuel reste plus économique de ${Math.abs(diff).toLocaleString('fr-FR')} € / an sur l'énergie.`;
-      } else {
-        banner.style.color = '#f8fafc';
-        banner.textContent = `Budget énergie identique entre les deux motorisations.`;
-      }
-
       renderRanking();
+      renderDuel8Years();
     }
 
-    fetch('prices.json')
-      .then(r => r.json())
-      .then(data => {
-        prices = data;
-        if (data.updated_at) document.getElementById('update-date').textContent = 'Cours officiels à jour au ' + data.updated_at;
-        calculate();
-      })
-      .catch(() => calculate());
+    // Générateur de Carte Story PNG (1080x1920) 100% natif Canvas
+    function roundRect(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
 
-    fetch('models.json')
-      .then(r => r.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length) {
-          allModels = data;
-          document.querySelectorAll('.model-count').forEach(el => el.textContent = data.length);
-        }
-      })
-      .catch(() => {});
+    function downloadStoryCard() {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext('2d');
 
-    ['fuel', 'alt-conso', 'trip-km', 'trip-pax'].forEach(id => {
+      // Fond dégradé
+      const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
+      grad.addColorStop(0, '#050811');
+      grad.addColorStop(0.5, '#0b132b');
+      grad.addColorStop(1, '#050811');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Halo décoratif
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
+      ctx.beginPath(); ctx.arc(220, 320, 340, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(34, 197, 94, 0.12)';
+      ctx.beginPath(); ctx.arc(880, 1480, 360, 0, Math.PI * 2); ctx.fill();
+
+      // Badge haut
+      roundRect(ctx, 270, 130, 540, 64, 32);
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.16)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 28px system-ui, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('MON BILAN AUTO RÉEL • 2027', 540, 172);
+
+      // Nom véhicule
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '800 66px system-ui, sans-serif';
+      ctx.fillText(currentCarLabel, 540, 295);
+
+      const km = Number(document.getElementById('km').value).toLocaleString('fr-FR');
+      const deptSel = document.getElementById('dept-select');
+      const deptLabel = deptSel.value === 'FR' ? 'Moyenne France' : deptSel.options[deptSel.selectedIndex].text;
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 32px system-ui, sans-serif';
+      ctx.fillText(`${km} km/an • ${deptLabel}`, 540, 355);
+
+      // Carte centrale coût mensuel
+      roundRect(ctx, 90, 430, 900, 440, 36);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.25)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '600 32px system-ui, sans-serif';
+      ctx.fillText('COÛT RÉEL TOUT COMPRIS', 540, 515);
+
+      ctx.fillStyle = '#4ade80';
+      ctx.font = '900 148px system-ui, sans-serif';
+      ctx.fillText(document.getElementById('res-month').textContent + ' / mois', 540, 675);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '700 42px system-ui, sans-serif';
+      ctx.fillText(`Soit ${document.getElementById('res-km').textContent} par kilomètre  •  Note ${document.getElementById('eco-score').textContent}`, 540, 785);
+
+      // Carte Choc Salaire
+      roundRect(ctx, 90, 920, 900, 340, 36);
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.14)';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+      ctx.stroke();
+
+      ctx.fillStyle = '#fbbf24';
+      ctx.font = '800 32px system-ui, sans-serif';
+      ctx.fillText('IMPACT SUR MON TEMPS DE TRAVAIL', 540, 1005);
+
+      ctx.fillStyle = '#f8fafc';
+      ctx.font = '800 68px system-ui, sans-serif';
+      ctx.fillText(document.getElementById('shock-hours').textContent, 540, 1105);
+
+      ctx.fillStyle = '#cbd5e1';
+      ctx.font = '500 32px system-ui, sans-serif';
+      const subText = document.getElementById('shock-days').textContent;
+      ctx.fillText(subText.slice(0, 52), 540, 1180);
+      ctx.fillText(subText.slice(52), 540, 1222);
+
+      // Répartition
+      roundRect(ctx, 90, 1310, 430, 220, 28);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.fill();
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 28px system-ui, sans-serif';
+      ctx.fillText('Énergie / an', 305, 1385);
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '800 54px system-ui, sans-serif';
+      ctx.fillText(document.getElementById('res-energy').textContent, 305, 1465);
+
+      roundRect(ctx, 560, 1310, 430, 220, 28);
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.fill();
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 28px system-ui, sans-serif';
+      ctx.fillText('Part Énergie / Fixes', 775, 1385);
+      ctx.fillStyle = '#818cf8';
+      ctx.font = '800 50px system-ui, sans-serif';
+      ctx.fillText(`${document.getElementById('pct-energy').textContent} / ${document.getElementById('pct-fixed').textContent}`, 775, 1465);
+
+      // Pied de carte viral
+      roundRect(ctx, 140, 1640, 800, 130, 28);
+      ctx.fillStyle = '#0284c7';
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 36px system-ui, sans-serif';
+      ctx.fillText('Fais le test sur simulateur-auto.com', 540, 1718);
+
+      const link = document.createElement('a');
+      link.download = 'bilan-simulateur-auto.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast('Carte Story PNG téléchargée !');
+    }
+
+    // Chargement des données JSON
+    Promise.all([
+      fetch('prices.json').then(r => r.json()).catch(() => null),
+      fetch('departments.json').then(r => r.json()).catch(() => null),
+      fetch('models.json').then(r => r.json()).catch(() => null)
+    ]).then(([pData, dData, mData]) => {
+      if (pData) {
+        natPrices = pData;
+        activePrices = { ...natPrices };
+        if (pData.updated_at) document.getElementById('update-date').textContent = 'Cours officiels à jour au ' + pData.updated_at;
+      }
+      if (dData && dData.departments) {
+        departmentsMap = dData.departments;
+        const sel = document.getElementById('dept-select');
+        const pending = sel.dataset.pending || 'FR';
+        Object.values(departmentsMap).forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d.code;
+          opt.textContent = `${d.code} — ${d.name}`;
+          sel.appendChild(opt);
+        });
+        if (departmentsMap[pending]) sel.value = pending;
+      }
+      if (Array.isArray(mData) && mData.length) {
+        allModels = mData;
+        document.querySelectorAll('.model-count').forEach(el => el.textContent = mData.length);
+      }
+      populateDuelSelects();
+      calculate();
+    });
+
+    ['fuel', 'dept-select', 'finance', 'salary', 'trip-km', 'trip-pax'].forEach(id => {
       document.getElementById(id).addEventListener('input', () => { saveState(); calculate(); });
+      document.getElementById(id).addEventListener('change', () => { saveState(); calculate(); });
+    });
+
+    document.getElementById('d1-model').addEventListener('change', () => applyDuelModel(1));
+    document.getElementById('d2-model').addEventListener('change', () => applyDuelModel(2));
+    ['d1-buy', 'd1-fuel', 'd1-conso', 'd1-fixed', 'd2-buy', 'd2-fuel', 'd2-conso', 'd2-fixed'].forEach(id => {
+      document.getElementById(id).addEventListener('input', renderDuel8Years);
+      document.getElementById(id).addEventListener('change', renderDuel8Years);
     });
 
     loadState();
+    populateDuelSelects();
     calculate();
   </script>
 </body>
