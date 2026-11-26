@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coût réel Volkswagen Taigo (2027) — Budget carburant, assurance & entretien</title>
+  <meta name="description" content="Combien coûte vraiment une Volkswagen Taigo en 2027 ? Budget mensuel (241 €/mois), coût au kilomètre (0.19 €/km) actualisé au 26/11/2026." />
+  <link rel="canonical" href="https://simulateur-auto.com/modeles/volkswagen-taigo.html" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
+  <style>
+    body { margin:0; background:#050811; color:#f8fafc; font-family:system-ui,-apple-system,sans-serif; line-height:1.6; padding:24px 16px; }
+    .wrap { max-width:880px; margin:0 auto; }
+    a { color:#38bdf8; text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .topbar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px; font-size:0.9rem; }
+    .card { background:rgba(15,23,42,0.88); border:1px solid rgba(148,163,184,0.18); border-radius:18px; padding:24px; margin-bottom:20px; }
+    .badge { display:inline-block; background:rgba(34,197,94,0.14); border:1px solid rgba(34,197,94,0.35); color:#4ade80; font-size:0.82rem; font-weight:600; padding:4px 12px; border-radius:999px; }
+    .slider-box { background:#090e1a; border:1px solid rgba(148,163,184,0.16); border-radius:12px; padding:16px; margin:18px 0; }
+    .slider-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:0.9rem; }
+    .pill { background:rgba(56,189,248,0.14); color:#38bdf8; font-weight:700; padding:2px 10px; border-radius:6px; }
+    input[type="range"] { width:100%; accent-color:#38bdf8; cursor:pointer; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+    @media(max-width:650px) { .grid { grid-template-columns:1fr; } }
+    .stat { background:#090e1a; padding:16px; border-radius:12px; text-align:center; border:1px solid rgba(148,163,184,0.14); }
+    .stat span { display:block; font-size:0.8rem; color:#94a3b8; margin-bottom:4px; }
+    .stat strong { font-size:1.45rem; color:#38bdf8; }
+    .btn-row { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:22px; }
+    .btn { display:inline-block; background:linear-gradient(135deg,#0284c7,#1d4ed8); color:#fff; font-weight:700; padding:12px 22px; border-radius:10px; text-decoration:none !important; }
+    .btn-sec { display:inline-block; background:rgba(56,189,248,0.12); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; font-weight:600; padding:12px 20px; border-radius:10px; text-decoration:none !important; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .chip { background:#090e1a; border:1px solid rgba(148,163,184,0.18); padding:7px 12px; border-radius:9px; font-size:0.86rem; color:#f8fafc; text-decoration:none !important; }
+    .chip:hover { border-color:#38bdf8; color:#38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="/">← Cockpit SimulateurAuto.com</a>
+      <a href="/carburant/">Prix stations par département</a>
+      <a href="/modeles/">Catalogue (230 modèles) →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">● Prix officiels à jour au 26/11/2026 (1.946 €/L)</span>
+      <h1 style="margin:12px 0 8px;">Coût réel d'une Volkswagen Taigo en 2027</h1>
+      <p style="color:#94a3b8;margin-top:0;">Marque <strong>Volkswagen</strong> • Catégorie <strong>SUV</strong> • <strong>Essence SP95-E10</strong> • Conso <strong>5.9 L/100 km</strong> • Frais fixes estimés <strong>1170 €/an</strong>.</p>
+
+      <div class="slider-box">
+        <div class="slider-head">
+          <span>Ajustez votre kilométrage annuel :</span>
+          <span class="pill" id="km-val">15 000 km / an</span>
+        </div>
+        <input type="range" id="km-slider" min="3000" max="45000" step="500" value="15000" />
+      </div>
+
+      <div class="grid">
+        <div class="stat"><span>Budget total / mois</span><strong id="stat-month" style="color:#4ade80;">241 €</strong></div>
+        <div class="stat"><span>Énergie / an</span><strong id="stat-energy">1722 €</strong></div>
+        <div class="stat"><span>Coût réel / km</span><strong id="stat-km">0.19 €</strong></div>
+      </div>
+
+      <div class="btn-row">
+        <a href="#affiliation-assurance" class="btn" rel="nofollow sponsored">Réduire l'assurance de ma Volkswagen Taigo →</a>
+        <a id="cockpit-link" href="/?fuel=E10&conso=5.9&fixed=1170&km=15000" class="btn-sec">Ouvrir dans le cockpit (Choc Salaire & PNG) →</a>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <h2 style="margin-top:0;">Rentabilité boîtier Superéthanol E85 sur Volkswagen Taigo</h2>
+      <p style="color:#94a3b8;margin-top:0;">Avec un boîtier homologué estimé à <strong>920 €</strong> et l'E85 à <strong>0.892 €/L</strong> aujourd'hui (surconsommation +18 % incluse) :</p>
+      <div class="grid">
+        <div class="stat"><span>Économie carburant / an</span><strong id="e85-eco" style="color:#4ade80;">+790 €</strong></div>
+        <div class="stat"><span>Rentabilisé en</span><strong id="e85-mois">14 mois</strong></div>
+        <div class="stat"><span>Gain net sur 5 ans</span><strong id="e85-5ans" style="color:#4ade80;">+3030 €</strong></div>
+      </div>
+    </div>
+    
+
+    <div class="card">
+      <h2 style="margin-top:0;font-size:1.1rem;">Autres modèles Volkswagen & concurrents (SUV)</h2>
+      <div class="chips"><a class="chip" href="/modeles/volkswagen-up.html">Volkswagen Up!</a><a class="chip" href="/modeles/volkswagen-polo.html">Volkswagen Polo</a><a class="chip" href="/modeles/volkswagen-golf-7.html">Volkswagen Golf 7</a><a class="chip" href="/modeles/volkswagen-golf-8.html">Volkswagen Golf 8</a><a class="chip" href="/modeles/volkswagen-golf-8-tdi.html">Volkswagen Golf 8 TDI</a><a class="chip" href="/modeles/peugeot-2008.html">Peugeot 2008</a><a class="chip" href="/modeles/peugeot-3008.html">Peugeot 3008</a><a class="chip" href="/modeles/peugeot-3008-hybride.html">Peugeot 3008 Hybride</a><a class="chip" href="/modeles/renault-captur.html">Renault Captur</a><a class="chip" href="/modeles/renault-captur-hybride.html">Renault Captur Hybride</a></div>
+    </div>
+  </div>
+
+  <script>
+    const CONSO = 5.9;
+    const UNIT_PRICE = 1.946;
+    const FIXED = 1170;
+    const E85_COST = 920;
+    const E85_PRICE = 0.892;
+    const FUEL_KEY = "E10";
+
+    const slider = document.getElementById("km-slider");
+    function updateSim() {
+      const km = parseInt(slider.value, 10);
+      document.getElementById("km-val").textContent = km.toLocaleString("fr-FR") + " km / an";
+      const energy = (km / 100) * CONSO * UNIT_PRICE;
+      const total = energy + FIXED;
+      document.getElementById("stat-month").textContent = Math.round(total / 12).toLocaleString("fr-FR") + " €";
+      document.getElementById("stat-energy").textContent = Math.round(energy).toLocaleString("fr-FR") + " €";
+      document.getElementById("stat-km").textContent = (total / km).toFixed(2) + " €";
+      document.getElementById("cockpit-link").href = "/?fuel=" + FUEL_KEY + "&conso=" + CONSO + "&fixed=" + FIXED + "&km=" + km;
+
+      if (E85_COST > 0) {
+        const e85Energy = (km / 100) * (CONSO * 1.18) * E85_PRICE;
+        const eco = Math.max(1, Math.round(energy - e85Energy));
+        const mois = Math.round((E85_COST / eco) * 12);
+        const gain5 = (eco * 5) - E85_COST;
+        document.getElementById("e85-eco").textContent = "+" + eco.toLocaleString("fr-FR") + " €";
+        document.getElementById("e85-mois").textContent = mois + " mois";
+        document.getElementById("e85-5ans").textContent = (gain5 >= 0 ? "+" : "") + gain5.toLocaleString("fr-FR") + " €";
+      }
+    }
+    slider.addEventListener("input", updateSim);
+  </script>
+</body>
+</html>

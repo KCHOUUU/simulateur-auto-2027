@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tesla Model Y vs Peugeot 3008 (2027) — Comparatif coût réel, carburant & budget sur 5 ans</title>
+  <meta name="description" content="Match budget 2027 : Tesla Model Y ou Peugeot 3008 ? Comparez le coût mensuel, carburant et frais fixes avec les prix officiels du 26/11/2026." />
+  <link rel="canonical" href="https://simulateur-auto.com/duels/tesla-model-y-vs-peugeot-3008.html" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
+  <style>
+    body { margin:0; background:#050811; color:#f8fafc; font-family:system-ui,-apple-system,sans-serif; line-height:1.6; padding:24px 16px; }
+    .wrap { max-width:900px; margin:0 auto; }
+    a { color:#38bdf8; text-decoration:none; }
+    .topbar { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:18px; font-size:0.9rem; }
+    .card { background:rgba(15,23,42,0.88); border:1px solid rgba(148,163,184,0.18); border-radius:18px; padding:24px; margin-bottom:20px; }
+    .badge { display:inline-block; background:rgba(34,197,94,0.14); border:1px solid rgba(34,197,94,0.35); color:#4ade80; font-size:0.82rem; font-weight:600; padding:4px 12px; border-radius:999px; }
+    .slider-box { background:#090e1a; border:1px solid rgba(148,163,184,0.16); border-radius:12px; padding:16px; margin:16px 0; }
+    input[type="range"] { width:100%; accent-color:#38bdf8; cursor:pointer; }
+    .duel-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+    @media(max-width:650px) { .duel-grid { grid-template-columns:1fr; } }
+    .car-box { background:#090e1a; border:1px solid rgba(148,163,184,0.16); border-radius:14px; padding:18px; }
+    .car-box h2 { margin:0 0 6px; font-size:1.2rem; color:#38bdf8; }
+    .price-big { font-size:1.8rem; font-weight:800; color:#4ade80; margin:10px 0; }
+    .line { display:flex; justify-content:space-between; font-size:0.9rem; color:#94a3b8; padding:6px 0; border-bottom:1px solid rgba(148,163,184,0.1); }
+    .line strong { color:#f8fafc; }
+    .verdict { margin-top:18px; padding:16px; border-radius:12px; background:rgba(34,197,94,0.13); border:1px solid rgba(34,197,94,0.35); text-align:center; font-weight:700; color:#4ade80; }
+    .btn { display:inline-block; background:linear-gradient(135deg,#0284c7,#1d4ed8); color:#fff; font-weight:700; padding:12px 22px; border-radius:10px; margin-top:16px; }
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .chip { background:#090e1a; border:1px solid rgba(148,163,184,0.18); padding:7px 12px; border-radius:9px; font-size:0.86rem; color:#f8fafc; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a href="/">← Cockpit SimulateurAuto.com</a>
+      <a href="/modeles/">Catalogue des 230 modèles →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">● Match actualisé au 26/11/2026</span>
+      <h1 style="margin:12px 0 6px;">Tesla Model Y vs Peugeot 3008 : laquelle coûte le moins cher ?</h1>
+      <p style="color:#94a3b8;margin-top:0;">Déplacez le curseur selon votre kilométrage annuel pour voir le vrai gagnant financier sur 1 an et 5 ans.</p>
+
+      <div class="slider-box">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;">
+          <span>Kilométrage annuel testé :</span>
+          <strong id="km-val" style="color:#38bdf8;">15 000 km / an</strong>
+        </div>
+        <input type="range" id="km-slider" min="3000" max="45000" step="500" value="15000" />
+      </div>
+
+      <div class="duel-grid">
+        <div class="car-box">
+          <h2>Tesla Model Y</h2>
+          <div style="font-size:0.84rem;color:#94a3b8;">100 % Électrique • 16.5 kWh/100 km</div>
+          <div class="price-big" id="m1-month">— €/mois</div>
+          <div class="line"><span>Énergie / an</span><strong id="m1-energy">— €</strong></div>
+          <div class="line"><span>Fixes (assurance + entretien)</span><strong>1050 €/an</strong></div>
+          <div class="line"><span>Coût réel / km</span><strong id="m1-km">— €</strong></div>
+          <p style="margin:12px 0 0;font-size:0.86rem;"><a href="/modeles/tesla-model-y.html">Voir la fiche complète Tesla Model Y →</a></p>
+        </div>
+
+        <div class="car-box">
+          <h2>Peugeot 3008</h2>
+          <div style="font-size:0.84rem;color:#94a3b8;">Diesel (Gazole) • 5.8 L/100 km</div>
+          <div class="price-big" id="m2-month">— €/mois</div>
+          <div class="line"><span>Énergie / an</span><strong id="m2-energy">— €</strong></div>
+          <div class="line"><span>Fixes (assurance + entretien)</span><strong>1320 €/an</strong></div>
+          <div class="line"><span>Coût réel / km</span><strong id="m2-km">— €</strong></div>
+          <p style="margin:12px 0 0;font-size:0.86rem;"><a href="/modeles/peugeot-3008.html">Voir la fiche complète Peugeot 3008 →</a></p>
+        </div>
+      </div>
+
+      <div class="verdict" id="verdict">Calcul en cours...</div>
+
+      <div style="text-align:center;">
+        <a href="#affiliation-assurance" class="btn" rel="nofollow sponsored">Comparer l'assurance de ces deux modèles →</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="margin-top:0;font-size:1.1rem;">Autres duels populaires</h2>
+      <div class="chips"><a class="chip" href="/duels/peugeot-208-vs-renault-clio-5.html">Peugeot 208 vs Renault Clio 5</a><a class="chip" href="/duels/dacia-sandero-vs-citroen-c3.html">Dacia Sandero vs Citroën C3</a><a class="chip" href="/duels/peugeot-3008-vs-renault-austral.html">Peugeot 3008 vs Renault Austral</a><a class="chip" href="/duels/tesla-model-3-vs-mg4-electrique.html">Tesla Model 3 vs MG4 Électrique</a><a class="chip" href="/duels/peugeot-2008-vs-renault-captur.html">Peugeot 2008 vs Renault Captur</a><a class="chip" href="/duels/toyota-yaris-hybride-vs-renault-clio-5.html">Toyota Yaris Hybride vs Renault Clio 5</a><a class="chip" href="/duels/volkswagen-golf-8-vs-peugeot-308.html">Volkswagen Golf 8 vs Peugeot 308</a><a class="chip" href="/duels/audi-a3-vs-bmw-serie-1.html">Audi A3 vs BMW Série 1</a><a class="chip" href="/duels/dacia-duster-vs-peugeot-2008.html">Dacia Duster vs Peugeot 2008</a><a class="chip" href="/duels/renault-5-e-tech-vs-peugeot-e-208.html">Renault 5 E-Tech vs Peugeot e-208</a></div>
+    </div>
+  </div>
+
+  <script>
+    const M1 = { name: "Tesla Model Y", conso: 16.5, price: 0.2516, fixed: 1050 };
+    const M2 = { name: "Peugeot 3008", conso: 5.8, price: 2.096, fixed: 1320 };
+    const slider = document.getElementById("km-slider");
+
+    function updateDuel() {
+      const km = parseInt(slider.value, 10);
+      document.getElementById("km-val").textContent = km.toLocaleString("fr-FR") + " km / an";
+      const e1 = (km / 100) * M1.conso * M1.price;
+      const t1 = e1 + M1.fixed;
+      const e2 = (km / 100) * M2.conso * M2.price;
+      const t2 = e2 + M2.fixed;
+
+      document.getElementById("m1-month").textContent = Math.round(t1 / 12).toLocaleString("fr-FR") + " €/mois";
+      document.getElementById("m1-energy").textContent = Math.round(e1).toLocaleString("fr-FR") + " €";
+      document.getElementById("m1-km").textContent = (t1 / km).toFixed(2) + " €";
+
+      document.getElementById("m2-month").textContent = Math.round(t2 / 12).toLocaleString("fr-FR") + " €/mois";
+      document.getElementById("m2-energy").textContent = Math.round(e2).toLocaleString("fr-FR") + " €";
+      document.getElementById("m2-km").textContent = (t2 / km).toFixed(2) + " €";
+
+      const diff = Math.round(Math.abs(t1 - t2));
+      const winner = t1 < t2 ? M1.name : M2.name;
+      const v = document.getElementById("verdict");
+      if (diff < 20) {
+        v.textContent = "Égalité quasi parfaite entre " + M1.name + " et " + M2.name + " à " + km.toLocaleString("fr-FR") + " km/an.";
+      } else {
+        v.textContent = "Gagnant budget : " + winner + " — économie de " + diff.toLocaleString("fr-FR") + " € / an (soit " + (diff * 5).toLocaleString("fr-FR") + " € sur 5 ans).";
+      }
+    }
+    slider.addEventListener("input", updateDuel);
+    updateDuel();
+  </script>
+</body>
+</html>
