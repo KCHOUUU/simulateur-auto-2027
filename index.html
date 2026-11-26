@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur Auto 2027 — Cockpit Coût Réel, Radar Stations & Duel 8 Ans</title>
-  <meta name="description" content="Calculez le coût réel de votre voiture avec les stations les moins chères de votre département, le choc sur votre salaire, une carte Story PNG et un duel sur 8 ans." />
+  <title>Simulateur Auto 2027 — Cockpit Coût Réel, Carte Grise, LOA vs Cash & Radar Carburant</title>
+  <meta name="description" content="Calculez le coût réel de votre voiture, le prix de votre carte grise et malus, comparez Achat Cash vs LOA, et trouvez les stations les moins chères de France." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <link rel="manifest" href="/manifest.json" />
   <meta name="theme-color" content="#050811" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
-  <meta property="og:title" content="Simulateur Auto 2027 — Cockpit Coût Réel, Radar Stations & Duel 8 Ans" />
-  <meta property="og:description" content="Découvrez combien d'heures par mois vous travaillez pour payer votre voiture et trouvez les stations moins chères de votre département." />
+  <meta property="og:title" content="Simulateur Auto 2027 — Cockpit Coût Réel, Carte Grise, LOA & Radar Stations" />
+  <meta property="og:description" content="Tous les simulateurs auto gratuits : budget au kilomètre, choc salaire, carte grise, cash vs LOA et stations moins chères par département." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://simulateur-auto.com/" />
   <style>
@@ -44,18 +44,18 @@
     }
 
     nav {
-      background: rgba(5, 8, 17, 0.84); backdrop-filter: blur(16px);
+      background: rgba(5, 8, 17, 0.86); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border); padding: 14px 20px;
       position: sticky; top: 0; z-index: 30;
     }
-    .nav-inner { max-width: 1040px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .nav-inner { max-width: 1060px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
     .logo { font-weight: 800; font-size: 1.2rem; color: var(--text); text-decoration: none; letter-spacing: -0.4px; }
     .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 14px; flex-wrap: wrap; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.86rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 13px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
 
-    .container { max-width: 1040px; margin: 0 auto; padding: 28px 20px; }
+    .container { max-width: 1060px; margin: 0 auto; padding: 28px 20px; }
     header { text-align: center; margin-bottom: 28px; animation: fadeUp 0.55s ease-out; }
     h1 { font-size: 2.15rem; margin: 14px 0 8px; line-height: 1.15; letter-spacing: -0.6px; }
     h2 { font-size: 1.24rem; margin: 0 0 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
@@ -115,8 +115,9 @@
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .grid-cockpit { display: grid; grid-template-columns: 1.32fr 0.88fr; gap: 24px; align-items: start; }
-    @media (max-width: 840px) { .grid-cockpit, .grid-2, .grid-3 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
+    @media (max-width: 860px) { .grid-cockpit, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } h1 { font-size: 1.65rem; } }
 
     .field { margin-bottom: 14px; }
     .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 8px; }
@@ -141,7 +142,6 @@
     }
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.22); }
 
-    /* Radar Stations Locales */
     .radar-box {
       margin-top: 14px; background: rgba(9, 14, 26, 0.9); border: 1px solid rgba(56, 189, 248, 0.25);
       border-radius: 14px; padding: 14px;
@@ -155,7 +155,6 @@
     .st-mini:last-child { margin-bottom: 0; }
     .st-mini strong { color: #4ade80; font-size: 0.9rem; white-space: nowrap; }
 
-    /* Donut & Choc Salaire */
     .donut-panel { background: #090e1a; border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; }
     .donut-wrap { position: relative; width: 158px; height: 158px; margin: 0 auto 12px; }
     .donut-wrap svg { transform: rotate(-90deg); width: 158px; height: 158px; }
@@ -201,7 +200,6 @@
     .rank-track { height: 8px; background: #1e293b; border-radius: 999px; overflow: hidden; }
     .rank-fill { height: 100%; border-radius: 999px; transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 
-    /* Duel 8 ans */
     .duel-col { background: #090e1a; border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
     .duel-col h3 { margin: 0 0 12px; font-size: 1rem; display: flex; align-items: center; gap: 8px; }
     .chart-box {
@@ -257,9 +255,10 @@
       <a href="/" class="logo">Simulateur<span>Auto</span>.com</a>
       <div class="nav-links">
         <a href="#simulateur">Cockpit</a>
-        <a href="#trajet">Trajet Express</a>
+        <a href="#carte-grise">Carte Grise</a>
+        <a href="#cash-loa">Cash vs LOA</a>
+        <a href="#detour">Top Stations</a>
         <a href="#comparateur">Duel 8 Ans</a>
-        <a href="/carburant/">Stations 96 Dépts</a>
         <a href="/modeles/">Catalogue (<span class="model-count">170+</span>)</a>
       </div>
     </div>
@@ -272,7 +271,7 @@
         <span id="update-date">Prix officiels synchronisés</span>
       </div>
       <h1>Cockpit du Coût Réel Automobile</h1>
-      <p style="color:var(--muted);max-width:700px;margin:0 auto;">Prix réels des stations de votre département, impact en heures travaillées sur votre salaire, carte Story PNG et duel de rentabilité sur 8 ans.</p>
+      <p style="color:var(--muted);max-width:720px;margin:0 auto;">Coût au kilomètre, choc sur votre salaire, carte grise & malus, comparateur Cash vs LOA et radar des stations les moins chères de France.</p>
     </header>
 
     <!-- 1. COCKPIT PRINCIPAL + RADAR STATIONS + CHOC SALAIRE -->
@@ -311,7 +310,7 @@
             </div>
 
             <div class="field" style="margin-bottom:8px;">
-              <div class="field-header"><label>Département (Radar prix)</label></div>
+              <div class="field-header"><label>Département (Radar prix & Carte grise)</label></div>
               <select id="dept-select">
                 <option value="FR">Moyenne France entière</option>
               </select>
@@ -336,7 +335,6 @@
             <input type="range" id="fixed-range" min="300" max="3500" step="50" value="1050" />
           </div>
 
-          <!-- Option Financement / Décote + Salaire net -->
           <div class="grid-2" style="gap:12px;background:#090e1a;border:1px solid var(--border);border-radius:12px;padding:12px;">
             <div>
               <div class="field-header"><label>Crédit / LOA / Décote (€/mois)</label></div>
@@ -348,7 +346,6 @@
             </div>
           </div>
 
-          <!-- Radar Top 3 stations moins chères du département -->
           <div class="radar-box" id="radar-box">
             <div class="radar-head">
               <strong style="color:var(--accent);" id="radar-title">Stations moins chères : sélectionnez votre département</strong>
@@ -360,7 +357,6 @@
           </div>
         </div>
 
-        <!-- Panneau droit : Donut + Choc Salaire + Carte Story PNG -->
         <div class="donut-panel">
           <div class="donut-wrap">
             <svg viewBox="0 0 160 160">
@@ -400,9 +396,134 @@
       </div>
     </section>
 
-    <!-- 2. CALCULATEUR TRAJET EXPRESS -->
+    <!-- 2. SIMULATEUR CARTE GRISE + MALUS ECOLOGIQUE -->
+    <section id="carte-grise" class="card">
+      <h2>
+        <span>2. Simulateur Carte Grise & Malus Écologique 2027</span>
+        <span class="val-pill" id="cg-region-pill">Tarif régional auto</span>
+      </h2>
+      <div class="grid-4">
+        <div>
+          <label>Puissance fiscale (CV)</label>
+          <input type="number" id="cg-cv" value="6" min="1" max="50" step="1" />
+        </div>
+        <div>
+          <label>Âge du véhicule</label>
+          <select id="cg-age">
+            <option value="neuf">Neuf (0 km)</option>
+            <option value="moins10" selected>Occasion < 10 ans</option>
+            <option value="plus10">Occasion > 10 ans (-50 %)</option>
+          </select>
+        </div>
+        <div>
+          <label>Motorisation</label>
+          <select id="cg-energy">
+            <option value="thermique" selected>Essence / Diesel</option>
+            <option value="e85">Superéthanol E85 / Hybride</option>
+            <option value="elec">100 % Électrique</option>
+          </select>
+        </div>
+        <div>
+          <label>Émissions CO₂ (g/km - si neuf)</label>
+          <input type="number" id="cg-co2" value="112" min="0" max="300" step="1" />
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:16px;">
+        <div class="stat"><span>Taxe régionale + gestion</span><strong id="cg-taxe">0 €</strong></div>
+        <div class="stat"><span>Malus écologique CO₂</span><strong id="cg-malus" style="color:#fbbf24;">0 €</strong></div>
+        <div class="stat"><span>Coût total Carte Grise</span><strong id="cg-total" style="color:#4ade80;">0 €</strong></div>
+      </div>
+
+      <div style="text-align:center;margin-top:14px;">
+        <button class="btn-ghost" onclick="injectCarteGriseToCockpit()">Lisser ce coût sur 3 ans dans mon cockpit (+<span id="cg-monthly-add">0</span> €/mois)</button>
+      </div>
+    </section>
+
+    <!-- 3. COMPARATEUR ACHAT CASH VS CREDIT VS LOA -->
+    <section id="cash-loa" class="card">
+      <h2>3. Comparateur Achat Cash vs Crédit vs LOA (sur 4 ans)</h2>
+      <div class="grid-4">
+        <div>
+          <label>Prix du véhicule (€)</label>
+          <input type="number" id="cl-price" value="24000" min="3000" max="150000" step="500" />
+        </div>
+        <div>
+          <label>Apport initial (€)</label>
+          <input type="number" id="cl-apport" value="3000" min="0" max="80000" step="500" />
+        </div>
+        <div>
+          <label>Mensualité LOA proposée (€/mois)</label>
+          <input type="number" id="cl-loa-month" value="289" min="50" max="2500" step="5" />
+        </div>
+        <div>
+          <label>Valeur de revente estimée à 4 ans (€)</label>
+          <input type="number" id="cl-resale" value="13500" min="0" max="100000" step="500" />
+        </div>
+      </div>
+
+      <div class="grid-3" style="margin-top:16px;">
+        <div class="stat">
+          <span>Coût net Achat Cash (4 ans)</span>
+          <strong id="cl-net-cash">0 €</strong>
+          <span style="margin-top:4px;font-size:0.74rem;">Prix - Revente</span>
+        </div>
+        <div class="stat">
+          <span>Coût net Crédit 48 mois (5,5 %)</span>
+          <strong id="cl-net-credit">0 €</strong>
+          <span style="margin-top:4px;font-size:0.74rem;" id="cl-credit-m">— €/mois</span>
+        </div>
+        <div class="stat">
+          <span>Coût net LOA 48 mois (restitution)</span>
+          <strong id="cl-net-loa">0 €</strong>
+          <span style="margin-top:4px;font-size:0.74rem;">Apport + 48 loyers</span>
+        </div>
+      </div>
+      <div class="saving-banner" id="cl-verdict">Calcul en cours...</div>
+    </section>
+
+    <!-- 4. TOP 10 STATIONS FRANCE + SIMULATEUR DE DETOUR -->
+    <section id="detour" class="card">
+      <h2>
+        <span>4. Top Stations France & Simulateur de Détour</span>
+        <select id="top10-fuel" style="width:auto;padding:6px 10px;font-size:0.85rem;">
+          <option value="Gazole" selected>Gazole</option>
+          <option value="E10">SP95-E10</option>
+          <option value="E85">Superéthanol E85</option>
+          <option value="SP98">SP98</option>
+        </select>
+      </h2>
+
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <p style="color:var(--muted);margin-top:0;font-size:0.88rem;">Les stations les moins chères relevées en France aujourd'hui :</p>
+          <div id="top10-france-list"></div>
+        </div>
+
+        <div style="background:#090e1a;border:1px solid var(--border);border-radius:14px;padding:16px;">
+          <h3 style="margin:0 0 10px;font-size:1rem;color:var(--accent);">Vaut-il le coup de faire un détour ?</h3>
+          <div class="grid-2" style="gap:10px;">
+            <div>
+              <label>Détour aller-retour (km)</label>
+              <input type="number" id="det-km" value="8" min="1" max="80" step="1" />
+            </div>
+            <div>
+              <label>Volume du plein (Litres)</label>
+              <input type="number" id="det-liters" value="45" min="10" max="120" step="5" />
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <label>Écart de prix constaté (€/L — ex: 0.08 = 8 centimes)</label>
+            <input type="number" id="det-diff" value="0.08" min="0.01" max="0.60" step="0.01" />
+          </div>
+          <div class="saving-banner" id="det-result" style="margin-top:12px;font-size:0.88rem;">Calcul en cours...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CALCULATEUR TRAJET EXPRESS -->
     <section id="trajet" class="card">
-      <h2>2. Calculateur de trajet express (aux prix de votre secteur)</h2>
+      <h2>5. Calculateur de trajet express (aux prix de votre secteur)</h2>
       <div class="presets" style="margin-bottom:14px;">
         <button class="preset-btn" onclick="setTrip(40)">Trajet travail (40 km)</button>
         <button class="preset-btn" onclick="setTrip(300)">Week-end (300 km)</button>
@@ -426,20 +547,9 @@
       </div>
     </section>
 
-    <!-- 3. CLASSEMENT LIVE DES 5 ENERGIES -->
-    <section id="classement" class="card">
-      <h2>
-        <span>3. Classement des énergies aujourd'hui (pour 100 km)</span>
-        <span id="rank-zone" style="font-size:0.84rem;color:var(--muted);font-weight:500;">Moyenne France</span>
-      </h2>
-      <div id="energy-ranking"></div>
-    </section>
-
-    <!-- 4. DUEL 1V1 AVEC COURBE DE RENTABILITE SUR 8 ANS -->
+    <!-- 6. DUEL 1V1 AVEC COURBE DE RENTABILITE SUR 8 ANS -->
     <section id="comparateur" class="card">
-      <h2>4. Duel 1v1 : Courbe de rentabilité sur 8 ans (Achat + Usage)</h2>
-      <p style="color:var(--muted);margin-top:-8px;margin-bottom:16px;font-size:0.9rem;">Comparez deux voitures sur la durée (ex : Diesel d'occasion vs Électrique neuve) pour voir <strong>le mois exact</strong> où la plus chère à l'achat devient rentable.</p>
-
+      <h2>6. Duel 1v1 : Courbe de rentabilité sur 8 ans (Achat + Usage)</h2>
       <div class="grid-2">
         <div class="duel-col">
           <h3><i class="dot" style="background:#38bdf8;"></i> Véhicule A</h3>
@@ -521,9 +631,9 @@
       <div class="saving-banner" id="saving-result">Calcul de rentabilité en cours...</div>
     </section>
 
-    <!-- 5. SOLUTIONS & AFFILIATION DYNAMIQUE -->
+    <!-- 7. SOLUTIONS & AFFILIATION -->
     <section id="solutions" class="card">
-      <h2>5. Optimiser votre facture automobile</h2>
+      <h2>7. Optimiser votre facture automobile</h2>
       <div class="grid-2">
         <div class="offer-card">
           <div>
@@ -542,18 +652,17 @@
       </div>
     </section>
 
-    <!-- 6. CATALOGUE COMPLET, DUELS & RADAR DEPARTEMENTS -->
+    <!-- 8. CATALOGUE COMPLET & RADAR DEPARTEMENTS -->
     <section id="modeles" class="card">
       <h2>
-        <span>6. Explorer tout le catalogue & les stations locales</span>
+        <span>8. Explorer tout le catalogue & les stations locales</span>
         <div style="display:flex;gap:14px;font-size:0.88rem;">
           <a href="/carburant/" style="color:#4ade80;text-decoration:none;">Stations 96 dépts →</a>
           <a href="/modeles/" style="color:var(--accent);text-decoration:none;"><span class="model-count">170+</span> modèles →</a>
         </div>
       </h2>
 
-      <p style="color:var(--muted);margin-top:-6px;margin-bottom:10px;font-size:0.88rem;">Fiches modèles populaires :</p>
-      <div class="presets" style="margin-bottom:16px;">
+      <div class="presets" style="margin-bottom:14px;">
         <a href="/modeles/peugeot-208.html" class="preset-btn">Peugeot 208</a>
         <a href="/modeles/renault-clio-5.html" class="preset-btn">Renault Clio 5</a>
         <a href="/modeles/dacia-sandero.html" class="preset-btn">Dacia Sandero</a>
@@ -566,7 +675,6 @@
         <a href="/modeles/porsche-911-carrera.html" class="preset-btn">Porsche 911</a>
       </div>
 
-      <p style="color:var(--muted);margin:0 0 10px;font-size:0.88rem;">Radar stations moins chères par département :</p>
       <div class="presets" style="margin-bottom:0;">
         <a href="/carburant/nord-59.html" class="preset-btn">Nord (59)</a>
         <a href="/carburant/pas-de-calais-62.html" class="preset-btn">Pas-de-Calais (62)</a>
@@ -577,19 +685,6 @@
         <a href="/carburant/loire-atlantique-44.html" class="preset-btn">Loire-Atlantique (44)</a>
         <a href="/carburant/haute-garonne-31.html" class="preset-btn">Haute-Garonne (31)</a>
       </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="card">
-      <h2>Questions fréquentes</h2>
-      <details>
-        <summary>D'où viennent les prix par département et le Top 3 des stations moins chères ?</summary>
-        <p>Chaque matin à 6h, notre robot analyse l'ensemble des relevés officiels des stations-service françaises (Open Data gouvernemental) pour calculer les moyennes locales et extraire les 3 stations les moins chères dans chacun des 96 départements.</p>
-      </details>
-      <details>
-        <summary>Mon salaire est-il envoyé sur un serveur ?</summary>
-        <p>Jamais. Tout le calcul « Choc Salaire » ainsi que la génération de votre carte Story PNG s'exécutent localement dans votre navigateur.</p>
-      </details>
     </section>
   </div>
 
@@ -607,7 +702,24 @@
     let natPrices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
     let activePrices = { ...natPrices };
     let departmentsMap = {};
+    let nationalTop10Map = {};
     let currentCarLabel = "Peugeot 208";
+    let lastCgMonthly = 0;
+
+    // Tarif indicatif du cheval fiscal (CV) par département
+    const CV_RATES = {
+      "59": 42, "62": 42, "02": 42, "60": 42, "80": 42,
+      "75": 54.95, "77": 54.95, "78": 54.95, "91": 54.95, "92": 54.95, "93": 54.95, "94": 54.95, "95": 54.95,
+      "69": 43, "01": 43, "07": 43, "26": 43, "38": 43, "42": 43, "73": 43, "74": 43,
+      "13": 51.2, "04": 51.2, "05": 51.2, "06": 51.2, "83": 51.2, "84": 51.2,
+      "33": 45, "24": 45, "40": 45, "47": 45, "64": 45,
+      "31": 47, "09": 47, "11": 47, "12": 47, "30": 47, "32": 47, "34": 47, "46": 47, "48": 47, "65": 47, "66": 47, "81": 47, "82": 47,
+      "44": 51, "49": 51, "53": 51, "72": 51, "85": 51,
+      "35": 55, "22": 55, "29": 55, "56": 55,
+      "76": 46, "14": 46, "27": 46, "50": 46, "61": 46,
+      "67": 48, "68": 48, "54": 48, "55": 48, "57": 48, "88": 48, "08": 48, "10": 48, "51": 48, "52": 48,
+      "2A": 43, "2B": 43
+    };
 
     let allModels = [
       { brand: "Peugeot", name: "Peugeot 208", fuel: "E10", conso: 5.4, fixed: 1050, cat: "Citadine", buy: 18900 },
@@ -617,7 +729,7 @@
     ];
 
     const animState = { energy: 0, month: 0, kmCost: 0 };
-    const STORAGE_KEY = 'sim_auto_2027_v4';
+    const STORAGE_KEY = 'sim_auto_2027_v5';
     const CIRCUMFERENCE = 2 * Math.PI * 64;
 
     function showToast(msg) {
@@ -781,7 +893,6 @@
 
       if (deptCode === 'FR' || !departmentsMap[deptCode]) {
         activePrices = { ...natPrices };
-        document.getElementById('rank-zone').textContent = 'Moyenne France';
         titleEl.textContent = 'Radar stations moins chères : sélectionnez votre département';
         moreEl.href = '/carburant/';
         moreEl.textContent = 'Voir les 96 dépts →';
@@ -791,7 +902,6 @@
 
       const d = departmentsMap[deptCode];
       activePrices = { ...natPrices, ...d.prices };
-      document.getElementById('rank-zone').textContent = `${d.name} (${d.code})`;
       moreEl.href = `/carburant/${d.slug}.html`;
       moreEl.textContent = `Page ${d.code} →`;
 
@@ -815,31 +925,123 @@
       }
     }
 
-    function renderRanking() {
-      const profiles = [
-        { key: 'Electrique_kWh', name: '100 % Électrique (Domicile)', conso: 15.5, unit: '€/kWh', color: '#22c55e' },
-        { key: 'E85', name: 'Superéthanol E85', conso: 7.4, unit: '€/L', color: '#38bdf8' },
-        { key: 'Gazole', name: 'Diesel (Gazole)', conso: 5.0, unit: '€/L', color: '#818cf8' },
-        { key: 'E10', name: 'Essence SP95-E10', conso: 6.0, unit: '€/L', color: '#f59e0b' },
-        { key: 'SP98', name: 'Essence SP98', conso: 6.0, unit: '€/L', color: '#f87171' }
-      ];
-      const items = profiles.map(p => ({ ...p, unitPrice: activePrices[p.key] || 1.75, cost100: (activePrices[p.key] || 1.75) * p.conso }))
-        .sort((a, b) => a.cost100 - b.cost100);
-      const maxCost = Math.max(...items.map(i => i.cost100)) || 1;
-      const selectedFuel = document.getElementById('fuel').value;
+    // 2. Simulateur Carte Grise + Malus
+    function calcCarteGrise() {
+      const deptCode = document.getElementById('dept-select').value;
+      const cvRate = CV_RATES[deptCode] || 46.15;
+      document.getElementById('cg-region-pill').textContent =
+        deptCode === 'FR' ? `Moyenne France (${cvRate.toFixed(2)} €/CV)` : `Dépt ${deptCode} (${cvRate.toFixed(2)} €/CV)`;
 
-      document.getElementById('energy-ranking').innerHTML = items.map((item, idx) => {
-        const w = Math.max(12, Math.round((item.cost100 / maxCost) * 100));
-        const tag = item.key === selectedFuel ? ' • <b style="color:var(--accent)">Votre choix</b>' : '';
-        return `
-          <div class="rank-item">
-            <div class="rank-top">
-              <span><strong>#${idx + 1}</strong> ${item.name}${tag}</span>
-              <span style="color:var(--muted);"><strong>${item.cost100.toFixed(2)} €</strong> / 100 km (${item.unitPrice.toFixed(3)} ${item.unit})</span>
-            </div>
-            <div class="rank-track"><div class="rank-fill" style="width:${w}%;background:${item.color};"></div></div>
-          </div>`;
-      }).join('');
+      const cv = Math.max(1, parseInt(document.getElementById('cg-cv').value, 10) || 6);
+      const age = document.getElementById('cg-age').value;
+      const energy = document.getElementById('cg-energy').value;
+      const co2 = Math.max(0, parseInt(document.getElementById('cg-co2').value, 10) || 0);
+
+      let taxeReg = cv * cvRate;
+      if (age === 'plus10') taxeReg *= 0.5;
+      if (energy === 'elec' || energy === 'e85') taxeReg = 0;
+
+      const fees = 13.76; // taxe fixe + redevance acheminement
+      const taxeTotal = Math.round(taxeReg + fees);
+
+      let malus = 0;
+      if (age === 'neuf' && energy !== 'elec' && co2 >= 113) {
+        const excess = co2 - 112;
+        malus = Math.round(50 + Math.pow(excess, 2.25) * 4.2);
+        malus = Math.min(70000, malus);
+      }
+
+      const grandTotal = taxeTotal + malus;
+      lastCgMonthly = Math.round(grandTotal / 36);
+
+      document.getElementById('cg-taxe').textContent = taxeTotal.toLocaleString('fr-FR') + ' €';
+      document.getElementById('cg-malus').textContent = malus.toLocaleString('fr-FR') + ' €';
+      document.getElementById('cg-total').textContent = grandTotal.toLocaleString('fr-FR') + ' €';
+      document.getElementById('cg-monthly-add').textContent = lastCgMonthly;
+    }
+
+    function injectCarteGriseToCockpit() {
+      const curFin = parseFloat(document.getElementById('finance').value) || 0;
+      document.getElementById('finance').value = curFin + lastCgMonthly;
+      saveState();
+      calculate();
+      showToast(`+${lastCgMonthly} €/mois ajoutés dans le cockpit !`);
+      document.getElementById('simulateur').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 3. Comparateur Cash vs Crédit vs LOA
+    function calcCashVsLoa() {
+      const price = parseFloat(document.getElementById('cl-price').value) || 0;
+      const apport = Math.min(price, parseFloat(document.getElementById('cl-apport').value) || 0);
+      const loaMonth = parseFloat(document.getElementById('cl-loa-month').value) || 0;
+      const resale = parseFloat(document.getElementById('cl-resale').value) || 0;
+
+      // Cash : perte de valeur réelle = prix - revente
+      const netCash = Math.max(0, price - resale);
+
+      // Crédit 48 mois à 5,5 % TAEG
+      const loanAmount = Math.max(0, price - apport);
+      const r = 0.055 / 12;
+      const creditMonth = loanAmount > 0 ? (loanAmount * r) / (1 - Math.pow(1 + r, -48)) : 0;
+      const totalPaidCredit = apport + (creditMonth * 48);
+      const netCredit = Math.max(0, totalPaidCredit - resale);
+
+      // LOA 48 mois avec restitution
+      const netLoa = apport + (loaMonth * 48);
+
+      document.getElementById('cl-net-cash').textContent = Math.round(netCash).toLocaleString('fr-FR') + ' €';
+      document.getElementById('cl-net-credit').textContent = Math.round(netCredit).toLocaleString('fr-FR') + ' €';
+      document.getElementById('cl-credit-m').textContent = `${Math.round(creditMonth)} €/mois (48 mois)`;
+      document.getElementById('cl-net-loa').textContent = Math.round(netLoa).toLocaleString('fr-FR') + ' €';
+
+      const options = [
+        { name: "l'Achat Cash", cost: netCash },
+        { name: "le Crédit classique", cost: netCredit },
+        { name: "la LOA", cost: netLoa }
+      ].sort((a, b) => a.cost - b.cost);
+
+      const diffBestSecond = Math.round(options[1].cost - options[0].cost);
+      document.getElementById('cl-verdict').textContent =
+        `Option la plus économique sur 4 ans : ${options[0].name} (coût net ${Math.round(options[0].cost).toLocaleString('fr-FR')} € — économie de +${diffBestSecond.toLocaleString('fr-FR')} € face à ${options[1].name}).`;
+    }
+
+    // 4. Top 10 France + Simulateur de détour
+    function renderTop10France() {
+      const f = document.getElementById('top10-fuel').value;
+      const list = (nationalTop10Map[f] || []).slice(0, 5);
+      const container = document.getElementById('top10-france-list');
+      if (!list.length) {
+        container.innerHTML = '<p style="color:#94a3b8;font-size:0.85rem;">Classement national synchronisé chaque matin à 6h.</p>';
+        return;
+      }
+      container.innerHTML = list.map((st, idx) => `
+        <div class="st-mini">
+          <div><b style="color:#f8fafc;">#${idx + 1} ${st.v} (${st.cp})</b> — <span style="color:#94a3b8;">${st.a}</span></div>
+          <strong>${st.p.toFixed(3)} €/L</strong>
+        </div>
+      `).join('');
+    }
+
+    function calcDetour() {
+      const detKm = parseFloat(document.getElementById('det-km').value) || 0;
+      const liters = parseFloat(document.getElementById('det-liters').value) || 0;
+      const diff = parseFloat(document.getElementById('det-diff').value) || 0;
+      const conso = parseFloat(document.getElementById('conso').value) || 6;
+      const fuel = document.getElementById('fuel').value;
+      const unitPrice = activePrices[fuel] || 1.75;
+
+      const grossGain = liters * diff;
+      const detourBurnCost = (detKm / 100) * conso * unitPrice;
+      const netGain = grossGain - detourBurnCost;
+      const el = document.getElementById('det-result');
+
+      if (netGain > 0.5) {
+        el.style.color = '#4ade80';
+        el.textContent = `Rentable : +${netGain.toFixed(2)} € de gain net réel sur le plein (${grossGain.toFixed(2)} € gagnés - ${detourBurnCost.toFixed(2)} € brûlés pendant le détour).`;
+      } else {
+        el.style.color = '#fbbf24';
+        el.textContent = `Inutile de faire le détour : bilan net de ${netGain.toFixed(2)} € (le carburant brûlé sur ${detKm} km mange l'économie).`;
+      }
     }
 
     function populateDuelSelects() {
@@ -952,6 +1154,9 @@
 
     function calculate() {
       updateRadar();
+      calcCarteGrise();
+      calcCashVsLoa();
+      calcDetour();
 
       const fuel = document.getElementById('fuel').value;
       const km = parseFloat(document.getElementById('km').value) || 0;
@@ -1010,7 +1215,6 @@
       document.getElementById('trip-total').textContent = tripTotal.toFixed(2) + ' €';
       document.getElementById('trip-per-pax').textContent = (tripTotal / tripPax).toFixed(2) + ' €';
 
-      renderRanking();
       renderDuel8Years();
     }
 
@@ -1147,22 +1351,26 @@
         activePrices = { ...natPrices };
         if (pData.updated_at) document.getElementById('update-date').textContent = 'Cours officiels à jour au ' + pData.updated_at;
       }
-      if (dData && dData.departments) {
-        departmentsMap = dData.departments;
-        const sel = document.getElementById('dept-select');
-        const pending = sel.dataset.pending || 'FR';
-        Object.values(departmentsMap).forEach(d => {
-          const opt = document.createElement('option');
-          opt.value = d.code;
-          opt.textContent = `${d.code} — ${d.name}`;
-          sel.appendChild(opt);
-        });
-        if (departmentsMap[pending]) sel.value = pending;
+      if (dData) {
+        if (dData.national_top10) nationalTop10Map = dData.national_top10;
+        if (dData.departments) {
+          departmentsMap = dData.departments;
+          const sel = document.getElementById('dept-select');
+          const pending = sel.dataset.pending || 'FR';
+          Object.values(departmentsMap).forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d.code;
+            opt.textContent = `${d.code} — ${d.name}`;
+            sel.appendChild(opt);
+          });
+          if (departmentsMap[pending]) sel.value = pending;
+        }
       }
       if (Array.isArray(mData) && mData.length) {
         allModels = mData;
         document.querySelectorAll('.model-count').forEach(el => el.textContent = mData.length);
       }
+      renderTop10France();
       populateDuelSelects();
       calculate();
     });
@@ -1171,6 +1379,20 @@
       document.getElementById(id).addEventListener('input', () => { saveState(); calculate(); });
       document.getElementById(id).addEventListener('change', () => { saveState(); calculate(); });
     });
+
+    ['cg-cv', 'cg-age', 'cg-energy', 'cg-co2'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcCarteGrise);
+      document.getElementById(id).addEventListener('change', calcCarteGrise);
+    });
+
+    ['cl-price', 'cl-apport', 'cl-loa-month', 'cl-resale'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcCashVsLoa);
+    });
+
+    ['det-km', 'det-liters', 'det-diff'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calcDetour);
+    });
+    document.getElementById('top10-fuel').addEventListener('change', renderTop10France);
 
     document.getElementById('d1-model').addEventListener('change', () => applyDuelModel(1));
     document.getElementById('d2-model').addEventListener('change', () => applyDuelModel(2));
