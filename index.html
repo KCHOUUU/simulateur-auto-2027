@@ -537,7 +537,7 @@
             <h3>Pièces, Pneus & Entretien malin</h3>
             <p>Réduisez votre consommation jusqu'à 8 % avec des pneus adaptés et comparez vos pièces d'entretien avant de passer au garage.</p>
           </div>
-          <a href="#affiliation-equipement" class="offer-btn" rel="nofollow sponsored">Voir les offres entretien & pneus →</a>
+          <a href="https://link.amazon/B08lUau9Y" target="_blank" rel="nofollow sponsored noopener" class="offer-btn">Voir les offres entretien & pneus →</a>
         </div>
       </div>
     </section>
@@ -725,7 +725,6 @@
       } catch (e) {}
     }
 
-    // Recherche rapide 170+ modèles
     const searchInput = document.getElementById('model-search');
     const searchBox = document.getElementById('search-results');
 
@@ -843,7 +842,6 @@
       }).join('');
     }
 
-    // Duel 1v1 Courbe 8 ans
     function populateDuelSelects() {
       const s1 = document.getElementById('d1-model');
       const s2 = document.getElementById('d2-model');
@@ -852,7 +850,7 @@
       s1.innerHTML = opts;
       s2.innerHTML = opts;
       if (allModels.length > 2) {
-        s1.value = "1"; // Peugeot 208
+        s1.value = "1";
         const r5Idx = allModels.findIndex(m => m.name.includes("Renault 5"));
         s2.value = r5Idx >= 0 ? String(r5Idx) : "2";
       }
@@ -936,7 +934,6 @@
       const diff8 = Math.round(Math.abs(pts1[8] - pts2[8]));
       const winner8 = pts1[8] < pts2[8] ? name1 : name2;
 
-      // Calcul du point de croisement (break-even)
       if ((buy1 > buy2 && annual1 < annual2) || (buy2 > buy1 && annual2 < annual1)) {
         const yearsCross = Math.abs(buy1 - buy2) / Math.abs(annual2 - annual1);
         const totalMonths = Math.round(yearsCross * 12);
@@ -988,7 +985,6 @@
       document.getElementById('pct-energy').textContent = pctE + '%';
       document.getElementById('pct-fixed').textContent = pctF + '%';
 
-      // Choc Salaire (base légale 151,67 h/mois)
       const hourlyRate = salary / 151.67;
       const hoursWorked = totalMonth / hourlyRate;
       const pctSalary = Math.round((totalMonth / salary) * 100);
@@ -1006,7 +1002,6 @@
       else if (perKm <= 0.30) { scoreEl.textContent = 'C Moyen'; scoreEl.style.background = 'rgba(245,158,11,0.2)'; scoreEl.style.color = '#fbbf24'; }
       else { scoreEl.textContent = 'D Budget Élevé'; scoreEl.style.background = 'rgba(239,68,68,0.2)'; scoreEl.style.color = '#f87171'; }
 
-      // Trajet express
       const tripKm = parseFloat(document.getElementById('trip-km').value) || 0;
       const tripPax = Math.max(1, parseInt(document.getElementById('trip-pax').value, 10) || 1);
       const tripEnergy = (tripKm / 100) * conso * unitPrice;
@@ -1019,7 +1014,6 @@
       renderDuel8Years();
     }
 
-    // Générateur de Carte Story PNG (1080x1920) 100% natif Canvas
     function roundRect(ctx, x, y, w, h, r) {
       ctx.beginPath();
       ctx.moveTo(x + r, y);
@@ -1036,7 +1030,6 @@
       canvas.height = 1920;
       const ctx = canvas.getContext('2d');
 
-      // Fond dégradé
       const grad = ctx.createLinearGradient(0, 0, 1080, 1920);
       grad.addColorStop(0, '#050811');
       grad.addColorStop(0.5, '#0b132b');
@@ -1044,13 +1037,11 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1920);
 
-      // Halo décoratif
       ctx.fillStyle = 'rgba(56, 189, 248, 0.14)';
       ctx.beginPath(); ctx.arc(220, 320, 340, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = 'rgba(34, 197, 94, 0.12)';
       ctx.beginPath(); ctx.arc(880, 1480, 360, 0, Math.PI * 2); ctx.fill();
 
-      // Badge haut
       roundRect(ctx, 270, 130, 540, 64, 32);
       ctx.fillStyle = 'rgba(56, 189, 248, 0.16)';
       ctx.fill();
@@ -1062,7 +1053,6 @@
       ctx.textAlign = 'center';
       ctx.fillText('MON BILAN AUTO RÉEL • 2027', 540, 172);
 
-      // Nom véhicule
       ctx.fillStyle = '#f8fafc';
       ctx.font = '800 66px system-ui, sans-serif';
       ctx.fillText(currentCarLabel, 540, 295);
@@ -1074,7 +1064,6 @@
       ctx.font = '500 32px system-ui, sans-serif';
       ctx.fillText(`${km} km/an • ${deptLabel}`, 540, 355);
 
-      // Carte centrale coût mensuel
       roundRect(ctx, 90, 430, 900, 440, 36);
       ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
       ctx.fill();
@@ -1094,7 +1083,6 @@
       ctx.font = '700 42px system-ui, sans-serif';
       ctx.fillText(`Soit ${document.getElementById('res-km').textContent} par kilomètre  •  Note ${document.getElementById('eco-score').textContent}`, 540, 785);
 
-      // Carte Choc Salaire
       roundRect(ctx, 90, 920, 900, 340, 36);
       ctx.fillStyle = 'rgba(245, 158, 11, 0.14)';
       ctx.fill();
@@ -1115,7 +1103,6 @@
       ctx.fillText(subText.slice(0, 52), 540, 1180);
       ctx.fillText(subText.slice(52), 540, 1222);
 
-      // Répartition
       roundRect(ctx, 90, 1310, 430, 220, 28);
       ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
       ctx.fill();
@@ -1136,7 +1123,6 @@
       ctx.font = '800 50px system-ui, sans-serif';
       ctx.fillText(`${document.getElementById('pct-energy').textContent} / ${document.getElementById('pct-fixed').textContent}`, 775, 1465);
 
-      // Pied de carte viral
       roundRect(ctx, 140, 1640, 800, 130, 28);
       ctx.fillStyle = '#0284c7';
       ctx.fill();
@@ -1151,7 +1137,6 @@
       showToast('Carte Story PNG téléchargée !');
     }
 
-    // Chargement des données JSON
     Promise.all([
       fetch('prices.json').then(r => r.json()).catch(() => null),
       fetch('departments.json').then(r => r.json()).catch(() => null),
