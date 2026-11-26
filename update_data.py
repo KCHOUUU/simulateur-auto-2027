@@ -41,7 +41,7 @@ def slugify(text):
     text = unicodedata.normalize("NFKD", text).encode("ascii", "ignore").decode("ascii")
     return re.sub(r"[^a-zA-Z0-9]+", "-", text.lower()).strip("-")
 
-# 1. Extraction nationale + départementale + Top 3 stations les moins chères
+# 1. Extraction nationale + départementale + Top 10 France + Top 3 par département
 today_fr = datetime.date.today().strftime("%d/%m/%Y")
 today_iso = datetime.date.today().isoformat()
 
@@ -57,6 +57,7 @@ prices = {
 
 FUEL_KEYS = ["Gazole", "SP95", "E10", "SP98", "E85"]
 nat_totals = {k: [] for k in FUEL_KEYS}
+nat_stations = {k: [] for k in FUEL_KEYS}
 dept_stations = {code: {k: [] for k in FUEL_KEYS} for code in DEPARTMENTS}
 
 try:
@@ -85,13 +86,10 @@ try:
                     v = float(val)
                     if 0.4 < v < 3.5:
                         nat_totals[nom].append(v)
+                        st_obj = {"p": round(v, 3), "v": ville, "a": adresse, "cp": cp}
+                        nat_stations[nom].append(st_obj)
                         if dept:
-                            dept_stations[dept][nom].append({
-                                "p": round(v, 3),
-                                "v": ville,
-                                "a": adresse,
-                                "cp": cp
-                            })
+                            dept_stations[dept][nom].append(st_obj)
 
         for k, vals in nat_totals.items():
             if len(vals) > 50:
@@ -102,7 +100,14 @@ except Exception as e:
 with open("prices.json", "w", encoding="utf-8") as f:
     json.dump(prices, f, ensure_ascii=False, indent=2)
 
-# Construction de departments.json (moyennes locales + Top 3 stations moins chères par carburant)
+# Top 10 national des stations les moins chères par carburant
+national_top10 = {}
+for k in FUEL_KEYS:
+    st_all = nat_stations[k]
+    st_all.sort(key=lambda x: x["p"])
+    national_top10[k] = st_all[:10]
+
+# Construction de departments.json (moyennes locales + Top 3 stations moins chères + Top 10 national)
 departments_data = {}
 for code, name in DEPARTMENTS.items():
     dslug = f"{slugify(name)}-{code.lower()}"
@@ -129,7 +134,11 @@ for code, name in DEPARTMENTS.items():
     }
 
 with open("departments.json", "w", encoding="utf-8") as f:
-    json.dump({"updated_at": today_fr, "departments": departments_data}, f, ensure_ascii=False)
+    json.dump({
+        "updated_at": today_fr,
+        "national_top10": national_top10,
+        "departments": departments_data
+    }, f, ensure_ascii=False)
 
 FUEL_LABELS = {
     "Gazole": "Diesel (Gazole)",
@@ -149,8 +158,7 @@ FUEL_UNITS = {
     "Electrique_kWh": "kWh/100 km"
 }
 
-# 2. Base complète : 170+ modèles (avec prix indicatif moyen pour le duel 8 ans)
-# Format: (Marque, Nom, Energie, Conso, Fixes €/an, Boîtier E85, Catégorie, Prix achat ref €)
+# 2. Base complète : 170+ modèles
 RAW_MODELS = [
     ("Peugeot", "Peugeot 108", "E10", 4.9, 840, 790, "Citadine", 11500),
     ("Peugeot", "Peugeot 208", "E10", 5.4, 1050, 890, "Citadine", 18900),
@@ -806,7 +814,7 @@ for s1, s2 in valid_duels:
         f"  <url><loc>https://simulateur-auto.com/duels/{dslug}.html</loc><lastmod>{today_iso}</lastmod><changefreq>daily</changefreq><priority>0.85</priority></url>"
     )
 
-# 5. Génération des 96 pages DÉPARTEMENTS (Radar Carburant + Top 3 stations moins chères)
+# 5. Génération des 96 pages DÉPARTEMENTS
 DEPT_TEMPLATE = """<!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -1126,4 +1134,4 @@ sitemap_xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www
 with open("sitemap.xml", "w", encoding="utf-8") as f:
     f.write(sitemap_xml)
 
-print(f"Mise à jour V3 Élite réussie : {total_models} modèles + {len(valid_duels)} duels + {len(all_dept_items)} départements + sitemap ({len(sitemap_urls)} URLs)")
+print(f"Mise à jour V4 Ultimate réussie : {total_models} modèles + {len(valid_duels)} duels + {len(all_dept_items)} départements + Top 10 France + sitemap ({len(sitemap_urls)} URLs)")
