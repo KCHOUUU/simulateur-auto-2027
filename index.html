@@ -3,32 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Simulateur Auto 2027 — Coût Réel, Carte Grise, LOA vs Cash & Radar Carburant</title>
-  <meta name="description" content="Calculez le coût réel de votre voiture, le prix de votre carte grise et malus, comparez Achat Cash vs LOA, et trouvez les stations les moins chères de France." />
+  <title>Simulateur Auto 2027 — Calculez le vrai coût de votre voiture</title>
+  <meta name="description" content="Simulateur automobile indépendant : coût réel mensuel, choc salaire, carte grise & malus, comparateur Cash vs LOA et prix des stations par département." />
   <link rel="canonical" href="https://simulateur-auto.com/" />
   <link rel="manifest" href="/manifest.json" />
-  <meta name="theme-color" content="#0B0B0C" />
+  <meta name="theme-color" content="#F8FAFC" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚗</text></svg>" />
-  <meta property="og:title" content="Simulateur Auto 2027 — Coût Réel, Carte Grise, LOA & Radar Stations" />
-  <meta property="og:description" content="Tous les simulateurs auto gratuits : budget au kilomètre, choc salaire, carte grise, cash vs LOA et stations moins chères par département." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://simulateur-auto.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #0B0B0C;
-      --surface: #121214;
-      --surface-2: #18181B;
-      --paper: #FAF8F3;
-      --paper-ink: #0E0E0F;
-      --accent: #FF5F38;
-      --accent-hover: #FF471A;
-      --text: #FAF8F3;
-      --muted: #8E8E93;
-      --border: rgba(250, 248, 243, 0.13);
-      --border-strong: rgba(250, 248, 243, 0.28);
+      --bg: #F6F7F9;
+      --surface: #FFFFFF;
+      --surface-soft: #F1F5F9;
+      --ink: #0F172A;
+      --ink-soft: #475569;
+      --muted: #64748B;
+      --accent: #2563EB;
+      --accent-dark: #1D4ED8;
+      --accent-soft: #EFF6FF;
+      --emerald: #059669;
+      --emerald-soft: #ECFDF5;
+      --amber: #D97706;
+      --amber-soft: #FFFBEB;
+      --border: #E2E8F0;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 32px -4px rgba(15, 23, 42, 0.07), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.12);
     }
 
     * { box-sizing: border-box; }
@@ -36,324 +38,425 @@
     body {
       margin: 0;
       background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      line-height: 1.5;
+      color: var(--ink);
+      font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
     }
 
-    h1, h2, h3, .mono-num {
-      font-family: "Space Grotesk", system-ui, sans-serif;
-      letter-spacing: -0.03em;
+    /* Halo subtil animé en arrière-plan du hero */
+    .hero-bg {
+      position: relative;
+      background: radial-gradient(120% 100% at 50% 0%, #EEF2FF 0%, #F6F7F9 70%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      top: -280px; left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: breathe 8s ease-in-out infinite alternate;
+    }
+    @keyframes breathe {
+      0% { transform: translateX(-50%) scale(0.95); opacity: 0.7; }
+      100% { transform: translateX(-50%) scale(1.12); opacity: 1; }
     }
 
-    /* Navigation minimaliste */
+    /* Navigation flottante épurée */
     nav {
       position: sticky; top: 0; z-index: 40;
-      background: rgba(11, 11, 12, 0.92);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .nav-inner {
-      max-width: 1180px; margin: 0 auto; padding: 16px 24px;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+      max-width: 1120px; margin: 0 auto; padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
     }
     .logo {
-      font-family: "Space Grotesk", sans-serif;
-      font-weight: 700; font-size: 1.15rem; color: var(--text);
-      text-decoration: none; letter-spacing: -0.04em;
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1.12rem; color: var(--ink);
+      text-decoration: none; letter-spacing: -0.03em;
     }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .logo-mark {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--ink); color: #fff;
+      display: grid; place-items: center; font-size: 0.9rem;
+    }
+    .nav-links { display: flex; align-items: center; gap: 22px; }
     .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.84rem;
-      font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em;
+      color: var(--ink-soft); text-decoration: none; font-size: 0.88rem; font-weight: 600;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { color: var(--accent); }
+    @media (max-width: 760px) { .nav-links { display: none; } }
 
-    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-
-    /* Hero Monumental */
-    header {
-      padding: 64px 0 44px;
-      border-bottom: 1px solid var(--border);
+    .sound-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 6px 12px; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 700; color: var(--ink-soft);
+      cursor: pointer; transition: all 0.2s;
     }
-    .hero-top {
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 12px; flex-wrap: wrap; margin-bottom: 24px;
-      font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em;
+    .sound-pill:hover { border-color: var(--ink); color: var(--ink); }
+    .sound-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--emerald); transition: 0.2s; }
+    .sound-pill.off .sound-dot { background: #CBD5E1; }
+
+    /* Hero */
+    .hero {
+      max-width: 1120px; margin: 0 auto; padding: 52px 24px 44px;
+      text-align: center; position: relative; z-index: 1;
     }
     .live-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      color: var(--text); font-weight: 600;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 999px;
+      font-size: 0.8rem; font-weight: 600; color: var(--ink-soft);
+      box-shadow: var(--shadow-sm); margin-bottom: 20px;
+      animation: slideDown 0.5s ease-out;
     }
-    .pulse-dot {
-      width: 7px; height: 7px; background: var(--accent); border-radius: 50%;
-      animation: pulseDot 2s infinite;
+    .live-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--emerald);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.18);
+      animation: pulse 2s infinite;
     }
-    @keyframes pulseDot {
-      0% { box-shadow: 0 0 0 0 rgba(255, 95, 56, 0.7); }
-      70% { box-shadow: 0 0 0 8px rgba(255, 95, 56, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(255, 95, 56, 0); }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.25); }
     }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     h1 {
-      font-size: clamp(2.4rem, 6vw, 4.8rem);
-      line-height: 0.96;
-      margin: 0 0 22px;
-      font-weight: 700;
-      letter-spacing: -0.045em;
+      font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.08;
+      margin: 0 auto 16px; max-width: 780px; color: var(--ink);
     }
-    h1 em { font-style: normal; color: var(--accent); }
-    .hero-sub {
-      max-width: 640px; color: var(--muted); font-size: 1.05rem; margin: 0;
+    h1 span {
+      background: linear-gradient(135deg, #2563EB, #0EA5E9);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
-    /* Sections éditoriales */
-    .section {
-      padding: 52px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .sec-head {
-      display: flex; justify-content: space-between; align-items: baseline;
-      gap: 16px; flex-wrap: wrap; margin-bottom: 28px;
-    }
-    .sec-tag {
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
-      color: var(--accent); font-weight: 700; display: block; margin-bottom: 6px;
-    }
-    h2 {
-      font-size: clamp(1.45rem, 2.6vw, 2.1rem);
-      margin: 0; font-weight: 600; line-height: 1.1;
+    .hero p {
+      max-width: 600px; margin: 0 auto; color: var(--ink-soft); font-size: 1.05rem;
     }
 
-    /* Recherche & Presets */
-    .search-wrap { position: relative; margin-bottom: 14px; }
-    .search-input {
-      width: 100%; padding: 15px 18px;
-      background: var(--surface); color: var(--text);
-      border: 1px solid var(--border-strong); border-radius: 6px;
-      font-size: 0.98rem; transition: border-color 0.2s;
-    }
-    .search-input:focus { outline: none; border-color: var(--accent); }
-    .search-results {
-      position: absolute; top: 100%; left: 0; right: 0; z-index: 40;
-      background: #141416; border: 1px solid var(--border-strong);
-      border-radius: 6px; margin-top: 6px; max-height: 280px; overflow-y: auto;
-      display: none;
-    }
-    .search-item {
-      padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between;
-      align-items: center; border-bottom: 1px solid var(--border); font-size: 0.9rem;
-    }
-    .search-item:hover { background: rgba(255, 95, 56, 0.12); }
-    .search-item span { font-size: 0.8rem; color: var(--muted); }
-
-    .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
-    .preset-btn {
-      background: transparent; color: var(--muted);
-      border: 1px solid var(--border); padding: 8px 14px; border-radius: 4px;
-      font-size: 0.82rem; font-weight: 500; cursor: pointer;
-      transition: all 0.2s; text-decoration: none;
-    }
-    .preset-btn:hover { border-color: var(--text); color: var(--text); }
-    .preset-btn.active {
-      background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 600;
+    /* Conteneur Principal App */
+    .main-wrap {
+      max-width: 1120px; margin: -20px auto 60px; padding: 0 24px; position: relative; z-index: 5;
     }
 
-    /* Grilles */
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .grid-cockpit { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 36px; align-items: start; }
-    @media (max-width: 880px) {
-      .grid-cockpit, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-      header { padding: 40px 0 32px; }
-      .section { padding: 36px 0; }
+    /* Barre d'onglets fluide (Pilule glissante) */
+    .tabs-bar {
+      display: flex; gap: 6px; padding: 6px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; box-shadow: var(--shadow-sm);
+      margin-bottom: 24px; overflow-x: auto;
+    }
+    .tab-btn {
+      flex: 1; min-width: max-content;
+      padding: 11px 16px; border: none; border-radius: 10px;
+      background: transparent; color: var(--ink-soft);
+      font-family: inherit; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .tab-btn:hover { color: var(--ink); background: var(--surface-soft); }
+    .tab-btn.active {
+      background: var(--ink); color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
     }
 
-    /* Inputs */
-    .field { margin-bottom: 18px; }
-    .field-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 8px; }
-    label { font-size: 0.82rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500; }
-    .val-pill { font-family: "Space Grotesk", sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--text); }
-
-    input[type="number"], select {
-      width: 100%; padding: 11px 13px; border-radius: 4px;
-      border: 1px solid var(--border); background: var(--surface);
-      color: var(--text); font-size: 0.96rem; transition: border-color 0.2s;
+    /* Panneaux d'onglets avec animation d'entrée */
+    .tab-panel { display: none; }
+    .tab-panel.active {
+      display: block;
+      animation: panelFade 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    input[type="number"]:focus, select:focus { outline: none; border-color: var(--accent); }
-
-    input[type="range"] {
-      -webkit-appearance: none; width: 100%; height: 3px; background: rgba(250, 248, 243, 0.2);
-      margin-top: 10px; outline: none; cursor: pointer;
+    @keyframes panelFade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
-      background: var(--accent); cursor: pointer; transition: transform 0.15s;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
 
-    /* Panneau droit résultat monumental */
-    .result-panel {
+    /* Carte App Principale */
+    .app-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+    }
+    @media (max-width: 700px) { .app-card { padding: 20px; } }
+
+    .cockpit-grid {
+      display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 36px; align-items: start;
+    }
+    @media (max-width: 900px) { .cockpit-grid { grid-template-columns: 1fr; gap: 28px; } }
+
+    /* Recherche & Modèles rapides */
+    .search-box { position: relative; margin-bottom: 14px; }
+    .search-input {
+      width: 100%; padding: 14px 16px;
+      border: 1.5px solid var(--border); border-radius: 12px;
+      background: var(--bg); color: var(--ink);
+      font-family: inherit; font-size: 0.95rem; font-weight: 500;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      outline: none; border-color: var(--accent); background: var(--surface);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+    .search-dropdown {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 50;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; box-shadow: var(--shadow-lg);
+      max-height: 260px; overflow-y: auto; display: none;
+    }
+    .search-row {
+      padding: 11px 16px; display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--surface-soft); cursor: pointer; font-size: 0.9rem;
+      transition: background 0.15s;
+    }
+    .search-row:hover { background: var(--accent-soft); }
+    .search-row span { color: var(--muted); font-size: 0.8rem; }
+
+    .chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .chip {
+      padding: 7px 13px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--ink-soft); font-family: inherit; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; text-decoration: none;
+    }
+    .chip:hover { border-color: var(--ink); color: var(--ink); transform: translateY(-1px); }
+    .chip.active {
+      background: var(--accent-soft); border-color: var(--accent); color: var(--accent);
+    }
+
+    /* Champs & Curseurs */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 780px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+
+    .field { margin-bottom: 20px; }
+    .field-top {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;
+    }
+    label { font-size: 0.84rem; font-weight: 600; color: var(--ink-soft); }
+    .badge-val {
+      font-size: 0.84rem; font-weight: 700; color: var(--accent);
+      background: var(--accent-soft); padding: 3px 10px; border-radius: 6px;
+    }
+
+    input[type="number"], select {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      background: var(--surface); color: var(--ink);
+      font-family: inherit; font-size: 0.95rem; font-weight: 600;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input[type="number"]:focus, select:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none; width: 100%; height: 6px;
+      background: #E2E8F0; border-radius: 999px; margin-top: 10px; cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--surface); border: 4px solid var(--accent);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2);
+      cursor: pointer; transition: transform 0.15s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.18); }
+
+    /* Carte Résultat Droite (Contraste sombre élégant façon carte bancaire) */
+    .summary-card {
+      background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      border-radius: 18px;
       padding: 28px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
     }
-    .big-cost-label {
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+    .summary-card::before {
+      content: ""; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.22), transparent 70%);
+      pointer-events: none;
     }
-    .big-cost {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: clamp(3rem, 5vw, 4.2rem);
-      font-weight: 700; line-height: 1; margin: 8px 0 4px;
-      color: var(--text); font-variant-numeric: tabular-nums;
+    .sum-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
     }
-    .big-cost span { font-size: 1.1rem; color: var(--muted); font-weight: 500; }
-
-    .score-pill {
-      display: inline-block; padding: 4px 10px; border-radius: 4px;
-      font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
-      border: 1px solid var(--border-strong); color: var(--text);
-    }
-
-    .split-bar {
-      height: 6px; background: var(--surface-2); border-radius: 2px;
-      overflow: hidden; display: flex; margin: 18px 0 8px;
-    }
-    .split-e { background: var(--accent); transition: width 0.4s ease; }
-    .split-f { background: rgba(250, 248, 243, 0.35); transition: width 0.4s ease; }
-    .legend {
-      display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--muted); margin-bottom: 20px;
+    .sum-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #94A3B8; font-weight: 700; }
+    .grade-badge {
+      background: rgba(16, 185, 129, 0.18); color: #34D399;
+      padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700;
     }
 
-    /* Bloc Choc Salaire (Pic émotionnel) */
-    .shock-box {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 18px 0;
-      margin: 18px 0;
+    .hero-price {
+      font-size: clamp(2.8rem, 4.5vw, 3.6rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+      margin: 4px 0 18px; font-variant-numeric: tabular-nums;
     }
-    .shock-title {
-      font-size: 0.75rem; font-weight: 700; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .shock-main {
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 1.55rem; font-weight: 700; color: var(--text); margin: 4px 0;
-    }
-    .shock-sub { font-size: 0.85rem; color: var(--muted); }
+    .hero-price small { font-size: 1rem; font-weight: 500; color: #94A3B8; }
 
-    /* Boutons éditoriaux */
-    .btn-primary {
+    /* Barre de répartition animée */
+    .progress-track {
+      height: 8px; background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px; overflow: hidden; display: flex; margin-bottom: 10px;
+    }
+    .progress-energy {
+      background: #38BDF8; transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .progress-fixed {
+      background: #818CF8; transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .progress-legend {
+      display: flex; justify-content: space-between; font-size: 0.8rem; color: #CBD5E1; margin-bottom: 20px;
+    }
+
+    /* Encart Choc Salaire */
+    .salary-alert {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;
+    }
+    .salary-alert-title { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.06em; color: #FBBF24; font-weight: 700; }
+    .salary-alert-main { font-size: 1.25rem; font-weight: 800; margin: 3px 0; }
+    .salary-alert-sub { font-size: 0.82rem; color: #CBD5E1; }
+
+    /* Boutons d'action & affiliation */
+    .cta-primary {
       display: block; width: 100%; text-align: center;
-      background: var(--accent); color: #0B0B0C;
-      font-weight: 700; font-size: 0.92rem; padding: 14px 18px;
-      border-radius: 4px; border: none; text-decoration: none; cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      background: #38BDF8; color: #0F172A;
+      font-weight: 800; font-size: 0.92rem; padding: 14px 18px;
+      border-radius: 11px; text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
     }
-    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .cta-primary:hover {
+      background: #7DD3FC; transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.3);
+    }
+    .cta-secondary {
+      display: block; width: 100%; text-align: center; margin-top: 10px;
+      background: rgba(255, 255, 255, 0.1); color: #FFFFFF;
+      font-weight: 700; font-size: 0.88rem; padding: 12px 16px;
+      border-radius: 11px; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.2s;
+    }
+    .cta-secondary:hover { background: rgba(255, 255, 255, 0.18); transform: translateY(-1px); }
 
-    .btn-outline {
-      display: inline-block; text-align: center;
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border-strong); padding: 11px 16px;
-      border-radius: 4px; font-size: 0.84rem; font-weight: 600;
-      text-decoration: none; cursor: pointer; transition: all 0.2s;
+    .mini-actions {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
     }
-    .btn-outline:hover { background: var(--text); color: var(--bg); }
+    .btn-mini {
+      background: transparent; border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #CBD5E1; padding: 9px; border-radius: 9px;
+      font-family: inherit; font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-mini:hover { border-color: #fff; color: #fff; }
 
-    .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-
-    /* Radar Stations */
-    .radar-box {
-      margin-top: 20px; background: var(--surface);
-      border: 1px solid var(--border); border-radius: 6px; padding: 16px;
+    /* Radar stations local */
+    .local-radar {
+      margin-top: 20px; padding: 16px; border-radius: 12px;
+      background: var(--bg); border: 1px solid var(--border);
     }
-    .radar-head {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.84rem; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
-    }
-    .st-mini {
+    .station-row {
       display: flex; justify-content: space-between; align-items: center; gap: 10px;
-      padding: 10px 0; border-top: 1px solid var(--border); font-size: 0.85rem;
+      padding: 10px 12px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 9px; margin-top: 8px; font-size: 0.85rem;
+      transition: transform 0.15s;
     }
-    .st-mini strong {
-      font-family: "Space Grotesk", sans-serif; color: var(--accent);
-      font-size: 0.96rem; white-space: nowrap;
+    .station-row:hover { transform: translateX(3px); border-color: var(--accent); }
+    .station-price { font-weight: 800; color: var(--emerald); font-size: 0.95rem; white-space: nowrap; }
+
+    /* Boîtes de stats pour les autres onglets */
+    .metric-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .metric-box:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .metric-box span { display: block; font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+    .metric-box strong { font-size: 1.55rem; font-weight: 800; color: var(--ink); }
+
+    .verdict-pill {
+      margin-top: 18px; padding: 15px 18px; border-radius: 12px;
+      background: var(--emerald-soft); border: 1px solid #A7F3D0;
+      color: #065F46; font-weight: 700; font-size: 0.92rem;
     }
 
-    /* Stat cards sobres */
-    .stat {
+    .btn-action {
+      background: var(--ink); color: #fff; border: none;
+      padding: 12px 20px; border-radius: 10px; font-family: inherit;
+      font-size: 0.88rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+    .btn-action:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* Graphique Duel 8 ans */
+    .chart-card {
+      margin-top: 20px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px;
+    }
+    .chart-card svg { width: 100%; height: auto; display: block; }
+
+    /* Section Bannière Économies (Toujours visible sous l'app) */
+    .deals-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px;
+    }
+    @media (max-width: 760px) { .deals-grid { grid-template-columns: 1fr; } }
+    .deal-card {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: 18px;
-    }
-    .stat span {
-      display: block; font-size: 0.76rem; color: var(--muted);
-      text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;
-    }
-    .stat strong {
-      font-family: "Space Grotesk", sans-serif; font-size: 1.6rem;
-      color: var(--text); font-variant-numeric: tabular-nums;
-    }
-
-    .verdict-bar {
-      margin-top: 18px; padding: 16px 18px; border-radius: 6px;
-      background: var(--surface); border-left: 3px solid var(--accent);
-      font-size: 0.94rem; font-weight: 600; color: var(--text);
-    }
-
-    /* Duel 8 ans */
-    .duel-col {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: 20px;
-    }
-    .duel-col h3 { margin: 0 0 14px; font-size: 1.05rem; display: flex; align-items: center; gap: 8px; }
-    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
-    .chart-box {
-      margin-top: 20px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 6px; padding: 20px;
-    }
-    .chart-box svg { width: 100%; height: auto; display: block; }
-
-    /* Section Papier Clair façon Rejouice (Conversion maximale) */
-    .paper-section {
-      background: var(--paper);
-      color: var(--paper-ink);
-      padding: 64px 0;
-    }
-    .paper-section .sec-tag { color: var(--accent); }
-    .paper-section h2 { color: var(--paper-ink); }
-    .paper-card {
-      border-top: 1px solid rgba(14, 14, 15, 0.18);
-      padding-top: 24px;
+      border-radius: 18px; padding: 26px; box-shadow: var(--shadow-sm);
       display: flex; flex-direction: column; justify-content: space-between;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
-    .paper-card h3 { margin: 0 0 10px; font-size: 1.35rem; color: var(--paper-ink); }
-    .paper-card p { margin: 0 0 22px; color: #4B4B50; font-size: 0.95rem; }
-    .paper-btn {
-      display: inline-block; text-align: center;
-      background: var(--paper-ink); color: var(--paper);
-      font-weight: 600; padding: 14px 22px; border-radius: 4px;
-      text-decoration: none; font-size: 0.9rem; transition: background 0.2s;
+    .deal-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .deal-tag {
+      display: inline-block; width: fit-content;
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 6px; margin-bottom: 12px;
     }
-    .paper-btn:hover { background: var(--accent); color: #0B0B0C; }
+    .deal-card h3 { margin: 0 0 8px; font-size: 1.2rem; font-weight: 800; }
+    .deal-card p { margin: 0 0 20px; color: var(--ink-soft); font-size: 0.92rem; }
+    .deal-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--ink); color: #fff; font-weight: 700; font-size: 0.9rem;
+      padding: 13px 18px; border-radius: 10px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .deal-link:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* Accès rapide catalogue & départements */
+    .directory-card {
+      margin-top: 28px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 18px; padding: 26px;
+    }
 
     .toast {
-      position: fixed; bottom: 24px; right: 24px; background: var(--paper); color: var(--paper-ink);
-      font-weight: 700; padding: 12px 18px; border-radius: 4px; font-size: 0.86rem;
-      opacity: 0; transform: translateY(15px); pointer-events: none; transition: all 0.25s ease; z-index: 60;
+      position: fixed; bottom: 24px; right: 24px; z-index: 60;
+      background: var(--ink); color: #fff; font-weight: 700;
+      padding: 12px 18px; border-radius: 10px; font-size: 0.86rem;
+      box-shadow: var(--shadow-lg); opacity: 0; transform: translateY(14px);
+      pointer-events: none; transition: all 0.25s ease;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 24px; text-align: center; color: var(--muted); font-size: 0.84rem;
+      border-top: 1px solid var(--border); background: var(--surface);
+      padding: 36px 24px; text-align: center; color: var(--muted); font-size: 0.85rem;
     }
-    footer a { color: var(--text); text-decoration: none; margin: 0 12px; }
+    footer a { color: var(--ink-soft); text-decoration: none; margin: 0 12px; font-weight: 600; }
     footer a:hover { color: var(--accent); }
   </style>
 </head>
@@ -362,453 +465,409 @@
 
   <nav>
     <div class="nav-inner">
-      <a href="/" class="logo">SIMULATEUR<span>AUTO</span>.COM</a>
+      <a href="/" class="logo">
+        <span class="logo-mark">S</span>
+        <span>SimulateurAuto<span style="color:var(--accent);">.com</span></span>
+      </a>
       <div class="nav-links">
-        <a href="#simulateur">Cockpit</a>
-        <a href="#carte-grise">Carte Grise</a>
-        <a href="#cash-loa">Cash vs LOA</a>
-        <a href="#detour">Stations</a>
-        <a href="#comparateur">Duel 8 Ans</a>
-        <a href="/modeles/">Modèles (<span class="model-count">170+</span>)</a>
+        <a href="#app" onclick="switchTab('tab-cockpit')">Budget Réel</a>
+        <a href="#app" onclick="switchTab('tab-cg')">Carte Grise</a>
+        <a href="#app" onclick="switchTab('tab-loa')">Cash vs LOA</a>
+        <a href="/carburant/">96 Départements</a>
+        <a href="/modeles/"><span class="model-count">170+</span> Modèles</a>
       </div>
+      <button class="sound-pill" id="sound-btn" onclick="toggleSound()">
+        <span class="sound-dot"></span>
+        <span id="sound-txt">Son activé</span>
+      </button>
     </div>
   </nav>
 
-  <div class="container">
-    <!-- HERO -->
-    <header>
-      <div class="hero-top">
-        <span class="live-pill"><span class="pulse-dot"></span><span id="update-date">Données officielles synchronisées</span></span>
-        <span>96 Départements • <span class="model-count">170+</span> Modèles • 100 % Gratuit</span>
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero">
+      <div class="live-pill">
+        <span class="live-dot"></span>
+        <span id="update-date">Prix officiels des stations synchronisés</span>
       </div>
-      <h1>Le vrai prix de<br />votre voiture, <em>sans filtre.</em></h1>
-      <p class="hero-sub">Calculez votre budget réel au kilomètre avec les prix des stations de votre département, mesurez l'impact sur votre salaire et comparez achat, LOA et carte grise.</p>
-    </header>
-
-    <!-- 01. COCKPIT PRINCIPAL -->
-    <section id="simulateur" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">01 / Cockpit Temps Réel</span>
-          <h2>Votre budget mensuel & choc salaire</h2>
-        </div>
-        <span class="score-pill" id="eco-score">B Maîtrisé</span>
-      </div>
-
-      <div class="search-wrap">
-        <input type="text" id="model-search" class="search-input" placeholder="Rechercher parmi 170+ modèles (ex : Peugeot 208, BMW X1, Tesla Model 3, Golf 8...)" autocomplete="off" />
-        <div id="search-results" class="search-results"></div>
-      </div>
-
-      <div class="presets">
-        <button class="preset-btn active" onclick="setPreset(this, 'Peugeot 208', 'E10', 5.4, 1050)">Peugeot 208</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Renault Clio 5', 'Gazole', 4.6, 1120)">Renault Clio 5</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Dacia Sandero', 'E10', 5.6, 920)">Dacia Sandero</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Toyota Yaris Hybride', 'E10', 4.2, 980)">Yaris Hybride</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Tesla Model 3', 'Electrique_kWh', 14.8, 950)">Tesla Model 3</button>
-        <button class="preset-btn" onclick="setPreset(this, 'Volkswagen Golf 8', 'E10', 5.9, 1280)">Golf 8</button>
-      </div>
-
-      <div class="grid-cockpit">
-        <div>
-          <div class="grid-2" style="gap:14px;">
-            <div class="field">
-              <div class="field-header"><label>Motorisation</label></div>
-              <select id="fuel">
-                <option value="Gazole">Diesel (Gazole)</option>
-                <option value="E10" selected>Essence SP95-E10</option>
-                <option value="SP98">Essence SP98</option>
-                <option value="E85">Superéthanol E85</option>
-                <option value="Electrique_kWh">100 % Électrique (domicile)</option>
-              </select>
-            </div>
-            <div class="field">
-              <div class="field-header"><label>Département (Prix & Carte Grise)</label></div>
-              <select id="dept-select">
-                <option value="FR">Moyenne France entière</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="field-header"><label>Kilomètres / an</label><span class="val-pill" id="km-pill">15 000 km</span></div>
-            <input type="number" id="km" value="15000" min="1000" max="80000" step="500" />
-            <input type="range" id="km-range" min="2000" max="50000" step="500" value="15000" />
-          </div>
-
-          <div class="field">
-            <div class="field-header"><label>Consommation (L ou kWh / 100 km)</label><span class="val-pill" id="conso-pill">5.4</span></div>
-            <input type="number" id="conso" value="5.4" min="1" max="30" step="0.1" />
-            <input type="range" id="conso-range" min="3" max="25" step="0.1" value="5.4" />
-          </div>
-
-          <div class="field">
-            <div class="field-header"><label>Assurance + Entretien + Pneus / an (€)</label><span class="val-pill" id="fixed-pill">1 050 €</span></div>
-            <input type="number" id="fixed" value="1050" min="0" max="6000" step="50" />
-            <input type="range" id="fixed-range" min="300" max="3500" step="50" value="1050" />
-          </div>
-
-          <div class="grid-2" style="gap:14px;">
-            <div class="field" style="margin-bottom:0;">
-              <div class="field-header"><label>Crédit / LOA / Décote (€/mois)</label></div>
-              <input type="number" id="finance" value="0" min="0" max="2500" step="10" />
-            </div>
-            <div class="field" style="margin-bottom:0;">
-              <div class="field-header"><label>Salaire net / mois (€)</label></div>
-              <input type="number" id="salary" value="2000" min="500" max="20000" step="50" />
-            </div>
-          </div>
-
-          <!-- Radar Top 3 stations -->
-          <div class="radar-box">
-            <div class="radar-head">
-              <strong id="radar-title">Stations moins chères : choisissez votre département</strong>
-              <a href="/carburant/" id="radar-more" style="color:var(--accent);text-decoration:none;font-weight:600;">96 dépts →</a>
-            </div>
-            <div id="radar-list" style="font-size:0.84rem;color:var(--muted);">
-              Sélectionnez votre département pour appliquer les prix locaux en direct et afficher les 3 stations les moins chères autour de vous.
-            </div>
-          </div>
-        </div>
-
-        <!-- Panneau Résultat + Conversion directe -->
-        <div class="result-panel">
-          <div class="big-cost-label">Coût réel tout compris</div>
-          <div class="big-cost"><span id="res-month" style="font-size:inherit;color:inherit;font-weight:inherit;">0 €</span> <span>/ mois</span></div>
-
-          <div class="split-bar">
-            <div class="split-e" id="bar-e" style="width:50%;"></div>
-            <div class="split-f" id="bar-f" style="width:50%;"></div>
-          </div>
-          <div class="legend">
-            <span>Énergie : <strong id="pct-energy" style="color:var(--text);">50%</strong> (<span id="res-energy">0 €</span>/an)</span>
-            <span>Fixes : <strong id="pct-fixed" style="color:var(--text);">50%</strong> • <strong id="res-km" style="color:var(--accent);">0.00 €</strong>/km</span>
-          </div>
-
-          <div class="shock-box">
-            <div class="shock-title">Choc Salaire (100 % privé)</div>
-            <div class="shock-main" id="shock-hours">12.5 h de travail / mois</div>
-            <div class="shock-sub" id="shock-days">Soit 8 % de votre salaire : vous travaillez du 1er au 3 du mois uniquement pour payer la voiture.</div>
-          </div>
-
-          <!-- CTA contextuel au pic émotionnel -->
-          <a href="#affiliation-assurance" class="btn-primary" rel="nofollow sponsored">Réduire ma facture d'assurance auto →</a>
-          <a href="https://link.amazon/B08lUau9Y" target="_blank" rel="nofollow sponsored noopener" class="btn-outline" style="display:block;width:100%;margin-top:10px;">Payer mes pneus & entretien moins cher →</a>
-
-          <div class="action-row">
-            <button class="btn-outline" onclick="downloadStoryCard()">Carte Story PNG</button>
-            <button class="btn-outline" onclick="shareLink()">Partager le lien</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 02. CARTE GRISE & MALUS -->
-    <section id="carte-grise" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">02 / Fiscalité 2027</span>
-          <h2>Simulateur Carte Grise & Malus CO₂</h2>
-        </div>
-        <span class="val-pill" id="cg-region-pill" style="color:var(--accent);">Tarif régional auto</span>
-      </div>
-
-      <div class="grid-4">
-        <div>
-          <label>Puissance fiscale (CV)</label>
-          <input type="number" id="cg-cv" value="6" min="1" max="50" step="1" style="margin-top:6px;" />
-        </div>
-        <div>
-          <label>Âge du véhicule</label>
-          <select id="cg-age" style="margin-top:6px;">
-            <option value="neuf">Neuf (0 km)</option>
-            <option value="moins10" selected>Occasion < 10 ans</option>
-            <option value="plus10">Occasion > 10 ans (-50 %)</option>
-          </select>
-        </div>
-        <div>
-          <label>Motorisation</label>
-          <select id="cg-energy" style="margin-top:6px;">
-            <option value="thermique" selected>Essence / Diesel</option>
-            <option value="e85">Superéthanol E85 / Hybride</option>
-            <option value="elec">100 % Électrique</option>
-          </select>
-        </div>
-        <div>
-          <label>CO₂ (g/km - si neuf)</label>
-          <input type="number" id="cg-co2" value="112" min="0" max="300" step="1" style="margin-top:6px;" />
-        </div>
-      </div>
-
-      <div class="grid-3" style="margin-top:20px;">
-        <div class="stat"><span>Taxe régionale + gestion</span><strong id="cg-taxe">0 €</strong></div>
-        <div class="stat"><span>Malus écologique CO₂</span><strong id="cg-malus">0 €</strong></div>
-        <div class="stat"><span>Total Carte Grise</span><strong id="cg-total" style="color:var(--accent);">0 €</strong></div>
-      </div>
-
-      <div style="margin-top:16px;">
-        <button class="btn-outline" onclick="injectCarteGriseToCockpit()">Lisser ce coût sur 3 ans dans mon cockpit (+<span id="cg-monthly-add">0</span> €/mois)</button>
-      </div>
-    </section>
-
-    <!-- 03. ACHAT CASH VS CREDIT VS LOA -->
-    <section id="cash-loa" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">03 / Financement</span>
-          <h2>Achat Cash vs Crédit vs LOA sur 4 ans</h2>
-        </div>
-      </div>
-
-      <div class="grid-4">
-        <div>
-          <label>Prix du véhicule (€)</label>
-          <input type="number" id="cl-price" value="24000" min="3000" max="150000" step="500" style="margin-top:6px;" />
-        </div>
-        <div>
-          <label>Apport initial (€)</label>
-          <input type="number" id="cl-apport" value="3000" min="0" max="80000" step="500" style="margin-top:6px;" />
-        </div>
-        <div>
-          <label>Loyer LOA (€/mois)</label>
-          <input type="number" id="cl-loa-month" value="289" min="50" max="2500" step="5" style="margin-top:6px;" />
-        </div>
-        <div>
-          <label>Revente estimée à 4 ans (€)</label>
-          <input type="number" id="cl-resale" value="13500" min="0" max="100000" step="500" style="margin-top:6px;" />
-        </div>
-      </div>
-
-      <div class="grid-3" style="margin-top:20px;">
-        <div class="stat"><span>Coût net Achat Cash</span><strong id="cl-net-cash">0 €</strong></div>
-        <div class="stat"><span>Coût net Crédit 48 mois</span><strong id="cl-net-credit">0 €</strong><span id="cl-credit-m" style="margin-top:4px;margin-bottom:0;">— €/mois</span></div>
-        <div class="stat"><span>Coût net LOA 48 mois</span><strong id="cl-net-loa">0 €</strong></div>
-      </div>
-      <div class="verdict-bar" id="cl-verdict">Calcul en cours...</div>
-    </section>
-
-    <!-- 04. TOP STATIONS FRANCE + DETOUR -->
-    <section id="detour" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">04 / Radar National</span>
-          <h2>Stations les moins chères & Rentabilité d'un détour</h2>
-        </div>
-        <select id="top10-fuel" style="width:auto;padding:8px 12px;">
-          <option value="Gazole" selected>Gazole</option>
-          <option value="E10">SP95-E10</option>
-          <option value="E85">Superéthanol E85</option>
-          <option value="SP98">SP98</option>
-        </select>
-      </div>
-
-      <div class="grid-2" style="align-items:start;">
-        <div class="stat">
-          <span style="margin-bottom:12px;">Top 5 France aujourd'hui</span>
-          <div id="top10-france-list"></div>
-        </div>
-
-        <div class="stat">
-          <span style="margin-bottom:14px;">Est-ce rentable de faire un détour ?</span>
-          <div class="grid-2" style="gap:12px;">
-            <div>
-              <label>Détour A/R (km)</label>
-              <input type="number" id="det-km" value="8" min="1" max="80" step="1" style="margin-top:6px;" />
-            </div>
-            <div>
-              <label>Plein (Litres)</label>
-              <input type="number" id="det-liters" value="45" min="10" max="120" step="5" style="margin-top:6px;" />
-            </div>
-          </div>
-          <div style="margin-top:12px;">
-            <label>Écart de prix (€/L — ex: 0.08)</label>
-            <input type="number" id="det-diff" value="0.08" min="0.01" max="0.60" step="0.01" style="margin-top:6px;" />
-          </div>
-          <div class="verdict-bar" id="det-result" style="margin-top:14px;font-size:0.88rem;">Calcul en cours...</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05. TRAJET EXPRESS -->
-    <section id="trajet" class="section">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">05 / Trajet Express</span>
-          <h2>Coût exact d'un déplacement</h2>
-        </div>
-      </div>
-
-      <div class="presets" style="margin-bottom:16px;">
-        <button class="preset-btn" onclick="setTrip(40)">Travail (40 km)</button>
-        <button class="preset-btn" onclick="setTrip(300)">Week-end (300 km)</button>
-        <button class="preset-btn" onclick="setTrip(780)">Paris – Marseille (780 km)</button>
-        <button class="preset-btn" onclick="setTrip(1500)">Vacances A/R (1 500 km)</button>
-      </div>
-
-      <div class="grid-2" style="margin-bottom:18px;">
-        <div>
-          <label>Distance (km)</label>
-          <input type="number" id="trip-km" value="300" min="1" max="5000" step="10" style="margin-top:6px;" />
-        </div>
-        <div>
-          <label>Passagers (partage des frais)</label>
-          <input type="number" id="trip-pax" value="1" min="1" max="7" step="1" style="margin-top:6px;" />
-        </div>
-      </div>
-
-      <div class="grid-3">
-        <div class="stat"><span>Énergie du trajet</span><strong id="trip-energy">0.00 €</strong></div>
-        <div class="stat"><span>Coût total (avec usure)</span><strong id="trip-total">0.00 €</strong></div>
-        <div class="stat"><span>Coût par personne</span><strong id="trip-per-pax" style="color:var(--accent);">0.00 €</strong></div>
-      </div>
-    </section>
-
-    <!-- 06. DUEL 8 ANS -->
-    <section id="comparateur" class="section" style="border-bottom:none;">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">06 / Projection 8 Ans</span>
-          <h2>Duel 1v1 : Courbe de rentabilité (Achat + Usage)</h2>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="duel-col">
-          <h3><i class="dot" style="background:#FAF8F3;"></i> Véhicule A</h3>
-          <div class="field">
-            <label>Modèle</label>
-            <select id="d1-model" style="margin-top:6px;"></select>
-          </div>
-          <div class="grid-2" style="gap:10px;">
-            <div><label>Prix d'achat (€)</label><input type="number" id="d1-buy" value="18900" step="500" style="margin-top:6px;" /></div>
-            <div>
-              <label>Énergie</label>
-              <select id="d1-fuel" style="margin-top:6px;">
-                <option value="E10" selected>SP95-E10</option>
-                <option value="Gazole">Gazole</option>
-                <option value="E85">E85</option>
-                <option value="Electrique_kWh">Électrique</option>
-                <option value="SP98">SP98</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid-2" style="gap:10px;margin-top:10px;">
-            <div><label>Conso / 100 km</label><input type="number" id="d1-conso" value="5.4" step="0.1" style="margin-top:6px;" /></div>
-            <div><label>Fixes / an (€)</label><input type="number" id="d1-fixed" value="1050" step="50" style="margin-top:6px;" /></div>
-          </div>
-        </div>
-
-        <div class="duel-col">
-          <h3><i class="dot" style="background:#FF5F38;"></i> Véhicule B</h3>
-          <div class="field">
-            <label>Modèle</label>
-            <select id="d2-model" style="margin-top:6px;"></select>
-          </div>
-          <div class="grid-2" style="gap:10px;">
-            <div><label>Prix d'achat (€)</label><input type="number" id="d2-buy" value="27900" step="500" style="margin-top:6px;" /></div>
-            <div>
-              <label>Énergie</label>
-              <select id="d2-fuel" style="margin-top:6px;">
-                <option value="Electrique_kWh" selected>Électrique</option>
-                <option value="E10">SP95-E10</option>
-                <option value="Gazole">Gazole</option>
-                <option value="E85">E85</option>
-                <option value="SP98">SP98</option>
-              </select>
-            </div>
-          </div>
-          <div class="grid-2" style="gap:10px;margin-top:10px;">
-            <div><label>Conso / 100 km</label><input type="number" id="d2-conso" value="14.9" step="0.1" style="margin-top:6px;" /></div>
-            <div><label>Fixes / an (€)</label><input type="number" id="d2-fixed" value="860" step="50" style="margin-top:6px;" /></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="chart-box">
-        <div style="display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
-          <span><i class="dot" style="background:#FAF8F3;margin-right:6px;"></i><strong id="d1-leg">Véhicule A</strong> : <b id="d1-8y">— €</b> sur 8 ans</span>
-          <span><i class="dot" style="background:#FF5F38;margin-right:6px;"></i><strong id="d2-leg">Véhicule B</strong> : <b id="d2-8y">— €</b> sur 8 ans</span>
-        </div>
-        <svg id="duel-svg" viewBox="0 0 760 230" preserveAspectRatio="none"></svg>
-      </div>
-
-      <div class="verdict-bar" id="saving-result">Calcul de rentabilité en cours...</div>
-    </section>
+      <h1>Combien vous coûte <span>vraiment</span> votre voiture chaque mois ?</h1>
+      <p>Calculez votre budget réel au kilomètre avec les prix des stations de votre département, votre carte grise et l'impact en heures travaillées sur votre salaire.</p>
+    </div>
   </div>
 
-  <!-- SECTION PAPIER CLAIR (Contraste éditorial Rejouice pour maximiser la conversion) -->
-  <section id="solutions" class="paper-section">
-    <div class="container">
-      <div class="sec-head" style="margin-bottom:36px;">
-        <div>
-          <span class="sec-tag">07 / Passer à l'action</span>
-          <h2>Réduisez immédiatement vos deux plus gros postes de dépenses.</h2>
+  <main class="main-wrap" id="app">
+    <!-- BARRE D'ONGLETS PROPRE (1 seul outil affiché à la fois) -->
+    <div class="tabs-bar" role="tablist">
+      <button class="tab-btn active" data-tab="tab-cockpit" onclick="switchTab('tab-cockpit')">Budget & Choc Salaire</button>
+      <button class="tab-btn" data-tab="tab-cg" onclick="switchTab('tab-cg')">Carte Grise & Malus</button>
+      <button class="tab-btn" data-tab="tab-loa" onclick="switchTab('tab-loa')">Cash vs Crédit vs LOA</button>
+      <button class="tab-btn" data-tab="tab-stations" onclick="switchTab('tab-stations')">Stations & Détour</button>
+      <button class="tab-btn" data-tab="tab-duel" onclick="switchTab('tab-duel')">Duel 8 Ans</button>
+    </div>
+
+    <!-- ONGLET 1 : COCKPIT PRINCIPAL -->
+    <section id="tab-cockpit" class="tab-panel active">
+      <div class="app-card">
+        <div class="cockpit-grid">
+          <div>
+            <div class="search-box">
+              <input type="text" id="model-search" class="search-input" placeholder="Rechercher votre voiture parmi 170+ modèles (ex : Peugeot 208, Golf 8, Tesla Model 3...)" autocomplete="off" />
+              <div id="search-dropdown" class="search-dropdown"></div>
+            </div>
+
+            <div class="chips-row">
+              <button class="chip active" onclick="setPreset(this, 'Peugeot 208', 'E10', 5.4, 1050)">Peugeot 208</button>
+              <button class="chip" onclick="setPreset(this, 'Renault Clio 5', 'Gazole', 4.6, 1120)">Renault Clio 5</button>
+              <button class="chip" onclick="setPreset(this, 'Dacia Sandero', 'E10', 5.6, 920)">Dacia Sandero</button>
+              <button class="chip" onclick="setPreset(this, 'Toyota Yaris Hybride', 'E10', 4.2, 980)">Yaris Hybride</button>
+              <button class="chip" onclick="setPreset(this, 'Tesla Model 3', 'Electrique_kWh', 14.8, 950)">Tesla Model 3</button>
+              <button class="chip" onclick="setPreset(this, 'Volkswagen Golf 8', 'E10', 5.9, 1280)">Golf 8</button>
+            </div>
+
+            <div class="grid-2">
+              <div class="field">
+                <div class="field-top"><label>Motorisation</label></div>
+                <select id="fuel">
+                  <option value="Gazole">Diesel (Gazole)</option>
+                  <option value="E10" selected>Essence SP95-E10</option>
+                  <option value="SP98">Essence SP98</option>
+                  <option value="E85">Superéthanol E85</option>
+                  <option value="Electrique_kWh">100 % Électrique (domicile)</option>
+                </select>
+              </div>
+              <div class="field">
+                <div class="field-top"><label>Votre département</label></div>
+                <select id="dept-select">
+                  <option value="FR">Moyenne France entière</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="field-top"><label>Distance parcourue par an</label><span class="badge-val" id="km-pill">15 000 km</span></div>
+              <input type="number" id="km" value="15000" min="1000" max="80000" step="500" />
+              <input type="range" id="km-range" min="2000" max="50000" step="500" value="15000" />
+            </div>
+
+            <div class="field">
+              <div class="field-top"><label>Consommation moyenne (L ou kWh / 100 km)</label><span class="badge-val" id="conso-pill">5.4</span></div>
+              <input type="number" id="conso" value="5.4" min="1" max="30" step="0.1" />
+              <input type="range" id="conso-range" min="3" max="25" step="0.1" value="5.4" />
+            </div>
+
+            <div class="field">
+              <div class="field-top"><label>Assurance + Entretien + Pneus / an (€)</label><span class="badge-val" id="fixed-pill">1 050 €</span></div>
+              <input type="number" id="fixed" value="1050" min="0" max="6000" step="50" />
+              <input type="range" id="fixed-range" min="300" max="3500" step="50" value="1050" />
+            </div>
+
+            <div class="grid-2">
+              <div class="field" style="margin-bottom:0;">
+                <div class="field-top"><label>Crédit / LOA / Décote (€/mois)</label></div>
+                <input type="number" id="finance" value="0" min="0" max="2500" step="10" />
+              </div>
+              <div class="field" style="margin-bottom:0;">
+                <div class="field-top"><label>Salaire net mensuel (€)</label></div>
+                <input type="number" id="salary" value="2000" min="500" max="20000" step="50" />
+              </div>
+            </div>
+
+            <div class="local-radar">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+                <strong style="font-size:0.88rem;" id="radar-title">Stations moins chères : sélectionnez votre département</strong>
+                <a href="/carburant/" id="radar-more" style="font-size:0.82rem;font-weight:700;color:var(--accent);text-decoration:none;">Voir les 96 dépts →</a>
+              </div>
+              <div id="radar-list" style="font-size:0.84rem;color:var(--muted);margin-top:6px;">
+                Choisissez un département ci-dessus pour appliquer les prix locaux en direct et afficher le Top 3 des stations autour de vous.
+              </div>
+            </div>
+          </div>
+
+          <!-- Carte Résultat Droite -->
+          <div class="summary-card">
+            <div class="sum-header">
+              <span class="sum-label">Budget Réel Total</span>
+              <span class="grade-badge" id="eco-score">B Maîtrisé</span>
+            </div>
+
+            <div class="hero-price"><span id="res-month">0 €</span> <small>/ mois</small></div>
+
+            <div class="progress-track">
+              <div class="progress-energy" id="bar-e" style="width:50%;"></div>
+              <div class="progress-fixed" id="bar-f" style="width:50%;"></div>
+            </div>
+            <div class="progress-legend">
+              <span>Énergie : <strong id="pct-energy">50%</strong> (<span id="res-energy">0 €</span>/an)</span>
+              <span>Fixes : <strong id="pct-fixed">50%</strong> • <strong id="res-km" style="color:#38BDF8;">0.00 €</strong>/km</span>
+            </div>
+
+            <div class="salary-alert">
+              <div class="salary-alert-title">Impact sur votre salaire (100 % privé)</div>
+              <div class="salary-alert-main" id="shock-hours">12.5 h de travail / mois</div>
+              <div class="salary-alert-sub" id="shock-days">Soit 8 % de votre salaire : vous travaillez du 1er au 3 du mois uniquement pour payer la voiture.</div>
+            </div>
+
+            <a href="#affiliation-assurance" class="cta-primary" rel="nofollow sponsored">Réduire mon assurance auto →</a>
+            <a href="https://link.amazon/B08lUau9Y" target="_blank" rel="nofollow sponsored noopener" class="cta-secondary">Voir les offres pneus & entretien →</a>
+
+            <div class="mini-actions">
+              <button class="btn-mini" onclick="downloadStoryCard()">Carte Story PNG</button>
+              <button class="btn-mini" onclick="shareLink()">Partager le lien</button>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="grid-2" style="gap:32px;">
-        <div class="paper-card">
-          <div>
-            <h3>Assurance auto ajustée au kilomètre</h3>
-            <p id="dynamic-ins-text">Vos frais fixes pèsent lourd chaque mois. Comparez gratuitement les contrats adaptés à votre kilométrage annuel réel.</p>
-          </div>
-          <a href="#affiliation-assurance" class="paper-btn" rel="nofollow sponsored">Comparer mon assurance auto →</a>
+    <!-- ONGLET 2 : CARTE GRISE & MALUS -->
+    <section id="tab-cg" class="tab-panel">
+      <div class="app-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+          <h2 style="margin:0;font-size:1.35rem;font-weight:800;">Simulateur Carte Grise & Malus Écologique 2027</h2>
+          <span class="badge-val" id="cg-region-pill">Tarif régional auto</span>
         </div>
 
-        <div class="paper-card">
+        <div class="grid-4">
           <div>
-            <h3>Pneus, pièces & entretien malin</h3>
-            <p>Des pneus adaptés réduisent la consommation jusqu'à 8 % et éviter les marges garage sur les consommables économise plusieurs centaines d'euros par an.</p>
+            <label>Puissance fiscale (CV)</label>
+            <input type="number" id="cg-cv" value="6" min="1" max="50" step="1" style="margin-top:6px;" />
           </div>
-          <a href="https://link.amazon/B08lUau9Y" target="_blank" rel="nofollow sponsored noopener" class="paper-btn">Voir les offres entretien & pneus →</a>
+          <div>
+            <label>Âge du véhicule</label>
+            <select id="cg-age" style="margin-top:6px;">
+              <option value="neuf">Neuf (0 km)</option>
+              <option value="moins10" selected>Occasion < 10 ans</option>
+              <option value="plus10">Occasion > 10 ans (-50 %)</option>
+            </select>
+          </div>
+          <div>
+            <label>Motorisation</label>
+            <select id="cg-energy" style="margin-top:6px;">
+              <option value="thermique" selected>Essence / Diesel</option>
+              <option value="e85">Superéthanol E85 / Hybride</option>
+              <option value="elec">100 % Électrique</option>
+            </select>
+          </div>
+          <div>
+            <label>CO₂ (g/km - si neuf)</label>
+            <input type="number" id="cg-co2" value="112" min="0" max="300" step="1" style="margin-top:6px;" />
+          </div>
         </div>
+
+        <div class="grid-3" style="margin-top:22px;">
+          <div class="metric-box"><span>Taxe régionale + gestion</span><strong id="cg-taxe">0 €</strong></div>
+          <div class="metric-box"><span>Malus écologique CO₂</span><strong id="cg-malus" style="color:var(--amber);">0 €</strong></div>
+          <div class="metric-box"><span>Total Carte Grise</span><strong id="cg-total" style="color:var(--emerald);">0 €</strong></div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <button class="btn-action" onclick="injectCarteGriseToCockpit()">Lisser ce coût sur 3 ans dans mon budget (+<span id="cg-monthly-add">0</span> €/mois)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONGLET 3 : CASH VS CREDIT VS LOA -->
+    <section id="tab-loa" class="tab-panel">
+      <div class="app-card">
+        <h2 style="margin:0 0 20px;font-size:1.35rem;font-weight:800;">Comparateur Achat Cash vs Crédit vs LOA (sur 4 ans)</h2>
+
+        <div class="grid-4">
+          <div>
+            <label>Prix du véhicule (€)</label>
+            <input type="number" id="cl-price" value="24000" min="3000" max="150000" step="500" style="margin-top:6px;" />
+          </div>
+          <div>
+            <label>Apport initial (€)</label>
+            <input type="number" id="cl-apport" value="3000" min="0" max="80000" step="500" style="margin-top:6px;" />
+          </div>
+          <div>
+            <label>Loyer LOA (€/mois)</label>
+            <input type="number" id="cl-loa-month" value="289" min="50" max="2500" step="5" style="margin-top:6px;" />
+          </div>
+          <div>
+            <label>Revente estimée à 4 ans (€)</label>
+            <input type="number" id="cl-resale" value="13500" min="0" max="100000" step="500" style="margin-top:6px;" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:22px;">
+          <div class="metric-box"><span>Coût net Achat Cash (4 ans)</span><strong id="cl-net-cash">0 €</strong></div>
+          <div class="metric-box"><span>Coût net Crédit 48 mois</span><strong id="cl-net-credit">0 €</strong><span id="cl-credit-m" style="margin-top:4px;margin-bottom:0;">— €/mois</span></div>
+          <div class="metric-box"><span>Coût net LOA 48 mois</span><strong id="cl-net-loa">0 €</strong></div>
+        </div>
+
+        <div class="verdict-pill" id="cl-verdict">Calcul en cours...</div>
+      </div>
+    </section>
+
+    <!-- ONGLET 4 : STATIONS & DETOUR -->
+    <section id="tab-stations" class="tab-panel">
+      <div class="app-card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+          <h2 style="margin:0;font-size:1.35rem;font-weight:800;">Top Stations France & Rentabilité d'un détour</h2>
+          <select id="top10-fuel" style="width:auto;padding:8px 14px;">
+            <option value="Gazole" selected>Gazole</option>
+            <option value="E10">SP95-E10</option>
+            <option value="E85">Superéthanol E85</option>
+            <option value="SP98">SP98</option>
+          </select>
+        </div>
+
+        <div class="grid-2" style="align-items:start;">
+          <div class="metric-box">
+            <span style="margin-bottom:10px;">Top 5 stations les moins chères en France aujourd'hui</span>
+            <div id="top10-france-list"></div>
+          </div>
+
+          <div class="metric-box">
+            <span style="margin-bottom:14px;">Est-ce rentable de faire un détour pour payer moins cher ?</span>
+            <div class="grid-2" style="gap:12px;">
+              <div>
+                <label>Détour A/R (km)</label>
+                <input type="number" id="det-km" value="8" min="1" max="80" step="1" style="margin-top:6px;" />
+              </div>
+              <div>
+                <label>Plein (Litres)</label>
+                <input type="number" id="det-liters" value="45" min="10" max="120" step="5" style="margin-top:6px;" />
+              </div>
+            </div>
+            <div style="margin-top:12px;">
+              <label>Écart de prix (€/L — ex: 0.08 = 8 centimes)</label>
+              <input type="number" id="det-diff" value="0.08" min="0.01" max="0.60" step="0.01" style="margin-top:6px;" />
+            </div>
+            <div class="verdict-pill" id="det-result" style="margin-top:14px;">Calcul en cours...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONGLET 5 : DUEL 8 ANS -->
+    <section id="tab-duel" class="tab-panel">
+      <div class="app-card">
+        <h2 style="margin:0 0 20px;font-size:1.35rem;font-weight:800;">Duel 1v1 : Courbe de rentabilité sur 8 ans (Achat + Usage)</h2>
+
+        <div class="grid-2">
+          <div class="metric-box">
+            <div style="font-weight:800;margin-bottom:12px;color:var(--accent);">Véhicule A</div>
+            <div class="field" style="margin-bottom:12px;">
+              <label>Modèle</label>
+              <select id="d1-model" style="margin-top:4px;"></select>
+            </div>
+            <div class="grid-2" style="gap:10px;">
+              <div><label>Prix d'achat (€)</label><input type="number" id="d1-buy" value="18900" step="500" style="margin-top:4px;" /></div>
+              <div>
+                <label>Énergie</label>
+                <select id="d1-fuel" style="margin-top:4px;">
+                  <option value="E10" selected>SP95-E10</option>
+                  <option value="Gazole">Gazole</option>
+                  <option value="E85">E85</option>
+                  <option value="Electrique_kWh">Électrique</option>
+                  <option value="SP98">SP98</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2" style="gap:10px;margin-top:10px;">
+              <div><label>Conso / 100 km</label><input type="number" id="d1-conso" value="5.4" step="0.1" style="margin-top:4px;" /></div>
+              <div><label>Fixes / an (€)</label><input type="number" id="d1-fixed" value="1050" step="50" style="margin-top:4px;" /></div>
+            </div>
+          </div>
+
+          <div class="metric-box">
+            <div style="font-weight:800;margin-bottom:12px;color:var(--emerald);">Véhicule B</div>
+            <div class="field" style="margin-bottom:12px;">
+              <label>Modèle</label>
+              <select id="d2-model" style="margin-top:4px;"></select>
+            </div>
+            <div class="grid-2" style="gap:10px;">
+              <div><label>Prix d'achat (€)</label><input type="number" id="d2-buy" value="27900" step="500" style="margin-top:4px;" /></div>
+              <div>
+                <label>Énergie</label>
+                <select id="d2-fuel" style="margin-top:4px;">
+                  <option value="Electrique_kWh" selected>Électrique</option>
+                  <option value="E10">SP95-E10</option>
+                  <option value="Gazole">Gazole</option>
+                  <option value="E85">E85</option>
+                  <option value="SP98">SP98</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid-2" style="gap:10px;margin-top:10px;">
+              <div><label>Conso / 100 km</label><input type="number" id="d2-conso" value="14.9" step="0.1" style="margin-top:4px;" /></div>
+              <div><label>Fixes / an (€)</label><input type="number" id="d2-fixed" value="860" step="50" style="margin-top:4px;" /></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+            <span><strong style="color:var(--accent);" id="d1-leg">Véhicule A</strong> : <b id="d1-8y">— €</b> sur 8 ans</span>
+            <span><strong style="color:var(--emerald);" id="d2-leg">Véhicule B</strong> : <b id="d2-8y">— €</b> sur 8 ans</span>
+          </div>
+          <svg id="duel-svg" viewBox="0 0 760 220" preserveAspectRatio="none"></svg>
+        </div>
+
+        <div class="verdict-pill" id="saving-result">Calcul de rentabilité en cours...</div>
+      </div>
+    </section>
+
+    <!-- CARTES D'OPTIMISATION (ASSURANCE & AMAZON) -->
+    <div class="deals-grid">
+      <div class="deal-card">
+        <div>
+          <span class="deal-tag">Économie Frais Fixes</span>
+          <h3>Assurance auto ajustée à votre kilométrage</h3>
+          <p id="dynamic-ins-text">Vos frais fixes représentent une part importante de votre budget. Comparez gratuitement les contrats adaptés à vos kilomètres réels.</p>
+        </div>
+        <a href="#affiliation-assurance" class="deal-link" rel="nofollow sponsored">Comparer mon assurance auto →</a>
+      </div>
+
+      <div class="deal-card">
+        <div>
+          <span class="deal-tag">Entretien & Pneus</span>
+          <h3>Pièces, pneus & accessoires au meilleur prix</h3>
+          <p>Des pneus adaptés réduisent la consommation jusqu'à 8 % et commander vos consommables en ligne évite les marges garage.</p>
+        </div>
+        <a href="https://link.amazon/B08lUau9Y" target="_blank" rel="nofollow sponsored noopener" class="deal-link">Voir les offres entretien & pneus →</a>
       </div>
     </div>
-  </section>
 
-  <!-- CATALOGUE & DEPARTEMENTS -->
-  <div class="container">
-    <section id="modeles" class="section" style="border-bottom:none;">
-      <div class="sec-head">
-        <div>
-          <span class="sec-tag">08 / Index Complet</span>
-          <h2>Fiches modèles & Radar par département</h2>
-        </div>
-        <div style="display:flex;gap:18px;font-size:0.88rem;">
-          <a href="/carburant/" style="color:var(--accent);text-decoration:none;font-weight:600;">96 Départements →</a>
-          <a href="/modeles/" style="color:var(--text);text-decoration:none;font-weight:600;"><span class="model-count">170+</span> Modèles →</a>
+    <!-- ACCES RAPIDE CATALOGUE & DEPARTEMENTS -->
+    <div class="directory-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <h3 style="margin:0;font-size:1.05rem;font-weight:800;">Explorer par modèle ou par département</h3>
+        <div style="display:flex;gap:16px;font-size:0.86rem;font-weight:700;">
+          <a href="/carburant/" style="color:var(--emerald);text-decoration:none;">96 Départements →</a>
+          <a href="/modeles/" style="color:var(--accent);text-decoration:none;"><span class="model-count">170+</span> Modèles →</a>
         </div>
       </div>
 
-      <div class="presets" style="margin-bottom:14px;">
-        <a href="/modeles/peugeot-208.html" class="preset-btn">Peugeot 208</a>
-        <a href="/modeles/renault-clio-5.html" class="preset-btn">Renault Clio 5</a>
-        <a href="/modeles/dacia-sandero.html" class="preset-btn">Dacia Sandero</a>
-        <a href="/modeles/tesla-model-3.html" class="preset-btn">Tesla Model 3</a>
-        <a href="/modeles/renault-5-e-tech.html" class="preset-btn">Renault 5 E-Tech</a>
-        <a href="/modeles/peugeot-3008.html" class="preset-btn">Peugeot 3008</a>
-        <a href="/modeles/volkswagen-golf-8.html" class="preset-btn">Golf 8</a>
-        <a href="/modeles/audi-a3.html" class="preset-btn">Audi A3</a>
-        <a href="/modeles/bmw-serie-1.html" class="preset-btn">BMW Série 1</a>
-        <a href="/modeles/porsche-911-carrera.html" class="preset-btn">Porsche 911</a>
+      <div class="chips-row" style="margin-bottom:12px;">
+        <a href="/modeles/peugeot-208.html" class="chip">Peugeot 208</a>
+        <a href="/modeles/renault-clio-5.html" class="chip">Renault Clio 5</a>
+        <a href="/modeles/dacia-sandero.html" class="chip">Dacia Sandero</a>
+        <a href="/modeles/tesla-model-3.html" class="chip">Tesla Model 3</a>
+        <a href="/modeles/renault-5-e-tech.html" class="chip">Renault 5 E-Tech</a>
+        <a href="/modeles/peugeot-3008.html" class="chip">Peugeot 3008</a>
+        <a href="/modeles/volkswagen-golf-8.html" class="chip">Golf 8</a>
+        <a href="/modeles/audi-a3.html" class="chip">Audi A3</a>
+        <a href="/modeles/bmw-serie-1.html" class="chip">BMW Série 1</a>
       </div>
 
-      <div class="presets" style="margin-bottom:0;">
-        <a href="/carburant/nord-59.html" class="preset-btn">Nord (59)</a>
-        <a href="/carburant/pas-de-calais-62.html" class="preset-btn">Pas-de-Calais (62)</a>
-        <a href="/carburant/paris-75.html" class="preset-btn">Paris (75)</a>
-        <a href="/carburant/rhone-69.html" class="preset-btn">Rhône (69)</a>
-        <a href="/carburant/bouches-du-rhone-13.html" class="preset-btn">Bouches-du-Rhône (13)</a>
-        <a href="/carburant/gironde-33.html" class="preset-btn">Gironde (33)</a>
-        <a href="/carburant/loire-atlantique-44.html" class="preset-btn">Loire-Atlantique (44)</a>
-        <a href="/carburant/haute-garonne-31.html" class="preset-btn">Haute-Garonne (31)</a>
+      <div class="chips-row" style="margin-bottom:0;">
+        <a href="/carburant/nord-59.html" class="chip">Nord (59)</a>
+        <a href="/carburant/pas-de-calais-62.html" class="chip">Pas-de-Calais (62)</a>
+        <a href="/carburant/paris-75.html" class="chip">Paris (75)</a>
+        <a href="/carburant/rhone-69.html" class="chip">Rhône (69)</a>
+        <a href="/carburant/bouches-du-rhone-13.html" class="chip">Bouches-du-Rhône (13)</a>
+        <a href="/carburant/gironde-33.html" class="chip">Gironde (33)</a>
+        <a href="/carburant/loire-atlantique-44.html" class="chip">Loire-Atlantique (44)</a>
       </div>
-    </section>
-  </div>
+    </div>
+  </main>
 
   <footer>
     <div>© 2027 simulateur-auto.com — Outil indépendant actualisé quotidiennement</div>
-    <div style="margin-top:10px;">
+    <div style="margin-top:8px;">
       <a href="/">Accueil</a>
       <a href="/modeles/">Catalogue</a>
       <a href="/carburant/">Stations 96 Dépts</a>
@@ -817,6 +876,57 @@
   </footer>
 
   <script>
+    /* Sound Design discret (Web Audio API) */
+    let soundOn = true;
+    let audioCtx = null;
+    let lastTick = 0;
+
+    function playTone(freq = 440, dur = 0.04, vol = 0.04) {
+      if (!soundOn) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(160, audioCtx.currentTime + dur);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    function playTick() {
+      const now = performance.now();
+      if (now - lastTick < 50) return;
+      lastTick = now;
+      playTone(680, 0.02, 0.02);
+    }
+
+    function toggleSound() {
+      soundOn = !soundOn;
+      const btn = document.getElementById('sound-btn');
+      const txt = document.getElementById('sound-txt');
+      btn.classList.toggle('off', !soundOn);
+      txt.textContent = soundOn ? 'Son activé' : 'Son coupé';
+      if (soundOn) playTone(520, 0.05, 0.04);
+    }
+
+    /* Navigation par onglets */
+    function switchTab(tabId) {
+      playTone(420, 0.045, 0.04);
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tab === tabId);
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => {
+        p.classList.toggle('active', p.id === tabId);
+      });
+    }
+
     let natPrices = { Gazole: 1.68, SP95: 1.79, E10: 1.75, SP98: 1.85, E85: 0.89, Electrique_kWh: 0.2516 };
     let activePrices = { ...natPrices };
     let departmentsMap = {};
@@ -846,7 +956,7 @@
     ];
 
     const animState = { energy: 0, month: 0, kmCost: 0 };
-    const STORAGE_KEY = 'sim_auto_2027_v6';
+    const STORAGE_KEY = 'sim_auto_2027_v7';
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -858,7 +968,7 @@
     function animateValue(id, key, target, suffix, decimals = 0) {
       const el = document.getElementById(id);
       const start = animState[key];
-      const duration = 200;
+      const duration = 220;
       const startTime = performance.now();
       function step(now) {
         const progress = Math.min((now - startTime) / duration, 1);
@@ -872,8 +982,9 @@
     }
 
     function setPreset(btn, label, fuel, conso, fixed) {
+      playTone(460, 0.04, 0.04);
       currentCarLabel = label;
-      document.querySelectorAll('#simulateur .preset-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#tab-cockpit .chip').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       document.getElementById('fuel').value = fuel;
       document.getElementById('conso').value = conso;
@@ -884,12 +995,8 @@
       calculate();
     }
 
-    function setTrip(km) {
-      document.getElementById('trip-km').value = km;
-      calculate();
-    }
-
     function shareLink() {
+      playTone(500, 0.04, 0.04);
       const params = new URLSearchParams({
         fuel: document.getElementById('fuel').value,
         km: document.getElementById('km').value,
@@ -944,7 +1051,7 @@
     }
 
     const searchInput = document.getElementById('model-search');
-    const searchBox = document.getElementById('search-results');
+    const searchBox = document.getElementById('search-dropdown');
 
     searchInput.addEventListener('input', () => {
       const q = searchInput.value.trim().toLowerCase();
@@ -955,15 +1062,15 @@
         (m.cat && m.cat.toLowerCase().includes(q))
       ).slice(0, 12);
       if (!hits.length) {
-        searchBox.innerHTML = '<div class="search-item" style="color:#8E8E93;cursor:default;">Aucun modèle trouvé — ajustez les curseurs librement</div>';
+        searchBox.innerHTML = '<div class="search-row" style="color:#64748B;cursor:default;">Aucun modèle trouvé — ajustez les curseurs librement</div>';
       } else {
         searchBox.innerHTML = hits.map((m, idx) => `
-          <div class="search-item" data-idx="${idx}">
+          <div class="search-row" data-idx="${idx}">
             <strong>${m.name}</strong>
             <span>${m.cat || ''} • ${m.conso}</span>
           </div>
         `).join('');
-        searchBox.querySelectorAll('.search-item').forEach((el, idx) => {
+        searchBox.querySelectorAll('.search-row').forEach((el, idx) => {
           el.addEventListener('click', () => {
             const chosen = hits[idx];
             setPreset(null, chosen.name, chosen.fuel, chosen.conso, chosen.fixed);
@@ -977,14 +1084,14 @@
     });
 
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.search-wrap')) searchBox.style.display = 'none';
+      if (!e.target.closest('.search-box')) searchBox.style.display = 'none';
     });
 
     function bindSync(numId, rangeId) {
       const num = document.getElementById(numId);
       const rng = document.getElementById(rangeId);
       num.addEventListener('input', () => { rng.value = num.value; saveState(); calculate(); });
-      rng.addEventListener('input', () => { num.value = rng.value; saveState(); calculate(); });
+      rng.addEventListener('input', () => { num.value = rng.value; playTick(); saveState(); calculate(); });
     }
     bindSync('km', 'km-range');
     bindSync('conso', 'conso-range');
@@ -999,10 +1106,10 @@
 
       if (deptCode === 'FR' || !departmentsMap[deptCode]) {
         activePrices = { ...natPrices };
-        titleEl.textContent = 'Stations moins chères : choisissez votre département';
+        titleEl.textContent = 'Stations moins chères : sélectionnez votre département';
         moreEl.href = '/carburant/';
-        moreEl.textContent = '96 dépts →';
-        listEl.innerHTML = 'Sélectionnez votre département pour appliquer les prix locaux en direct et afficher les 3 stations les moins chères autour de vous.';
+        moreEl.textContent = 'Voir les 96 dépts →';
+        listEl.innerHTML = 'Choisissez un département ci-dessus pour appliquer les prix locaux en direct et afficher le Top 3 des stations autour de vous.';
         return;
       }
 
@@ -1023,9 +1130,9 @@
         listEl.innerHTML = `Prix moyen local appliqué (${activePrices[fuel].toFixed(3)} €/L).`;
       } else {
         listEl.innerHTML = top3.map((st, i) => `
-          <div class="st-mini">
-            <div><b style="color:#FAF8F3;">#${i + 1} ${st.v} (${st.cp})</b> — <span style="color:#8E8E93;">${st.a}</span></div>
-            <strong>${st.p.toFixed(3)} €/L</strong>
+          <div class="station-row">
+            <div><strong>#${i + 1} ${st.v} (${st.cp})</strong> — <span style="color:var(--muted);">${st.a}</span></div>
+            <div class="station-price">${st.p.toFixed(3)} €/L</div>
           </div>
         `).join('');
       }
@@ -1067,8 +1174,8 @@
       document.getElementById('finance').value = curFin + lastCgMonthly;
       saveState();
       calculate();
-      showToast(`+${lastCgMonthly} €/mois ajoutés dans le cockpit`);
-      document.getElementById('simulateur').scrollIntoView({ behavior: 'smooth' });
+      switchTab('tab-cockpit');
+      showToast(`+${lastCgMonthly} €/mois ajoutés dans votre budget`);
     }
 
     function calcCashVsLoa() {
@@ -1097,7 +1204,7 @@
 
       const diff = Math.round(options[1].cost - options[0].cost);
       document.getElementById('cl-verdict').textContent =
-        `Verdict 4 ans : ${options[0].name} est le plus rentable (${Math.round(options[0].cost).toLocaleString('fr-FR')} € net — économie de +${diff.toLocaleString('fr-FR')} € face à ${options[1].name}).`;
+        `Option la plus avantageuse sur 4 ans : ${options[0].name} (coût net ${Math.round(options[0].cost).toLocaleString('fr-FR')} € — économie de +${diff.toLocaleString('fr-FR')} € face à ${options[1].name}).`;
     }
 
     function renderTop10France() {
@@ -1105,13 +1212,13 @@
       const list = (nationalTop10Map[f] || []).slice(0, 5);
       const container = document.getElementById('top10-france-list');
       if (!list.length) {
-        container.innerHTML = '<p style="color:#8E8E93;font-size:0.85rem;">Classement national synchronisé chaque matin à 6h.</p>';
+        container.innerHTML = '<p style="color:var(--muted);font-size:0.85rem;">Classement national synchronisé chaque matin à 6h.</p>';
         return;
       }
       container.innerHTML = list.map((st, idx) => `
-        <div class="st-mini">
-          <div><b style="color:#FAF8F3;">#${idx + 1} ${st.v} (${st.cp})</b> — <span style="color:#8E8E93;">${st.a}</span></div>
-          <strong>${st.p.toFixed(3)} €/L</strong>
+        <div class="station-row">
+          <div><strong>#${idx + 1} ${st.v} (${st.cp})</strong> — <span style="color:var(--muted);">${st.a}</span></div>
+          <div class="station-price">${st.p.toFixed(3)} €/L</div>
         </div>
       `).join('');
     }
@@ -1130,7 +1237,7 @@
       const el = document.getElementById('det-result');
 
       if (netGain > 0.5) {
-        el.textContent = `Rentable : +${netGain.toFixed(2)} € de gain net réel (${grossGain.toFixed(2)} € gagnés - ${detourBurnCost.toFixed(2)} € brûlés).`;
+        el.textContent = `Rentable : +${netGain.toFixed(2)} € de gain net réel (${grossGain.toFixed(2)} € gagnés - ${detourBurnCost.toFixed(2)} € brûlés pendant le détour).`;
       } else {
         el.textContent = `Inutile de faire le détour : bilan net de ${netGain.toFixed(2)} € sur ${detKm} km.`;
       }
@@ -1194,7 +1301,7 @@
       const maxVal = Math.max(...pts1, ...pts2, 1000);
       const padL = 56, padR = 20, padT = 18, padB = 30;
       const w = 760 - padL - padR;
-      const h = 230 - padT - padB;
+      const h = 220 - padT - padB;
       const xAt = y => padL + (y / 8) * w;
       const yAt = v => padT + h - (v / maxVal) * h;
 
@@ -1202,22 +1309,22 @@
       for (let i = 0; i <= 4; i++) {
         const val = (maxVal / 4) * i;
         const yy = yAt(val);
-        gridSvg += `<line x1="${padL}" y1="${yy}" x2="${760 - padR}" y2="${yy}" stroke="rgba(250,248,243,0.12)" stroke-dasharray="3 3"/>`;
-        gridSvg += `<text x="${padL - 8}" y="${yy + 4}" fill="#8E8E93" font-size="11" text-anchor="end">${Math.round(val / 1000)}k€</text>`;
+        gridSvg += `<line x1="${padL}" y1="${yy}" x2="${760 - padR}" y2="${yy}" stroke="#CBD5E1" stroke-dasharray="3 3"/>`;
+        gridSvg += `<text x="${padL - 8}" y="${yy + 4}" fill="#64748B" font-size="11" text-anchor="end">${Math.round(val / 1000)}k€</text>`;
       }
       for (let y = 0; y <= 8; y++) {
-        gridSvg += `<text x="${xAt(y)}" y="${230 - 8}" fill="#8E8E93" font-size="11" text-anchor="middle">An ${y}</text>`;
+        gridSvg += `<text x="${xAt(y)}" y="${220 - 8}" fill="#64748B" font-size="11" text-anchor="middle">An ${y}</text>`;
       }
 
       const poly1 = pts1.map((v, y) => `${xAt(y)},${yAt(v)}`).join(' ');
       const poly2 = pts2.map((v, y) => `${xAt(y)},${yAt(v)}`).join(' ');
-      const dots1 = pts1.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="3.5" fill="#FAF8F3"/>`).join('');
-      const dots2 = pts2.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="3.5" fill="#FF5F38"/>`).join('');
+      const dots1 = pts1.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="4" fill="#2563EB"/>`).join('');
+      const dots2 = pts2.map((v, y) => `<circle cx="${xAt(y)}" cy="${yAt(v)}" r="4" fill="#059669"/>`).join('');
 
       document.getElementById('duel-svg').innerHTML = `
         ${gridSvg}
-        <polyline fill="none" stroke="#FAF8F3" stroke-width="2.8" points="${poly1}"/>
-        <polyline fill="none" stroke="#FF5F38" stroke-width="2.8" points="${poly2}"/>
+        <polyline fill="none" stroke="#2563EB" stroke-width="3" points="${poly1}"/>
+        <polyline fill="none" stroke="#059669" stroke-width="3" points="${poly2}"/>
         ${dots1}
         ${dots2}
       `;
@@ -1294,87 +1401,76 @@
       else if (perKm <= 0.30) scoreEl.textContent = 'C Moyen';
       else scoreEl.textContent = 'D Budget Élevé';
 
-      const tripKm = parseFloat(document.getElementById('trip-km').value) || 0;
-      const tripPax = Math.max(1, parseInt(document.getElementById('trip-pax').value, 10) || 1);
-      const tripEnergy = (tripKm / 100) * conso * unitPrice;
-      const tripTotal = tripKm * perKm;
-      document.getElementById('trip-energy').textContent = tripEnergy.toFixed(2) + ' €';
-      document.getElementById('trip-total').textContent = tripTotal.toFixed(2) + ' €';
-      document.getElementById('trip-per-pax').textContent = (tripTotal / tripPax).toFixed(2) + ' €';
-
       renderDuel8Years();
     }
 
     function downloadStoryCard() {
+      playTone(540, 0.05, 0.05);
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
       canvas.height = 1920;
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = '#0B0B0C';
+      ctx.fillStyle = '#0F172A';
       ctx.fillRect(0, 0, 1080, 1920);
 
-      // Ligne accent en haut
-      ctx.fillStyle = '#FF5F38';
+      ctx.fillStyle = '#38BDF8';
       ctx.fillRect(90, 110, 140, 8);
 
-      ctx.fillStyle = '#8E8E93';
-      ctx.font = '600 30px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '700 30px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText('BILAN AUTOMOBILE RÉEL • 2027', 90, 175);
 
-      ctx.fillStyle = '#FAF8F3';
-      ctx.font = '700 84px Space Grotesk, system-ui, sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 84px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText(currentCarLabel, 90, 290);
 
       const km = Number(document.getElementById('km').value).toLocaleString('fr-FR');
       const deptSel = document.getElementById('dept-select');
       const deptLabel = deptSel.value === 'FR' ? 'Moyenne France' : deptSel.options[deptSel.selectedIndex].text;
-      ctx.fillStyle = '#8E8E93';
-      ctx.font = '500 34px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '600 34px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText(`${km} km/an  •  ${deptLabel}`, 90, 355);
 
-      // Ligne séparatrice
-      ctx.fillStyle = 'rgba(250,248,243,0.18)';
+      ctx.fillStyle = 'rgba(255,255,255,0.16)';
       ctx.fillRect(90, 420, 900, 2);
 
-      ctx.fillStyle = '#8E8E93';
-      ctx.font = '600 30px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = '700 30px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText('COÛT RÉEL TOUT COMPRIS', 90, 500);
 
-      ctx.fillStyle = '#FAF8F3';
-      ctx.font = '700 164px Space Grotesk, system-ui, sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 160px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText(document.getElementById('res-month').textContent, 90, 665);
 
-      ctx.fillStyle = '#FF5F38';
-      ctx.font = '700 44px Space Grotesk, system-ui, sans-serif';
+      ctx.fillStyle = '#38BDF8';
+      ctx.font = '700 44px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText(`par mois  —  ${document.getElementById('res-km').textContent} / km  (${document.getElementById('eco-score').textContent})`, 90, 745);
 
-      // Bloc Choc Salaire
-      ctx.fillStyle = '#141416';
+      ctx.fillStyle = '#1E293B';
       ctx.fillRect(90, 840, 900, 380);
-      ctx.fillStyle = '#FF5F38';
+      ctx.fillStyle = '#FBBF24';
       ctx.fillRect(90, 840, 10, 380);
 
-      ctx.fillStyle = '#FF5F38';
-      ctx.font = '700 30px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#FBBF24';
+      ctx.font = '700 30px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText('IMPACT SUR MON TEMPS DE TRAVAIL', 145, 925);
 
-      ctx.fillStyle = '#FAF8F3';
-      ctx.font = '700 74px Space Grotesk, system-ui, sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '800 72px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.fillText(document.getElementById('shock-hours').textContent, 145, 1030);
 
-      ctx.fillStyle = '#8E8E93';
-      ctx.font = '500 32px Inter, system-ui, sans-serif';
+      ctx.fillStyle = '#CBD5E1';
+      ctx.font = '500 32px Plus Jakarta Sans, system-ui, sans-serif';
       const subText = document.getElementById('shock-days').textContent;
       ctx.fillText(subText.slice(0, 48), 145, 1110);
       ctx.fillText(subText.slice(48), 145, 1155);
 
-      // Pied éditorial
-      ctx.fillStyle = '#FAF8F3';
+      ctx.fillStyle = '#38BDF8';
       ctx.fillRect(90, 1620, 900, 130);
-      ctx.fillStyle = '#0B0B0C';
-      ctx.font = '700 38px Space Grotesk, system-ui, sans-serif';
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '800 38px Plus Jakarta Sans, system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('FAIS LE TEST SUR SIMULATEUR-AUTO.COM', 540, 1700);
 
@@ -1393,7 +1489,7 @@
       if (pData) {
         natPrices = pData;
         activePrices = { ...natPrices };
-        if (pData.updated_at) document.getElementById('update-date').textContent = 'Cours officiels au ' + pData.updated_at;
+        if (pData.updated_at) document.getElementById('update-date').textContent = 'Cours officiels à jour au ' + pData.updated_at;
       }
       if (dData) {
         if (dData.national_top10) nationalTop10Map = dData.national_top10;
@@ -1419,7 +1515,7 @@
       calculate();
     });
 
-    ['fuel', 'dept-select', 'finance', 'salary', 'trip-km', 'trip-pax'].forEach(id => {
+    ['fuel', 'dept-select', 'finance', 'salary'].forEach(id => {
       document.getElementById(id).addEventListener('input', () => { saveState(); calculate(); });
       document.getElementById(id).addEventListener('change', () => { saveState(); calculate(); });
     });
