@@ -1,1 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Vidéo 9:16 — Simulateur-Auto.com</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #05070C;
+      color: #F8FAFC;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
 
+    .toolbar {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 14px; z-index: 20;
+    }
+    .btn {
+      background: #1E293B; color: #F8FAFC; border: 1px solid rgba(255,255,255,0.16);
+      padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 0.85rem;
+      cursor: pointer; transition: 0.2s;
+    }
+    .btn:hover { border-color: #38BDF8; }
+    .btn-play { background: #38BDF8; color: #05070C; border: none; }
+    .btn-play:hover { background: #7DD3FC; }
+
+    /* Cadre vertical 9:16 prêt à filmer */
+    .stage {
+      position: relative;
+      width: 360px;
+      height: 640px;
+      border-radius: 26px;
+      background: radial-gradient(circle at 20% 15%, #0F1E38 0%, #070B14 65%, #05070C 100%);
+      border: 2px solid rgba(56, 189, 248, 0.35);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), 0 0 40px rgba(56, 189, 248, 0.12);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px 22px;
+    }
+
+    .grid-lines {
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    .progress-top {
+      position: absolute; top: 0; left: 0; height: 4px; width: 0%;
+      background: linear-gradient(90deg, #38BDF8, #22C55E);
+      z-index: 10;
+    }
+
+    .top-tag {
+      position: relative; z-index: 2;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #38BDF8;
+    }
+    .rec-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #EF4444;
+      display: inline-block; margin-right: 6px; animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    /* Scènes */
+    .scene {
+      position: absolute; inset: 64px 22px 110px;
+      display: flex; flex-direction: column; justify-content: center;
+      opacity: 0; transform: translateY(24px) scale(0.97);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+    .scene.active {
+      opacity: 1; transform: translateY(0) scale(1);
+    }
+
+    .hook-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 2.15rem; line-height: 1.04; font-weight: 700;
+      letter-spacing: -0.03em; margin-bottom: 14px;
+    }
+    .hook-title span { color: #38BDF8; }
+    .hook-sub { color: #94A3B8; font-size: 0.95rem; font-weight: 600; }
+
+    .car-pill {
+      display: inline-block; background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4); color: #38BDF8;
+      padding: 5px 12px; border-radius: 999px; font-size: 0.78rem;
+      font-weight: 800; margin-bottom: 12px; width: fit-content;
+    }
+    .big-num {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 3.6rem; font-weight: 700; line-height: 1;
+      color: #4ADE80; margin: 6px 0;
+    }
+    .shock-card {
+      margin-top: 16px; padding: 14px; border-radius: 14px;
+      background: rgba(245, 158, 11, 0.14); border: 1px solid rgba(245, 158, 11, 0.45);
+    }
+    .shock-card strong { display: block; font-size: 1.35rem; color: #FBBF24; margin-top: 2px; }
+
+    .hack-box {
+      padding: 18px; border-radius: 16px;
+      background: rgba(15, 23, 42, 0.92); border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .hack-box h3 { font-size: 1.25rem; color: #38BDF8; margin-bottom: 8px; }
+    .hack-box p { font-size: 0.9rem; color: #CBD5E1; line-height: 1.45; }
+
+    .cta-box {
+      text-align: center; padding: 22px 16px; border-radius: 18px;
+      background: linear-gradient(135deg, #0284C7, #2563EB);
+      box-shadow: 0 16px 35px rgba(37, 99, 235, 0.4);
+    }
+    .cta-box h3 { font-size: 1.45rem; font-weight: 800; margin-bottom: 6px; }
+    .cta-url {
+      display: inline-block; margin-top: 10px; background: #05070C; color: #38BDF8;
+      padding: 8px 14px; border-radius: 8px; font-weight: 800; font-size: 0.92rem;
+    }
+
+    /* Sous-titres dynamiques en bas */
+    .caption-bar {
+      position: relative; z-index: 3;
+      background: rgba(5, 7, 12, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      min-height: 52px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .caption-bar span { color: #38BDF8; }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button class="btn btn-play" onclick="startShow()">▶ Lancer la séquence (20s)</button>
+    <button class="btn" onclick="cyclePreset()">Changer voiture</button>
+    <a href="/" class="btn" style="text-decoration:none;">← Site</a>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="grid-lines"></div>
+    <div class="progress-top" id="prog"></div>
+
+    <div class="top-tag">
+      <span><i class="rec-dot"></i>CRASH-TEST BUDGET 2027</span>
+      <span>SIMULATEUR-AUTO.COM</span>
+    </div>
+
+    <!-- SCÈNE 1 : HOOK (0s - 4s) -->
+    <div class="scene active" id="sc-1">
+      <div class="hook-title">Ta voiture te vole <span>combien</span> en 2027 ?</div>
+      <div class="hook-sub">Tout le monde regarde le prix à la pompe. Personne ne calcule le vrai total.</div>
+    </div>
+
+    <!-- SCÈNE 2 : CHOC SALAIRE (4s - 10s) -->
+    <div class="scene" id="sc-2">
+      <div class="car-pill" id="v-car">PEUGEOT 208 • 15 000 KM/AN</div>
+      <div style="font-size:0.8rem;color:#94A3B8;font-weight:700;">COÛT RÉEL TOUT COMPRIS</div>
+      <div class="big-num" id="v-month">0 €/mois</div>
+      <div style="font-size:0.86rem;color:#38BDF8;font-weight:700;" id="v-km">Soit 0.21 € par kilomètre</div>
+      <div class="shock-card">
+        <span style="font-size:0.72rem;font-weight:800;color:#FBBF24;">IMPACT SUR UN SALAIRE DE 2 000 €</span>
+        <strong id="v-hours">19.5 h travaillées / mois</strong>
+        <span style="font-size:0.78rem;color:#E2E8F0;">Tu bosses 2 jours et demi par mois juste pour ta caisse.</span>
+      </div>
+    </div>
+
+    <!-- SCÈNE 3 : LE PIÈGE + PRODUIT (10s - 15s) -->
+    <div class="scene" id="sc-3">
+      <div class="hack-box">
+        <h3>Le piège qui coûte +180 €/an</h3>
+        <p>Un pneu sous-gonflé augmente ta conso de <strong>+6 %</strong> toute l'année, et une crevaison sans kit coûte <strong>150 €</strong> de dépanneuse.</p>
+        <div style="margin-top:12px;padding:10px;background:rgba(34,197,94,0.15);border-radius:10px;color:#4ADE80;font-size:0.82rem;font-weight:700;">
+          ✓ Solution : Mini-compresseur sans fil dans le coffre (lien en bio)
+        </div>
+      </div>
+    </div>
+
+    <!-- SCÈNE 4 : CALL TO ACTION (15s - 20s) -->
+    <div class="scene" id="sc-4">
+      <div class="cta-box">
+        <div style="font-size:0.76rem;font-weight:800;letter-spacing:0.08em;opacity:0.9;">170+ MODÈLES • 96 DÉPARTEMENTS</div>
+        <h3>Teste ta voiture gratuitement</h3>
+        <p style="font-size:0.85rem;opacity:0.95;">Budget réel, carte grise, LOA vs Cash & stations moins chères :</p>
+        <div class="cta-url">simulateur-auto.com</div>
+      </div>
+    </div>
+
+    <div class="caption-bar" id="caption">Appuie sur <span>Lancer la séquence</span> et filme ton écran</div>
+  </div>
+
+  <script>
+    const CARS = [
+      { name: "PEUGEOT 208 • 15 000 KM/AN", month: 258, km: "0.21 €", hours: "19.5 h travaillées / mois" },
+      { name: "VOLKSWAGEN GOLF 8 • 15 000 KM/AN", month: 312, km: "0.25 €", hours: "23.6 h travaillées / mois" },
+      { name: "TESLA MODEL 3 • 15 000 KM/AN", month: 145, km: "0.12 €", hours: "11.0 h travaillées / mois" },
+      { name: "BMW X1 • 15 000 KM/AN", month: 356, km: "0.28 €", hours: "27.0 h travaillées / mois" }
+    ];
+    let carIdx = 0;
+    let timers = [];
+    let audioCtx = null;
+
+    function beep(freq = 520, dur = 0.06) {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = "triangle";
+        o.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        o.frequency.exponentialRampToValueAtTime(180, audioCtx.currentTime + dur);
+        g.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+        o.connect(g); g.connect(audioCtx.destination);
+        o.start(); o.stop(audioCtx.currentTime + dur);
+      } catch (e) {}
+    }
+
+    function cyclePreset() {
+      carIdx = (carIdx + 1) % CARS.length;
+      const c = CARS[carIdx];
+      document.getElementById("v-car").textContent = c.name;
+      document.getElementById("v-month").textContent = c.month + " €/mois";
+      document.getElementById("v-km").textContent = "Soit " + c.km + " par kilomètre";
+      document.getElementById("v-hours").textContent = c.hours;
+      beep(620, 0.05);
+    }
+
+    function showScene(num, textHtml) {
+      document.querySelectorAll(".scene").forEach(s => s.classList.remove("active"));
+      document.getElementById("sc-" + num).classList.add("active");
+      document.getElementById("caption").innerHTML = textHtml;
+      beep(380 + num * 80, 0.07);
+    }
+
+    function animateCounter(target) {
+      const el = document.getElementById("v-month");
+      const start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / 900, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + " €/mois";
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function startShow() {
+      timers.forEach(clearTimeout);
+      timers = [];
+      const c = CARS[carIdx];
+      document.getElementById("v-car").textContent = c.name;
+      document.getElementById("v-km").textContent = "Soit " + c.km + " par kilomètre";
+      document.getElementById("v-hours").textContent = c.hours;
+
+      const prog = document.getElementById("prog");
+      prog.style.transition = "none";
+      prog.style.width = "0%";
+      setTimeout(() => {
+        prog.style.transition = "width 20s linear";
+        prog.style.width = "100%";
+      }, 30);
+
+      showScene(1, "Tu penses que ta voiture te coûte <span>juste ton plein</span> ?");
+      timers.push(setTimeout(() => {
+        showScene(2, "En réalité, tu bosses <span>2 jours et demi</span> par mois juste pour elle.");
+        animateCounter(c.month);
+      }, 4000));
+      timers.push(setTimeout(() => {
+        showScene(3, "Pneus sous-gonflés = <span>+6 % d'essence</span> jetée par la fenêtre.");
+      }, 10500));
+      timers.push(setTimeout(() => {
+        showScene(4, "Fais le test sur <span>simulateur-auto.com</span> (lien en bio)");
+      }, 15500));
+    }
+  </script>
+</body>
+</html>
